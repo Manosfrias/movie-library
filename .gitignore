@@ -59,3 +59,4 @@ scripts/
 # Misc
 *.tgz
 *.tar.gz
+node_modules
