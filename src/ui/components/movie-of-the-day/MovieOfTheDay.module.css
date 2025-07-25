@@ -36,15 +36,6 @@
   margin: 0;
 }
 
-.badge {
-  background-color: var(--color-primary);
-  color: var(--color-surface);
-  padding: var(--spacing-1) var(--spacing-3);
-  border-radius: var(--radius-full);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-}
-
 .movieInfo {
   margin-bottom: var(--spacing-5);
 }
@@ -55,45 +46,4 @@
   color: var(--color-text);
   margin: 0 0 var(--spacing-3) 0;
   line-height: var(--line-height-tight);
-}
-
-.details {
-  display: flex;
-  gap: var(--spacing-4);
-  margin-bottom: var(--spacing-3);
-  flex-wrap: wrap;
-}
-
-.director,
-.year,
-.rating {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
-  font-weight: var(--font-weight-medium);
-}
-
-.rating {
-  color: var(--color-accent);
-}
-
-.description {
-  font-size: var(--font-size-base);
-  color: var(--color-text-secondary);
-  line-height: var(--line-height-relaxed);
-  margin: 0;
-}
-
-.footer {
-  text-align: right;
-}
-
-.cta {
-  font-size: var(--font-size-sm);
-  color: var(--color-primary);
-  font-weight: var(--font-weight-semibold);
-  transition: var(--transition);
-}
-
-.container:hover .cta {
-  color: var(--color-primary-dark);
 }

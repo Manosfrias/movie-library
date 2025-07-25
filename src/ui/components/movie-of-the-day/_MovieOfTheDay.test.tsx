@@ -6,13 +6,13 @@ describe('MovieOfTheDay', () => {
   it('should render correctly', () => {
     render(<MovieOfTheDay />);
 
-    expect(screen.getByText('Movie Of The Day')).toBeInTheDocument();
+    expect(screen.getByText('Película del Día')).toBeInTheDocument();
   });
 
   it('should have a container element', () => {
     render(<MovieOfTheDay />);
 
-    const container = screen.getByText('Movie Of The Day').closest('div');
+    const container = screen.getByText('Película del Día').closest('div');
     expect(container).toBeInTheDocument();
   });
 });
