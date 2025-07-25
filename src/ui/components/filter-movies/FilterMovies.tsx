@@ -1,8 +1,10 @@
 'use client';
 import React, { useState } from 'react';
 import AsideCard from '../aside-card/AsideCard';
+import { useTexts } from '@/ui/hooks/useTexts';
 
 export default function FilterMovies() {
+  const { getFilterText } = useTexts();
   const filterOptions = [
     'All Genres',
     'Action',
@@ -23,7 +25,7 @@ export default function FilterMovies() {
 
   return (
     <AsideCard
-      title="Filter Movies"
+      title={getFilterText('title') as string}
       items={filterOptions}
       onItemClick={handleFilterChange}
       selectedItem={selectedFilter}

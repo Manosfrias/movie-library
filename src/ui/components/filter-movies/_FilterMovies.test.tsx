@@ -14,7 +14,7 @@ describe('FilterMovies', () => {
   it('should render correctly', () => {
     render(<FilterMovies />);
 
-    expect(screen.getByText('Filter Movies')).toBeInTheDocument();
+    expect(screen.getByText('Filtrar Películas')).toBeInTheDocument();
     expect(screen.getByText('All Genres')).toBeInTheDocument();
     expect(screen.getByText('Action')).toBeInTheDocument();
     expect(screen.getByText('Comedy')).toBeInTheDocument();
