@@ -16,6 +16,10 @@ export const TEXTS = {
     placeholder: 'Buscar películas...',
   },
 
+  movieOfTheDay: {
+    title: 'Película del Día',
+  },
+
   order: {
     title: 'Ordenar Películas',
     options: {
@@ -45,6 +49,11 @@ export const TEXTS = {
     error: 'Ha ocurrido un error',
     retry: 'Reintentar',
     back: 'Volver',
+  },
+
+  badge: {
+    favorite: 'Favorito',
+    featured: 'Destacado',
   },
 
   meta: {
