@@ -13,7 +13,9 @@ describe('SearchMovies', () => {
   it('should render correctly', () => {
     render(<SearchMovies />);
 
-    expect(screen.getByPlaceholderText('Buscar películas...')).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText('Buscar películas...')
+    ).toBeInTheDocument();
     expect(screen.getByDisplayValue('By Title')).toBeInTheDocument();
   });
 
@@ -39,7 +41,10 @@ describe('SearchMovies', () => {
 
     const selectElement = screen.getByRole('combobox');
     fireEvent.change(selectElement, { target: { value: 'byDirector' } });
-    expect(consoleSpy).toHaveBeenCalledWith('Criterio de búsqueda:', 'byDirector');
+    expect(consoleSpy).toHaveBeenCalledWith(
+      'Criterio de búsqueda:',
+      'byDirector'
+    );
   });
 
   it('should render all search criteria options', () => {
