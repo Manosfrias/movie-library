@@ -12,6 +12,11 @@
   --color-primary-hover: #596fa9;
   --color-primary-light: #d9dde6;
 
+  /* Secundarios */
+  --color-secondary: #7c8db5;
+  --color-secondary-hover: #9cabc7;
+  --color-secondary-light: #e8ecf3;
+
   /* Gradientes y sombras */
   --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.05);
   --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.1);
