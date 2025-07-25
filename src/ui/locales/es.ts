@@ -7,16 +7,17 @@ export const TEXTS = {
   // Páginas principales
   home: {
     title: 'Mi Filmoteca',
-    description: 'Tu gestor personal de colección de películas construido con Next.js y TypeScript',
+    description:
+      'Tu gestor personal de colección de películas construido con Next.js y TypeScript',
   },
-  
+
   // Página de detalle
   movieDetail: {
     title: 'Detalle de Película',
     notFound: 'Película no encontrada',
     loading: 'Cargando...',
   },
-  
+
   // Componentes comunes
   common: {
     loading: 'Cargando...',
@@ -24,11 +25,12 @@ export const TEXTS = {
     retry: 'Reintentar',
     back: 'Volver',
   },
-  
+
   // Metadatos
   meta: {
     title: 'Movie Library',
-    description: 'Una aplicación de biblioteca de películas construida con Next.js y TypeScript',
+    description:
+      'Una aplicación de biblioteca de películas construida con Next.js y TypeScript',
   },
 } as const;
 

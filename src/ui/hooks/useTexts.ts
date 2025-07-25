@@ -4,7 +4,8 @@ export function useTexts() {
   return {
     texts: TEXTS,
     getHomeText: (key: keyof typeof TEXTS.home) => TEXTS.home[key],
-    getMovieDetailText: (key: keyof typeof TEXTS.movieDetail) => TEXTS.movieDetail[key],
+    getMovieDetailText: (key: keyof typeof TEXTS.movieDetail) =>
+      TEXTS.movieDetail[key],
     getCommonText: (key: keyof typeof TEXTS.common) => TEXTS.common[key],
     getMetaText: (key: keyof typeof TEXTS.meta) => TEXTS.meta[key],
   };
