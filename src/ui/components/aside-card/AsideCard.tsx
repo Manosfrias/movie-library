@@ -1,12 +1,6 @@
 import React from 'react';
 import styles from './AsideCard.module.css';
-
-interface AsideCardProps {
-  title: string;
-  items: string[];
-  onItemClick?: (item: string) => void;
-  selectedItem?: string;
-}
+import { AsideCardProps } from './AsideCard.types';
 
 export default function AsideCard({
   title,
@@ -15,7 +9,7 @@ export default function AsideCard({
   selectedItem,
 }: AsideCardProps) {
   return (
-    <>
+    <section>
       <h2 className={styles.title}>{title}</h2>
       <ul className={styles.list}>
         {items.map((item) => (
@@ -29,6 +23,6 @@ export default function AsideCard({
           </li>
         ))}
       </ul>
-    </>
+    </section>
   );
 }
