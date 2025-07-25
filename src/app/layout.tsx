@@ -1,22 +1,12 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import './globals.css';
+import { getText } from '../ui/hooks/useTexts';
 
-const inter = Inter({ subsets: ['latin'] });
-
+// Metadata de la aplicación
 export const metadata: Metadata = {
-  title: 'Movie Library',
-  description: 'A movie library application built with Next.js and TypeScript',
+  title: getText.meta('title'),
+  description: getText.meta('description'),
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
-    </html>
-  );
-}
+// Re-export del layout desde ui/views
+export { default } from '../ui/views/layout/RootLayout';
