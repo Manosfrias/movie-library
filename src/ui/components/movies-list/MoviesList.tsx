@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Movie, MoviesListProps } from './MoviesList.types';
 import MovieCard from '../movie-card/MovieCard';
-import { sampleMovies } from './sample';
+import { sampleMovies } from '../../../../sample';
 import styles from './MoviesList.module.css';
 
 export const MoviesList: React.FC<MoviesListProps> = () => {
