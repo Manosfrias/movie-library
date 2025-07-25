@@ -1,19 +1,19 @@
 import React from 'react';
-import styles from './badge.module.css';
-interface BadgeProps {
-    variant?: 'favorite' | 'featured';
-    className?: string;
-}
+import styles from './Badget.module.css';
+import { BadgeProps } from './Badge.types';
+import { useTexts } from '@/ui/hooks/useTexts';
 
-const Badge: React.FC<BadgeProps> = ({ 
-    variant = 'favorite', 
-    className = '' 
+const Badge: React.FC<BadgeProps> = ({
+  type = 'favorite',
+  className = '',
 }) => {
-    return (
-        <span className={`${styles.badge} ${styles[variant]} ${className}`}>
-            {variant}
-        </span>
-    );
+  const { getBadgeText } = useTexts();
+  
+  return (
+    <span className={`${styles.badge} ${styles[type]} ${className}`}>
+      {getBadgeText(type)}
+    </span>
+  );
 };
 
 export default Badge;

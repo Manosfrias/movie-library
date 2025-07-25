@@ -1,0 +1,19 @@
+.badge {
+  background-color: var(--color-primary);
+  color: var(--color-surface);
+  padding: var(--spacing-1) var(--spacing-3);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+}
+
+.favorite {
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+}
+
+.featured {
+  background-color: var(--color-secondary);
+  color: var(--color-bg);
+}
