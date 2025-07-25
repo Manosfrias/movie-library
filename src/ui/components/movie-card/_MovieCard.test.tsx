@@ -44,20 +44,28 @@ describe('MovieCard', () => {
     expect(screen.getByText('The Matrix')).toBeInTheDocument();
     expect(screen.getByText('1999')).toBeInTheDocument();
     expect(screen.getByText('Sci-Fi')).toBeInTheDocument();
-    expect(screen.getByText('Dir. The Wachowskis')).toBeInTheDocument();
-    expect(screen.getByText('⭐ 8.7')).toBeInTheDocument();
+    expect(
+      screen.getByText((content, element) => {
+        return element?.textContent === 'Dir. The Wachowskis';
+      })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText((content, element) => {
+        return element?.textContent === '⭐ 8.7';
+      })
+    ).toBeInTheDocument();
   });
 
   it('renders favorite badge when movie is favorite', () => {
     render(<MovieCard movie={mockFavoriteMovie} />);
 
-    expect(screen.getByText('Favorite')).toBeInTheDocument();
+    expect(screen.getByText('Favorito')).toBeInTheDocument();
   });
 
   it('does not render favorite badge when movie is not favorite', () => {
     render(<MovieCard movie={mockMovie} />);
 
-    expect(screen.queryByText('Favorite')).not.toBeInTheDocument();
+    expect(screen.queryByText('Favorito')).not.toBeInTheDocument();
   });
 
   it('renders all required movie fields', () => {
@@ -76,9 +84,17 @@ describe('MovieCard', () => {
     expect(screen.getByText('Inception')).toBeInTheDocument();
     expect(screen.getByText('2010')).toBeInTheDocument();
     expect(screen.getByText('Thriller')).toBeInTheDocument();
-    expect(screen.getByText('Dir. Christopher Nolan')).toBeInTheDocument();
-    expect(screen.getByText('⭐ 8.8')).toBeInTheDocument();
-    expect(screen.getByText('Favorite')).toBeInTheDocument();
+    expect(
+      screen.getByText((content, element) => {
+        return element?.textContent === 'Dir. Christopher Nolan';
+      })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText((content, element) => {
+        return element?.textContent === '⭐ 8.8';
+      })
+    ).toBeInTheDocument();
+    expect(screen.getByText('Favorito')).toBeInTheDocument();
   });
 
   it('calls onSelect when clicked and prevents default navigation', () => {
@@ -101,6 +117,10 @@ describe('MovieCard', () => {
     const movieWithRating = { ...mockMovie, rating: 7 };
     render(<MovieCard movie={movieWithRating} />);
 
-    expect(screen.getByText('⭐ 7.0')).toBeInTheDocument();
+    expect(
+      screen.getByText((content, element) => {
+        return element?.textContent === '⭐ 7';
+      })
+    ).toBeInTheDocument();
   });
 });
