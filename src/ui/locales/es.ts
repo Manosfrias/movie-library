@@ -1,24 +1,45 @@
-/**
- * Constantes de texto de la aplicación
- * Esta estructura permite fácil mantenimiento y futura internacionalización
- */
-
 export const TEXTS = {
-  // Páginas principales
   home: {
     title: 'Mi Filmoteca',
     description:
       'Tu gestor personal de colección de películas construido con Next.js y TypeScript',
   },
 
-  // Página de detalle
   movieDetail: {
     title: 'Detalle de Película',
     notFound: 'Película no encontrada',
     loading: 'Cargando...',
   },
 
-  // Componentes comunes
+  search: {
+    title: 'Buscar Películas',
+    placeholder: 'Buscar películas...',
+  },
+
+  order: {
+    title: 'Ordenar Películas',
+    options: {
+      byTitle: 'Por Título',
+      byDirector: 'Por Director',
+      byReleaseDate: 'Por Fecha de Estreno',
+      byRating: 'Por Calificación',
+    },
+  },
+
+  filter: {
+    title: 'Filtrar Películas',
+    options: {
+      allGenres: 'Todos los Géneros',
+      action: 'Acción',
+      comedy: 'Comedia',
+      drama: 'Drama',
+      horror: 'Terror',
+      romance: 'Romance',
+      sciFi: 'Ciencia Ficción',
+      thriller: 'Thriller',
+    },
+  },
+
   common: {
     loading: 'Cargando...',
     error: 'Ha ocurrido un error',
@@ -26,7 +47,6 @@ export const TEXTS = {
     back: 'Volver',
   },
 
-  // Metadatos
   meta: {
     title: 'Movie Library',
     description:
@@ -34,10 +54,12 @@ export const TEXTS = {
   },
 } as const;
 
-// Tipo para autocompletado y validación
 export type TextKeys = typeof TEXTS;
 export type TextPath = keyof TextKeys;
 export type HomeTextKeys = keyof TextKeys['home'];
 export type MovieDetailTextKeys = keyof TextKeys['movieDetail'];
+export type SearchTextKeys = keyof TextKeys['search'];
+export type OrderTextKeys = keyof TextKeys['order'];
+export type FilterTextKeys = keyof TextKeys['filter'];
 export type CommonTextKeys = keyof TextKeys['common'];
 export type MetaTextKeys = keyof TextKeys['meta'];

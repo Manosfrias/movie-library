@@ -1,14 +1,7 @@
+'use client';
 import React from 'react';
+import { Movie } from '../../../core/models/movie';
 import styles from './MovieCard.module.css';
-
-interface Movie {
-  id: number;
-  title: string;
-  year: number;
-  poster?: string;
-  rating?: number;
-  genre?: string;
-}
 
 interface MovieCardProps {
   movie: Movie;
@@ -17,33 +10,31 @@ interface MovieCardProps {
 
 export default function MovieCard({ movie, onSelect }: MovieCardProps) {
   return (
-    <div
+    <a
+      href={`/movies/${movie.id}`}
       className={styles.card}
-      onClick={() => onSelect?.(movie)}
-      role="button"
-      tabIndex={0}
+      onClick={(e) => {
+        if (onSelect) {
+          e.preventDefault();
+          onSelect(movie);
+        }
+      }}
     >
-      {movie.poster && (
-        <img
-          src={movie.poster}
-          alt={`${movie.title} poster`}
-          className={styles.poster}
-        />
-      )}
-
-      <div className={styles.content}>
+      <div className={styles.header}>
         <h3 className={styles.title}>{movie.title}</h3>
-        <p className={styles.year}>{movie.year}</p>
-
-        {movie.genre && <p className={styles.genre}>{movie.genre}</p>}
-
-        {movie.rating && (
-          <div className={styles.rating}>
-            <span className={styles.stars}>★</span>
-            <span>{movie.rating.toFixed(1)}</span>
-          </div>
-        )}
+        {movie.favorite && <span className={styles.badge}>Favorite</span>}
       </div>
-    </div>
+
+      <div className={styles.movieInfo}>
+        <div className={styles.details}>
+          <span className={styles.director}>Dir. {movie.director}</span>
+          <span className={styles.year}>{movie.releaseYear}</span>
+          <span className={styles.rating}>⭐ {movie.rating.toFixed(1)}</span>
+        </div>
+        <div className={styles.genreWrapper}>
+          <span className={styles.genre}>{movie.genre}</span>
+        </div>
+      </div>
+    </a>
   );
 }

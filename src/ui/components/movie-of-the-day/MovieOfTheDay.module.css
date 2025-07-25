@@ -1,6 +1,6 @@
-.card {
+.container {
   display: block;
-  padding: var(--spacing-5);
+  padding: var(--spacing-6);
   background: linear-gradient(
     135deg,
     var(--color-bg) 0%,
@@ -16,7 +16,7 @@
   cursor: pointer;
 }
 
-.card:hover {
+.container:hover {
   box-shadow: var(--shadow-medium);
   transform: translateY(-2px);
   border-color: var(--color-primary-light);
@@ -25,17 +25,15 @@
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: var(--spacing-3);
+  align-items: center;
+  margin-bottom: var(--spacing-4);
 }
 
 .title {
   font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
   margin: 0;
-  line-height: var(--line-height-tight);
-  flex: 1;
 }
 
 .badge {
@@ -43,19 +41,26 @@
   color: var(--color-surface);
   padding: var(--spacing-1) var(--spacing-3);
   border-radius: var(--radius-full);
-  font-size: var(--font-size-xs);
+  font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
-  margin-left: var(--spacing-2);
 }
 
 .movieInfo {
-  margin-bottom: var(--spacing-2);
+  margin-bottom: var(--spacing-5);
+}
+
+.movieTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin: 0 0 var(--spacing-3) 0;
+  line-height: var(--line-height-tight);
 }
 
 .details {
   display: flex;
-  gap: var(--spacing-3);
-  margin-bottom: var(--spacing-2);
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-3);
   flex-wrap: wrap;
 }
 
@@ -71,18 +76,24 @@
   color: var(--color-accent);
 }
 
-.genreWrapper {
-  margin-top: var(--spacing-2);
+.description {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin: 0;
 }
 
-.genre {
-  display: inline-block;
-  background-color: var(--color-primary-light);
+.footer {
+  text-align: right;
+}
+
+.cta {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+  transition: var(--transition);
+}
+
+.container:hover .cta {
   color: var(--color-primary-dark);
-  padding: var(--spacing-1) var(--spacing-2);
-  border-radius: var(--radius-sm);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
 }
