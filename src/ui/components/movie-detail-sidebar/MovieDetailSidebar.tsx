@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import React from 'react';
 import Link from 'next/link';
 import styles from './MovieDetailSidebar.module.css';
@@ -9,10 +9,10 @@ interface MovieDetailSidebarProps {
   nextMovieId?: string;
 }
 
-export default function MovieDetailSidebar({ 
-  currentMovieId, 
-  previousMovieId, 
-  nextMovieId 
+export default function MovieDetailSidebar({
+  currentMovieId,
+  previousMovieId,
+  nextMovieId,
 }: MovieDetailSidebarProps) {
   return (
     <aside className={styles.sidebar}>
@@ -29,14 +29,17 @@ export default function MovieDetailSidebar({
       {(previousMovieId || nextMovieId) && (
         <div className={styles.navigationSection}>
           <h3 className={styles.sectionTitle}>Browse Movies</h3>
-          
+
           {previousMovieId && (
-            <Link href={`/movies/${previousMovieId}`} className={styles.navButton}>
+            <Link
+              href={`/movies/${previousMovieId}`}
+              className={styles.navButton}
+            >
               <span className={styles.icon}>⬅️</span>
               <span className={styles.navText}>Previous Movie</span>
             </Link>
           )}
-          
+
           {nextMovieId && (
             <Link href={`/movies/${nextMovieId}`} className={styles.navButton}>
               <span className={styles.icon}>➡️</span>

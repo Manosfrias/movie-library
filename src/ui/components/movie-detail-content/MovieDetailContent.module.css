@@ -1,5 +1,9 @@
 .content {
-  background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-bg-soft) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-bg) 0%,
+    var(--color-bg-soft) 100%
+  );
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: var(--spacing-8);
@@ -145,7 +149,11 @@
   flex-direction: column;
   align-items: center;
   padding: var(--spacing-6);
-  background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-primary) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-light) 0%,
+    var(--color-primary) 100%
+  );
   border-radius: var(--radius-lg);
   text-align: center;
   box-shadow: var(--shadow-soft);
@@ -171,25 +179,25 @@
   .content {
     padding: var(--spacing-6);
   }
-  
+
   .header {
     flex-direction: column;
     gap: var(--spacing-4);
     align-items: stretch;
   }
-  
+
   .rating {
     align-self: center;
   }
-  
+
   .title {
     font-size: var(--font-size-2xl);
   }
-  
+
   .infoGrid {
     grid-template-columns: 1fr;
   }
-  
+
   .statsGrid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -199,7 +207,7 @@
   .statsGrid {
     grid-template-columns: 1fr;
   }
-  
+
   .title {
     font-size: var(--font-size-xl);
   }

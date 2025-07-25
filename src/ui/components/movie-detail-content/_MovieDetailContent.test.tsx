@@ -22,7 +22,9 @@ describe('MovieDetailContent', () => {
   it('should render movie information correctly', () => {
     render(<MovieDetailContent movie={mockMovie} />);
 
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('The Shawshank Redemption');
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
+      'The Shawshank Redemption'
+    );
     expect(screen.getByText('Frank Darabont')).toBeInTheDocument();
     expect(screen.getAllByText('1994')).toHaveLength(2); // Aparece en info básica y stats
     expect(screen.getAllByText('Drama')).toHaveLength(2); // Aparece en info básica y stats

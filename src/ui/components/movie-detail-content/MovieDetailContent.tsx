@@ -45,10 +45,12 @@ export default function MovieDetailContent({ movie }: MovieDetailContentProps) {
       <section className={styles.descriptionSection}>
         <h2 className={styles.sectionTitle}>Plot Summary</h2>
         <p className={styles.description}>
-          This is a placeholder for the movie description. In a real application, 
-          this would contain the plot summary, cast information, and other details 
-          about the movie. The movie &ldquo;{movie.title}&rdquo; directed by {movie.director} 
-          was released in {movie.releaseYear} and belongs to the {movie.genre} genre.
+          This is a placeholder for the movie description. In a real
+          application, this would contain the plot summary, cast information,
+          and other details about the movie. The movie &ldquo;{movie.title}
+          &rdquo; directed by {movie.director}
+          was released in {movie.releaseYear} and belongs to the {movie.genre}{' '}
+          genre.
         </p>
       </section>
 

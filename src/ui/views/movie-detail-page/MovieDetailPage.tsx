@@ -43,8 +43,8 @@ interface MovieDetailPageProps {
 
 export default function MovieDetailPage({ params }: MovieDetailPageProps) {
   // Encontrar la película actual
-  const currentMovie = sampleMovies.find(movie => movie.id === params.id);
-  
+  const currentMovie = sampleMovies.find((movie) => movie.id === params.id);
+
   // Si no encontramos la película, mostrar error
   if (!currentMovie) {
     return (
@@ -58,9 +58,15 @@ export default function MovieDetailPage({ params }: MovieDetailPageProps) {
   }
 
   // Encontrar películas anterior y siguiente
-  const currentIndex = sampleMovies.findIndex(movie => movie.id === params.id);
-  const previousMovie = currentIndex > 0 ? sampleMovies[currentIndex - 1] : undefined;
-  const nextMovie = currentIndex < sampleMovies.length - 1 ? sampleMovies[currentIndex + 1] : undefined;
+  const currentIndex = sampleMovies.findIndex(
+    (movie) => movie.id === params.id
+  );
+  const previousMovie =
+    currentIndex > 0 ? sampleMovies[currentIndex - 1] : undefined;
+  const nextMovie =
+    currentIndex < sampleMovies.length - 1
+      ? sampleMovies[currentIndex + 1]
+      : undefined;
 
   return (
     <main className={styles.container}>
