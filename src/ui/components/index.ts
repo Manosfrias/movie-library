@@ -1,5 +1,3 @@
-// Exportaciones de componentes UI
-export { default as Button } from './button/Button';
 export { default as MovieCard } from './movie-card/MovieCard';
 export { default as SearchMovies } from './search-movies/SearchMovies';
 export { default as OrderMovies } from './order-movies/OrderMovies';
