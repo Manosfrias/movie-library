@@ -22,7 +22,7 @@ export default function OrderMovies() {
 
   return (
     <AsideCard
-      title={getOrderText('title')}
+      title={getOrderText('title') as string}
       items={orderOptions}
       onItemClick={handleOrderChange}
       selectedItem={selectedOrder}
