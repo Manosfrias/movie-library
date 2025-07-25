@@ -1,13 +1,7 @@
 import React from 'react';
 import styles from './HomePage.module.css';
 import { useTexts } from '../../hooks/useTexts';
-import { Movie } from '../../../core/models/movie';
-import {
-  MovieCard,
-  SearchMovies,
-  OrderMovies,
-  MovieOfTheDay,
-} from '@/ui/components';
+import { SearchMovies, OrderMovies, MovieOfTheDay } from '@/ui/components';
 import FilterMovies from '@/ui/components/filter-movies/FilterMovies';
 import { MoviesList } from '@/ui/components/movies-list/MoviesList';
 
