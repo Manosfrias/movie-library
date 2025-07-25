@@ -7,13 +7,9 @@ export default function HomePage() {
 
   return (
     <main className={styles.container}>
-      <h1 className={styles.title}>
-        {getHomeText('title')}
-      </h1>
+      <h1 className={styles.title}>{getHomeText('title')}</h1>
       <section>
-        <p className={styles.description}>
-          {getHomeText('description')}
-        </p>
+        <p className={styles.description}>{getHomeText('description')}</p>
       </section>
     </main>
   );
