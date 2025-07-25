@@ -10,10 +10,8 @@ export default defineConfig({
       '@': resolve(__dirname, './src'),
     },
   },
-  css: {
-    modules: {
-      localsConvention: 'camelCase',
-    },
+  esbuild: {
+    jsx: 'automatic',
   },
   test: {
     globals: true,
@@ -22,12 +20,6 @@ export default defineConfig({
     watch: false, // Por defecto no ejecutar en modo watch
     // Patrón para encontrar archivos de test junto a los componentes
     include: ['**/_*.test.{ts,tsx}', '__vitest__/**/*.test.{ts,tsx}'],
-    // Mock para CSS modules
-    css: {
-      modules: {
-        classNameStrategy: 'non-scoped'
-      }
-    },
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'json-summary', 'html'],
