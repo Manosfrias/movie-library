@@ -1,14 +1,15 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import { useTexts } from '../../hooks/useTexts';
+import { useMovies } from '../../../core/context/MoviesContext';
 import styles from './SearchMovies.module.css';
 
 export default function SearchMovies() {
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  const [selectedCriteria, setSelectedCriteria] = useState<string>('byTitle');
   const { getSearchText } = useTexts();
+  const { searchQuery, setSearchQuery, searchCriteria, setSearchCriteria } =
+    useMovies();
 
-  const searchCriteria = [
+  const searchOptions = [
     { key: 'byTitle', label: 'By Title' },
     { key: 'byDirector', label: 'By Director' },
     { key: 'byReleaseDate', label: 'By Release Date' },
@@ -16,12 +17,12 @@ export default function SearchMovies() {
   ];
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
+    setSearchQuery(event.target.value);
     console.log('Buscando:', event.target.value);
   };
 
   const handleCriteriaChange = (criteria: string) => {
-    setSelectedCriteria(criteria);
+    setSearchCriteria(criteria);
     console.log('Criterio de búsqueda:', criteria);
   };
 
@@ -31,19 +32,19 @@ export default function SearchMovies() {
         className={`${styles.searchInput}`}
         type="text"
         placeholder={getSearchText('placeholder')}
-        value={searchTerm}
+        value={searchQuery}
         onChange={handleSearchChange}
       />
 
       <select
         className={styles.criteriaSelector}
         id="searchCriteria"
-        value={selectedCriteria}
+        value={searchCriteria}
         onChange={(e) => handleCriteriaChange(e.target.value)}
       >
-        {searchCriteria.map((criteria) => (
-          <option key={criteria.key} value={criteria.key}>
-            {criteria.label}
+        {searchOptions.map((option) => (
+          <option key={option.key} value={option.key}>
+            {option.label}
           </option>
         ))}
       </select>
