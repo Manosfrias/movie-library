@@ -38,37 +38,9 @@
   flex: 1;
 }
 
-.badge {
-  background-color: var(--color-primary);
-  color: var(--color-surface);
-  padding: var(--spacing-1) var(--spacing-3);
-  border-radius: var(--radius-full);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
-  margin-left: var(--spacing-2);
-}
 
 .movieInfo {
   margin-bottom: var(--spacing-2);
-}
-
-.details {
-  display: flex;
-  gap: var(--spacing-3);
-  margin-bottom: var(--spacing-2);
-  flex-wrap: wrap;
-}
-
-.director,
-.year,
-.rating {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
-  font-weight: var(--font-weight-medium);
-}
-
-.rating {
-  color: var(--color-accent);
 }
 
 .genreWrapper {
