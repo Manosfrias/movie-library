@@ -1,4 +1,4 @@
-"use client"
+'use client';
 import React, { useState } from 'react';
 import styles from './FavoriteToggle.module.css';
 import { useTexts } from '@/ui/hooks/useTexts';
@@ -13,16 +13,15 @@ export default function FavoriteToggle() {
     // TODO: Implementar lógica de filtrado por favoritas
     console.log('Mostrar solo favoritas:', newValue);
   };
-  
+
   return (
-    <button 
+    <button
       className={`${styles.button} ${showOnlyFavorites ? styles.active : ''}`}
       onClick={handleToggle}
     >
-        {showOnlyFavorites 
-          ? getFavoriteToggleText('showAll')
-          : getFavoriteToggleText('showOnlyFavorites')
-        }
+      {showOnlyFavorites
+        ? getFavoriteToggleText('showAll')
+        : getFavoriteToggleText('showOnlyFavorites')}
     </button>
   );
 }

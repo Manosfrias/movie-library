@@ -56,6 +56,11 @@ export const TEXTS = {
     featured: 'Destacado',
   },
 
+  favoriteToggle: {
+    showAll: 'Mostrar Todas',
+    showOnlyFavorites: 'Mostrar Favoritas',
+  },
+
   meta: {
     title: 'Movie Library',
     description:
