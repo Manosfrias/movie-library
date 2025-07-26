@@ -1,30 +1,10 @@
 'use client';
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { Movie } from '../models/movie';
+import { Movie } from '../../core/models/movie';
 import { sampleMovies } from '../../../sample';
-
-interface MoviesContextType {
-  movies: Movie[];
-  filteredMovies: Movie[];
-  loading: boolean;
-  showOnlyFavorites: boolean;
-  searchQuery: string;
-  searchCriteria: string;
-  selectedGenre: string;
-  sortBy: string;
-  setShowOnlyFavorites: (show: boolean) => void;
-  setSearchQuery: (query: string) => void;
-  setSearchCriteria: (criteria: string) => void;
-  setSelectedGenre: (genre: string) => void;
-  setSortBy: (sort: string) => void;
-  toggleFavorite: (movieId: string) => void;
-}
+import { MoviesContextType, MoviesProviderProps } from './MoviesContext.types';
 
 const MoviesContext = createContext<MoviesContextType | undefined>(undefined);
-
-interface MoviesProviderProps {
-  children: ReactNode;
-}
 
 export const MoviesProvider: React.FC<MoviesProviderProps> = ({ children }) => {
   const [movies, setMovies] = useState<Movie[]>(sampleMovies);
@@ -133,3 +113,6 @@ export const useMovies = (): MoviesContextType => {
   }
   return context;
 };
+
+// Re-exportar tipos para facilitar las importaciones
+export type { MoviesContextType, MoviesProviderProps } from './MoviesContext.types';

@@ -7,6 +7,8 @@ export function useTexts() {
     getMovieDetailText: (key: keyof typeof TEXTS.movieDetail) =>
       TEXTS.movieDetail[key],
     getSearchText: (key: keyof typeof TEXTS.search) => TEXTS.search[key],
+    getSearchCriteria: (key: keyof typeof TEXTS.search.criteria) =>
+      TEXTS.search.criteria[key],
     getMovieOfTheDayText: (key: keyof typeof TEXTS.movieOfTheDay) =>
       TEXTS.movieOfTheDay[key],
     getOrderText: (key: keyof typeof TEXTS.order) => TEXTS.order[key],
@@ -25,6 +27,8 @@ export const getText = {
   home: (key: keyof typeof TEXTS.home) => TEXTS.home[key],
   movieDetail: (key: keyof typeof TEXTS.movieDetail) => TEXTS.movieDetail[key],
   search: (key: keyof typeof TEXTS.search) => TEXTS.search[key],
+  searchCriteria: (key: keyof typeof TEXTS.search.criteria) =>
+    TEXTS.search.criteria[key],
   movieOfTheDay: (key: keyof typeof TEXTS.movieOfTheDay) =>
     TEXTS.movieOfTheDay[key],
   order: (key: keyof typeof TEXTS.order) => TEXTS.order[key],

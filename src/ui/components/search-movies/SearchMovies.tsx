@@ -1,19 +1,19 @@
 'use client';
 import React from 'react';
-import { useTexts } from '../../hooks/useTexts';
-import { useMovies } from '../../../core/context/MoviesContext';
+import { useMovies } from '@/ui/context/MoviesContext';
 import styles from './SearchMovies.module.css';
+import { useTexts } from '@/ui/hooks/useTexts';
 
 export default function SearchMovies() {
-  const { getSearchText } = useTexts();
+  const { getSearchText, getSearchCriteria } = useTexts();
   const { searchQuery, setSearchQuery, searchCriteria, setSearchCriteria } =
     useMovies();
 
   const searchOptions = [
-    { key: 'byTitle', label: 'By Title' },
-    { key: 'byDirector', label: 'By Director' },
-    { key: 'byReleaseDate', label: 'By Release Date' },
-    { key: 'byRating', label: 'By Rating' },
+    { key: 'byTitle', label: getSearchCriteria('byTitle') },
+    { key: 'byDirector', label: getSearchCriteria('byDirector') },
+    { key: 'byReleaseDate', label: getSearchCriteria('byReleaseDate') },
+    { key: 'byRating', label: getSearchCriteria('byRating') },
   ];
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +31,7 @@ export default function SearchMovies() {
       <input
         className={`${styles.searchInput}`}
         type="text"
-        placeholder={getSearchText('placeholder')}
+        placeholder={getSearchText('placeholder') as string}
         value={searchQuery}
         onChange={handleSearchChange}
       />

@@ -1,7 +1,7 @@
 import { render, renderHook, act } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { MoviesProvider, useMovies } from './MoviesContext';
-import { Movie } from '../models/movie';
+import { Movie } from '../../core/models/movie';
 
 // Mock de las películas de ejemplo
 vi.mock('../../../sample', () => ({
@@ -92,6 +92,30 @@ describe('MoviesContext', () => {
     expect(result.current.filteredMovies[0].director).toBe('Christopher Nolan');
   });
 
+  it('should filter by search query with release date criteria', () => {
+    const { result } = renderHook(() => useMovies(), { wrapper });
+
+    act(() => {
+      result.current.setSearchQuery('1999');
+      result.current.setSearchCriteria('byReleaseDate');
+    });
+
+    expect(result.current.filteredMovies).toHaveLength(1);
+    expect(result.current.filteredMovies[0].title).toBe('The Matrix');
+  });
+
+  it('should filter by search query with rating criteria', () => {
+    const { result } = renderHook(() => useMovies(), { wrapper });
+
+    act(() => {
+      result.current.setSearchQuery('9.2');
+      result.current.setSearchCriteria('byRating');
+    });
+
+    expect(result.current.filteredMovies).toHaveLength(1);
+    expect(result.current.filteredMovies[0].title).toBe('The Godfather');
+  });
+
   it('should filter by genre', () => {
     const { result } = renderHook(() => useMovies(), { wrapper });
 
@@ -151,5 +175,19 @@ describe('MoviesContext', () => {
     expect(result.current.filteredMovies[0].title).toBe('The Matrix');
     expect(result.current.filteredMovies[0].favorite).toBe(true);
     expect(result.current.filteredMovies[0].genre).toBe('Sci-Fi');
+  });
+
+  it('should combine search with other filters', () => {
+    const { result } = renderHook(() => useMovies(), { wrapper });
+
+    act(() => {
+      result.current.setSearchQuery('Matrix');
+      result.current.setSearchCriteria('byTitle');
+      result.current.setShowOnlyFavorites(true);
+    });
+
+    // Solo debería encontrar "The Matrix" porque es favorita y tiene "Matrix" en el título
+    expect(result.current.filteredMovies).toHaveLength(1);
+    expect(result.current.filteredMovies[0].title).toBe('The Matrix');
   });
 });

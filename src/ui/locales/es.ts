@@ -14,6 +14,12 @@ export const TEXTS = {
   search: {
     title: 'Buscar Películas',
     placeholder: 'Buscar películas...',
+    criteria: {
+      byTitle: 'Por Título',
+      byDirector: 'Por Director',
+      byReleaseDate: 'Por Año de Estreno',
+      byRating: 'Por Calificación',
+    },
   },
 
   movieOfTheDay: {

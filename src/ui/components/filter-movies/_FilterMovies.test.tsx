@@ -2,24 +2,19 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import FilterMovies from './FilterMovies';
 import asideCardStyles from '../aside-card/AsideCard.module.css';
-import { useMovies } from '../../../core/context/MoviesContext';
 
-// Mock del contexto de películas
-vi.mock('../../../core/context/MoviesContext', () => ({
-  useMovies: vi.fn(() => ({
-    selectedGenre: 'All Genres',
-    setSelectedGenre: vi.fn(),
-  })),
+// Mock del contexto de películas usando vi.hoisted para evitar problemas de hoisting
+const mockUseMovies = vi.hoisted(() => vi.fn());
+vi.mock('@/ui/context/MoviesContext', () => ({
+  useMovies: mockUseMovies,
 }));
 
 // Mock del hook useTexts
 vi.mock('@/ui/hooks/useTexts', () => ({
   useTexts: vi.fn(() => ({
     getFilterText: (key: string) => {
-      const texts = {
-        title: 'Filtrar Películas',
-      };
-      return texts[key as keyof typeof texts];
+      if (key === 'title') return 'Filtrar Películas';
+      return key;
     },
   })),
 }));
@@ -30,6 +25,23 @@ const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
 describe('FilterMovies', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    // Configuración por defecto del mock
+    mockUseMovies.mockReturnValue({
+      selectedGenre: 'All Genres',
+      setSelectedGenre: vi.fn(),
+      movies: [],
+      filteredMovies: [],
+      loading: false,
+      showOnlyFavorites: false,
+      searchQuery: '',
+      searchCriteria: 'byTitle',
+      sortBy: '',
+      setShowOnlyFavorites: vi.fn(),
+      setSearchQuery: vi.fn(),
+      setSearchCriteria: vi.fn(),
+      setSortBy: vi.fn(),
+      toggleFavorite: vi.fn(),
+    });
   });
 
   afterEach(() => {
@@ -54,10 +66,10 @@ describe('FilterMovies', () => {
 
   it('should handle filter selection and update context', () => {
     const mockSetSelectedGenre = vi.fn();
-    vi.mocked(useMovies).mockReturnValue({
+    mockUseMovies.mockReturnValue({
       selectedGenre: 'All Genres',
       setSelectedGenre: mockSetSelectedGenre,
-    } as any);
+    });
 
     render(<FilterMovies />);
 

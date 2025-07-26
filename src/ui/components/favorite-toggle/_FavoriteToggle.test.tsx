@@ -1,26 +1,21 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import FavoriteToggle from './FavoriteToggle';
-import { useMovies } from '../../../core/context/MoviesContext';
 import styles from './FavoriteToggle.module.css';
 
-// Mock del contexto de películas
-vi.mock('../../../core/context/MoviesContext', () => ({
-  useMovies: vi.fn(() => ({
-    showOnlyFavorites: false,
-    setShowOnlyFavorites: vi.fn(),
-  })),
+// Mock del contexto de películas usando vi.hoisted para evitar problemas de hoisting
+const mockUseMovies = vi.hoisted(() => vi.fn());
+vi.mock('@/ui/context/MoviesContext', () => ({
+  useMovies: mockUseMovies,
 }));
 
 // Mock del hook useTexts
 vi.mock('@/ui/hooks/useTexts', () => ({
   useTexts: vi.fn(() => ({
     getFavoriteToggleText: (key: string) => {
-      const texts = {
-        showAll: 'Mostrar Todas',
-        showOnlyFavorites: 'Solo Favoritas',
-      };
-      return texts[key as keyof typeof texts];
+      if (key === 'showAll') return 'Mostrar Todas';
+      if (key === 'showOnlyFavorites') return 'Solo Favoritas';
+      return key;
     },
   })),
 }));
@@ -31,6 +26,23 @@ const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
 describe('FavoriteToggle', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    // Configuración por defecto del mock
+    mockUseMovies.mockReturnValue({
+      showOnlyFavorites: false,
+      setShowOnlyFavorites: vi.fn(),
+      movies: [],
+      filteredMovies: [],
+      loading: false,
+      searchQuery: '',
+      searchCriteria: 'byTitle',
+      selectedGenre: 'All Genres',
+      sortBy: '',
+      setSearchQuery: vi.fn(),
+      setSearchCriteria: vi.fn(),
+      setSelectedGenre: vi.fn(),
+      setSortBy: vi.fn(),
+      toggleFavorite: vi.fn(),
+    });
   });
 
   afterEach(() => {
@@ -45,7 +57,7 @@ describe('FavoriteToggle', () => {
   });
 
   it('should render correctly when showOnlyFavorites is true', () => {
-    vi.mocked(useMovies).mockReturnValue({
+    mockUseMovies.mockReturnValue({
       showOnlyFavorites: true,
       setShowOnlyFavorites: vi.fn(),
     } as any);
@@ -58,7 +70,7 @@ describe('FavoriteToggle', () => {
 
   it('should handle toggle and update context', () => {
     const mockSetShowOnlyFavorites = vi.fn();
-    vi.mocked(useMovies).mockReturnValue({
+    mockUseMovies.mockReturnValue({
       showOnlyFavorites: false,
       setShowOnlyFavorites: mockSetShowOnlyFavorites,
     } as any);
@@ -73,7 +85,7 @@ describe('FavoriteToggle', () => {
   });
 
   it('should have correct CSS classes when active', () => {
-    vi.mocked(useMovies).mockReturnValue({
+    mockUseMovies.mockReturnValue({
       showOnlyFavorites: true,
       setShowOnlyFavorites: vi.fn(),
     } as any);
@@ -85,7 +97,7 @@ describe('FavoriteToggle', () => {
   });
 
   it('should have correct CSS classes when inactive', () => {
-    vi.mocked(useMovies).mockReturnValue({
+    mockUseMovies.mockReturnValue({
       showOnlyFavorites: false,
       setShowOnlyFavorites: vi.fn(),
     } as any);

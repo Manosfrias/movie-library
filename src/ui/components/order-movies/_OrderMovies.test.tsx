@@ -1,14 +1,11 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import OrderMovies from './OrderMovies';
-import { useMovies } from '../../../core/context/MoviesContext';
 
-// Mock del contexto de películas
-vi.mock('../../../core/context/MoviesContext', () => ({
-  useMovies: vi.fn(() => ({
-    sortBy: '',
-    setSortBy: vi.fn(),
-  })),
+// Mock del contexto de películas usando vi.hoisted para evitar problemas de hoisting
+const mockUseMovies = vi.hoisted(() => vi.fn());
+vi.mock('@/ui/context/MoviesContext', () => ({
+  useMovies: mockUseMovies,
 }));
 
 // Mock del hook useTexts
@@ -16,13 +13,11 @@ vi.mock('@/ui/hooks/useTexts', () => ({
   useTexts: vi.fn(() => ({
     getOrderText: () => 'Ordenar Películas',
     getOrderOptions: (key: string) => {
-      const options = {
-        byTitle: 'Por Título',
-        byDirector: 'Por Director',
-        byReleaseDate: 'Por Fecha de Estreno',
-        byRating: 'Por Calificación',
-      };
-      return options[key as keyof typeof options];
+      if (key === 'byTitle') return 'Por Título';
+      if (key === 'byDirector') return 'Por Director';
+      if (key === 'byReleaseDate') return 'Por Fecha de Estreno';
+      if (key === 'byRating') return 'Por Calificación';
+      return key;
     },
   })),
 }));
@@ -33,6 +28,23 @@ const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
 describe('OrderMovies', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    // Configuración por defecto del mock
+    mockUseMovies.mockReturnValue({
+      sortBy: '',
+      setSortBy: vi.fn(),
+      movies: [],
+      filteredMovies: [],
+      loading: false,
+      showOnlyFavorites: false,
+      searchQuery: '',
+      searchCriteria: 'byTitle',
+      selectedGenre: 'All Genres',
+      setShowOnlyFavorites: vi.fn(),
+      setSearchQuery: vi.fn(),
+      setSearchCriteria: vi.fn(),
+      setSelectedGenre: vi.fn(),
+      toggleFavorite: vi.fn(),
+    });
   });
 
   afterEach(() => {
@@ -51,10 +63,10 @@ describe('OrderMovies', () => {
 
   it('should handle order selection and update context', () => {
     const mockSetSortBy = vi.fn();
-    vi.mocked(useMovies).mockReturnValue({
+    mockUseMovies.mockReturnValue({
       sortBy: '',
       setSortBy: mockSetSortBy,
-    } as any);
+    });
 
     render(<OrderMovies />);
 

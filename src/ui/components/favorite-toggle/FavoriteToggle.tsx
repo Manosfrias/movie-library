@@ -2,7 +2,7 @@
 import React from 'react';
 import styles from './FavoriteToggle.module.css';
 import { useTexts } from '@/ui/hooks/useTexts';
-import { useMovies } from '../../../core/context/MoviesContext';
+import { useMovies } from '@/ui/context/MoviesContext';
 
 export default function FavoriteToggle() {
   const { getFavoriteToggleText } = useTexts();

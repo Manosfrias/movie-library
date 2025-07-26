@@ -2,7 +2,7 @@
 import React from 'react';
 import AsideCard from '../aside-card/AsideCard';
 import { useTexts } from '@/ui/hooks/useTexts';
-import { useMovies } from '../../../core/context/MoviesContext';
+import { useMovies } from '@/ui/context/MoviesContext';
 
 export default function OrderMovies() {
   const { getOrderText, getOrderOptions } = useTexts();

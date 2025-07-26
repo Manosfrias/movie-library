@@ -1,26 +1,26 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import SearchMovies from './SearchMovies';
-import { useMovies } from '../../../core/context/MoviesContext';
 
-// Mock del contexto de películas
-vi.mock('../../../core/context/MoviesContext', () => ({
-  useMovies: vi.fn(() => ({
-    searchQuery: '',
-    setSearchQuery: vi.fn(),
-    searchCriteria: 'byTitle',
-    setSearchCriteria: vi.fn(),
-  })),
+// Mock del contexto de películas usando vi.hoisted para evitar problemas de hoisting
+const mockUseMovies = vi.hoisted(() => vi.fn());
+vi.mock('@/ui/context/MoviesContext', () => ({
+  useMovies: mockUseMovies,
 }));
 
 // Mock del hook useTexts
-vi.mock('../../hooks/useTexts', () => ({
+vi.mock('@/ui/hooks/useTexts', () => ({
   useTexts: vi.fn(() => ({
     getSearchText: (key: string) => {
-      const texts = {
-        placeholder: 'Buscar películas...',
-      };
-      return texts[key as keyof typeof texts];
+      if (key === 'placeholder') return 'Buscar películas...';
+      return key;
+    },
+    getSearchCriteria: (key: string) => {
+      if (key === 'byTitle') return 'Por Título';
+      if (key === 'byDirector') return 'Por Director';
+      if (key === 'byReleaseDate') return 'Por Año de Estreno';
+      if (key === 'byRating') return 'Por Calificación';
+      return key;
     },
   })),
 }));
@@ -31,6 +31,23 @@ const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
 describe('SearchMovies', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    // Configuración por defecto del mock
+    mockUseMovies.mockReturnValue({
+      searchQuery: '',
+      setSearchQuery: vi.fn(),
+      searchCriteria: 'byTitle',
+      setSearchCriteria: vi.fn(),
+      movies: [],
+      filteredMovies: [],
+      loading: false,
+      showOnlyFavorites: false,
+      selectedGenre: 'All Genres',
+      sortBy: '',
+      setShowOnlyFavorites: vi.fn(),
+      setSelectedGenre: vi.fn(),
+      setSortBy: vi.fn(),
+      toggleFavorite: vi.fn(),
+    });
   });
 
   afterEach(() => {
@@ -43,17 +60,17 @@ describe('SearchMovies', () => {
     expect(
       screen.getByPlaceholderText('Buscar películas...')
     ).toBeInTheDocument();
-    expect(screen.getByDisplayValue('By Title')).toBeInTheDocument();
+    expect(screen.getByDisplayValue('Por Título')).toBeInTheDocument();
   });
 
   it('should have search input functionality and update context', () => {
     const mockSetSearchQuery = vi.fn();
-    vi.mocked(useMovies).mockReturnValue({
+    mockUseMovies.mockReturnValue({
       searchQuery: '',
       setSearchQuery: mockSetSearchQuery,
       searchCriteria: 'byTitle',
       setSearchCriteria: vi.fn(),
-    } as any);
+    });
 
     render(<SearchMovies />);
 
@@ -71,34 +88,31 @@ describe('SearchMovies', () => {
     expect(selectElement).toHaveValue('byTitle');
   });
 
-  it('should handle search criteria selection and update context', () => {
+  it('should update search criteria when option is selected', () => {
     const mockSetSearchCriteria = vi.fn();
-    vi.mocked(useMovies).mockReturnValue({
+    mockUseMovies.mockReturnValue({
       searchQuery: '',
       setSearchQuery: vi.fn(),
       searchCriteria: 'byTitle',
       setSearchCriteria: mockSetSearchCriteria,
-    } as any);
+    });
 
     render(<SearchMovies />);
 
     const selectElement = screen.getByRole('combobox');
     fireEvent.change(selectElement, { target: { value: 'byDirector' } });
+
     expect(mockSetSearchCriteria).toHaveBeenCalledWith('byDirector');
-    expect(consoleSpy).toHaveBeenCalledWith(
-      'Criterio de búsqueda:',
-      'byDirector'
-    );
   });
 
   it('should render all search criteria options', () => {
     render(<SearchMovies />);
 
     const expectedCriteria = [
-      'By Title',
-      'By Director',
-      'By Release Date',
-      'By Rating',
+      'Por Título',
+      'Por Director',
+      'Por Año de Estreno',
+      'Por Calificación',
     ];
     expectedCriteria.forEach((criteria) => {
       expect(screen.getByText(criteria)).toBeInTheDocument();
