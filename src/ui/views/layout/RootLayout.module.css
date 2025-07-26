@@ -1,0 +1,7 @@
+/* Estilos del layout principal */
+.body {
+  min-height: 100vh;
+  background-color: var(--color-bg-soft);
+  font-family: var(--font-family-sans);
+  color: var(--color-text);
+}

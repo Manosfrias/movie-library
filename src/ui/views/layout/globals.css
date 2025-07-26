@@ -1,5 +1,5 @@
 /* Importar design tokens */
-@import '../ui/styles/design-tokens.css';
+@import './design-tokens.css';
 
 /* Reset básico */
 * {
@@ -13,8 +13,8 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   font-family: var(--font-family-sans);
-  background-color: var(--color-bg-soft);
-  color: var(--color-text);
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -22,9 +22,19 @@ body {
 a {
   color: inherit;
   text-decoration: none;
-  transition: var(--transition);
 }
 
-a:hover {
-  color: var(--color-accent);
+button {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }

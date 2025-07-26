@@ -1,0 +1,74 @@
+:root {
+  /* Neutros */
+  --color-bg: #ffffff;
+  --color-bg-soft: #f8f9fb;
+  --color-surface: #f0f2f5;
+  --color-border: #e2e4e8;
+  --color-text: #2e3a59;
+  --color-text-light: #6b7280;
+
+  /* Marca / Primarios */
+  --color-primary: #2e3a59; /* Azul noche */
+  --color-primary-hover: #596fa9;
+  --color-primary-light: #d9dde6;
+
+  /* Secundarios */
+  --color-secondary: #7c8db5;
+  --color-secondary-hover: #9cabc7;
+  --color-secondary-light: #e8ecf3;
+
+  /* Gradientes y sombras */
+  --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.1);
+
+  /* Bordes y radios */
+  --radius-sm: 2px;
+  --radius-full: 9999px;
+
+  /* Transiciones */
+  --transition: all 0.2s ease-in-out;
+
+  /* Tipografías */
+  --font-family-sans: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+
+  /* Tamaños de fuente */
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-md: 1.125rem; /* 18px */
+  --font-size-lg: 1.25rem; /* 20px */
+  --font-size-xl: 1.5rem; /* 24px */
+  --font-size-2xl: 2rem; /* 32px */
+  --font-size-3xl: 3rem; /* 48px */
+
+  /* Pesos */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Alturas de línea */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-loose: 1.75;
+
+  /* Espaciados */
+  --spacing-0: 0rem;
+  --spacing-1: 0.25rem; /* 4px */
+  --spacing-2: 0.5rem; /* 8px */
+  --spacing-3: 0.75rem; /* 12px */
+  --spacing-4: 1rem; /* 16px */
+  --spacing-5: 1.25rem; /* 20px */
+  --spacing-6: 1.5rem; /* 24px */
+  --spacing-8: 2rem; /* 32px */
+  --spacing-10: 2.5rem; /* 40px */
+  --spacing-12: 3rem; /* 48px */
+  --spacing-16: 4rem; /* 64px */
+
+  /* Gaps (uso para grid/flex) */
+  --gap-xs: var(--spacing-1);
+  --gap-sm: var(--spacing-2);
+  --gap-md: var(--spacing-4);
+  --gap-lg: var(--spacing-6);
+  --gap-xl: var(--spacing-10);
+}

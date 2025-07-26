@@ -1,0 +1,10 @@
+.footer {
+  text-align: right;
+}
+
+.cta {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+  transition: var(--transition);
+}

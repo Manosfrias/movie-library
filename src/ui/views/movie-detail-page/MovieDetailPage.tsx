@@ -1,24 +1,34 @@
 import React from 'react';
+import { Movie } from '../../../core/models/movie';
+import MovieDetailSidebar from '../../components/movie-detail-sidebar/MovieDetailSidebar';
+import MovieDetailContent from '../../components/movie-detail-content/MovieDetailContent';
 import styles from './MovieDetailPage.module.css';
-import { useTexts } from '../../hooks/useTexts';
+import { MovieDetailPageProps } from './movieDetailPage.type';
+import { sampleMovies as data } from '../../../../sample';
 
-interface MovieDetailPageProps {
-  params: {
-    id: string;
-  };
-}
+const sampleMovies: Movie[] = data;
 
 export default function MovieDetailPage({ params }: MovieDetailPageProps) {
-  const { getMovieDetailText } = useTexts();
+  const currentMovie = sampleMovies.find((movie) => movie.id === params.id);
+
+  const currentIndex = sampleMovies.findIndex(
+    (movie) => movie.id === params.id
+  );
+  const previousMovie =
+    currentIndex > 0 ? sampleMovies[currentIndex - 1] : undefined;
+  const nextMovie =
+    currentIndex < sampleMovies.length - 1
+      ? sampleMovies[currentIndex + 1]
+      : undefined;
 
   return (
     <main className={styles.container}>
-      <h1 className={styles.title}>
-        {getMovieDetailText('title')} - {params.id}
-      </h1>
-      <div className={styles.content}>
-        <p>Detalles de la película con ID: {params.id}</p>
-      </div>
+      {/* <MovieDetailSidebar
+        currentMovieId={currentMovie.id}
+        previousMovieId={previousMovie?.id}
+        nextMovieId={nextMovie?.id}
+      />
+      <MovieDetailContent movie={currentMovie} /> */}
     </main>
   );
 }

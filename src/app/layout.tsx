@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import './globals.css';
 import { getText } from '../ui/hooks/useTexts';
 
 // Metadata de la aplicación
