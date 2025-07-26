@@ -1,26 +1,29 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import AsideCard from '../aside-card/AsideCard';
 import { useTexts } from '@/ui/hooks/useTexts';
+import { useMovies } from '../../../core/context/MoviesContext';
 
 export default function FilterMovies() {
   const { getFilterText } = useTexts();
+  const { selectedGenre, setSelectedGenre } = useMovies();
+
   const filterOptions = [
     'All Genres',
     'Action',
+    'Adventure',
     'Comedy',
+    'Crime',
     'Drama',
     'Horror',
     'Romance',
     'Sci-Fi',
     'Thriller',
   ];
-  const [selectedFilter, setSelectedFilter] = useState<string>('All Genres');
 
   const handleFilterChange = (option: string) => {
-    setSelectedFilter(option);
-    // TODO: Implementar lógica de filtrado
-    console.log('Filtrar por:', option);
+    setSelectedGenre(option);
+    console.log('Filtrar por género:', option);
   };
 
   return (
@@ -28,7 +31,7 @@ export default function FilterMovies() {
       title={getFilterText('title') as string}
       items={filterOptions}
       onItemClick={handleFilterChange}
-      selectedItem={selectedFilter}
+      selectedItem={selectedGenre}
     />
   );
 }
