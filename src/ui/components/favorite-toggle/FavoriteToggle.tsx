@@ -8,9 +8,9 @@ export default function FavoriteToggle() {
   const { getFavoriteToggleText } = useTexts();
   const { showOnlyFavorites, setShowOnlyFavorites } = useMovies();
 
-  const handleToggle = () => {
+  const handleToggle = async () => {
     const newValue = !showOnlyFavorites;
-    setShowOnlyFavorites(newValue);
+    await setShowOnlyFavorites(newValue);
   };
 
   return (

@@ -1,7 +1,25 @@
 import { render, renderHook, act } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import { MoviesProvider, useMovies } from './MoviesContext';
-import { Movie } from '../../core/models/movie';
+import { useMovies } from './MoviesContext';
+import { ClientMoviesProvider } from './ClientMoviesProvider';
+import { MovieFilters } from '../lib/cookies';
+
+// Mock Next.js cookies
+vi.mock('next/headers', () => ({
+  cookies: () => ({
+    get: () => undefined,
+    set: () => {},
+    delete: () => {},
+  }),
+}));
+
+// Mock Server Actions
+vi.mock('../actions/filterActions', () => ({
+  updateShowOnlyFavorites: vi.fn().mockResolvedValue(undefined),
+  updateSelectedGenre: vi.fn().mockResolvedValue(undefined),
+  updateSortBy: vi.fn().mockResolvedValue(undefined),
+  clearAllFilters: vi.fn().mockResolvedValue(undefined),
+}));
 
 // Mock de las películas de ejemplo
 vi.mock('../../../sample', () => ({
@@ -37,8 +55,16 @@ vi.mock('../../../sample', () => ({
 }));
 
 describe('MoviesContext', () => {
+  const mockInitialFilters: MovieFilters = {
+    showOnlyFavorites: false,
+    selectedGenre: 'Todos los Géneros',
+    sortBy: '',
+  };
+
   const wrapper = ({ children }: { children: React.ReactNode }) => (
-    <MoviesProvider>{children}</MoviesProvider>
+    <ClientMoviesProvider initialFilters={mockInitialFilters}>
+      {children}
+    </ClientMoviesProvider>
   );
 
   it('should provide initial state correctly', () => {

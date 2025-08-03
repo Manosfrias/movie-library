@@ -9,11 +9,12 @@ export interface MoviesContextType {
   searchCriteria: string;
   selectedGenre: string;
   sortBy: string;
-  setShowOnlyFavorites: (show: boolean) => void;
+  setShowOnlyFavorites: (show: boolean) => Promise<void>;
   setSearchQuery: (query: string) => void;
   setSearchCriteria: (criteria: string) => void;
-  setSelectedGenre: (genre: string) => void;
-  setSortBy: (sort: string) => void;
+  setSelectedGenre: (genre: string) => Promise<void>;
+  setSortBy: (sort: string) => Promise<void>;
+  clearAllFilters: () => Promise<void>;
   toggleFavorite: (movieId: string) => void;
   loadMovies: () => Promise<void>;
   addMovie: (movie: Omit<Movie, 'id'>) => Promise<void>;

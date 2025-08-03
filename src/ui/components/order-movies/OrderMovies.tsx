@@ -15,11 +15,10 @@ export default function OrderMovies() {
     getOrderOptions('byRating'),
   ];
 
-  const handleOrderChange = (option: string) => {
+  const handleOrderChange = async (option: string) => {
     const isSelected = sortBy === option;
     const newOption = isSelected ? '' : option;
-    setSortBy(newOption);
-    console.log('Ordenar por:', newOption === '' ? 'Ninguno' : newOption);
+    await setSortBy(newOption);
   };
 
   return (

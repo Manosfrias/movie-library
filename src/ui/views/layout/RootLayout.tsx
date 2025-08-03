@@ -1,6 +1,6 @@
 import React from 'react';
 import { Inter } from 'next/font/google';
-import { MoviesProvider } from '@/ui/context/MoviesContext';
+import ServerMoviesProvider from '@/ui/context/ServerMoviesProvider';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -13,7 +13,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="es">
       <body className={`${inter.className}`}>
-        <MoviesProvider>{children}</MoviesProvider>
+        <ServerMoviesProvider>{children}</ServerMoviesProvider>
       </body>
     </html>
   );

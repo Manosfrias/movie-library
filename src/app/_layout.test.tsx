@@ -15,6 +15,23 @@ vi.mock('next/font/google', () => ({
 // Mock CSS
 vi.mock('./globals.css', () => ({}));
 
+// Mock Next.js cookies
+vi.mock('next/headers', () => ({
+  cookies: () => ({
+    get: () => undefined,
+    set: () => {},
+    delete: () => {},
+  }),
+}));
+
+// Mock Server Actions
+vi.mock('../ui/actions/filterActions', () => ({
+  updateShowOnlyFavorites: async () => {},
+  updateSelectedGenre: async () => {},
+  updateSortBy: async () => {},
+  clearAllFilters: async () => {},
+}));
+
 describe('RootLayout Component', () => {
   it('should render children correctly', async () => {
     const { default: RootLayout } = await import('./layout');

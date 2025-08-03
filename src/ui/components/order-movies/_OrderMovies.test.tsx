@@ -72,7 +72,6 @@ describe('OrderMovies', () => {
 
     fireEvent.click(screen.getByText('Por Título'));
     expect(mockSetSortBy).toHaveBeenCalledWith('Por Título');
-    expect(consoleSpy).toHaveBeenCalledWith('Ordenar por:', 'Por Título');
   });
 
   it('should render all order options', () => {

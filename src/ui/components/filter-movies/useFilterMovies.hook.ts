@@ -21,9 +21,9 @@ export const useFilterMovies = () => {
     return getSelectedGenreTranslation(selectedGenre, genreMap);
   };
 
-  const handleFilterChange = (option: string) => {
+  const handleFilterChange = async (option: string) => {
     const newGenre = handleGenreToggle(option, selectedGenre, translationMap);
-    setSelectedGenre(newGenre);
+    await setSelectedGenre(newGenre);
   };
 
   return {
