@@ -14,6 +14,12 @@ export const TEXTS = {
   search: {
     title: 'Buscar Películas',
     placeholder: 'Buscar películas...',
+    criteria: {
+      byTitle: 'Por Título',
+      byDirector: 'Por Director',
+      byReleaseDate: 'Por Año de Estreno',
+      byRating: 'Por Calificación',
+    },
   },
 
   movieOfTheDay: {
@@ -34,14 +40,19 @@ export const TEXTS = {
     title: 'Filtrar Películas',
     options: {
       allGenres: 'Todos los Géneros',
-      action: 'Acción',
-      comedy: 'Comedia',
-      drama: 'Drama',
-      horror: 'Terror',
-      romance: 'Romance',
-      sciFi: 'Ciencia Ficción',
-      thriller: 'Thriller',
     },
+  },
+
+  genres: {
+    Action: 'Acción',
+    Adventure: 'Aventura',
+    Comedy: 'Comedia',
+    Crime: 'Crimen',
+    Drama: 'Drama',
+    Horror: 'Terror',
+    Romance: 'Romance',
+    'Sci-Fi': 'Ciencia Ficción',
+    Thriller: 'Thriller',
   },
 
   common: {

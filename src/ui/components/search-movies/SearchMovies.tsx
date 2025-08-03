@@ -1,27 +1,28 @@
 'use client';
-import React, { useState } from 'react';
-import { useTexts } from '../../hooks/useTexts';
+import React from 'react';
+import { useMovies } from '@/ui/context/MoviesContext';
 import styles from './SearchMovies.module.css';
+import { useTexts } from '@/ui/hooks/useTexts';
 
 export default function SearchMovies() {
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  const [selectedCriteria, setSelectedCriteria] = useState<string>('byTitle');
-  const { getSearchText } = useTexts();
+  const { getSearchText, getSearchCriteria } = useTexts();
+  const { searchQuery, setSearchQuery, searchCriteria, setSearchCriteria } =
+    useMovies();
 
-  const searchCriteria = [
-    { key: 'byTitle', label: 'By Title' },
-    { key: 'byDirector', label: 'By Director' },
-    { key: 'byReleaseDate', label: 'By Release Date' },
-    { key: 'byRating', label: 'By Rating' },
+  const searchOptions = [
+    { key: 'byTitle', label: getSearchCriteria('byTitle') },
+    { key: 'byDirector', label: getSearchCriteria('byDirector') },
+    { key: 'byReleaseDate', label: getSearchCriteria('byReleaseDate') },
+    { key: 'byRating', label: getSearchCriteria('byRating') },
   ];
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
+    setSearchQuery(event.target.value);
     console.log('Buscando:', event.target.value);
   };
 
   const handleCriteriaChange = (criteria: string) => {
-    setSelectedCriteria(criteria);
+    setSearchCriteria(criteria);
     console.log('Criterio de búsqueda:', criteria);
   };
 
@@ -30,20 +31,20 @@ export default function SearchMovies() {
       <input
         className={`${styles.searchInput}`}
         type="text"
-        placeholder={getSearchText('placeholder')}
-        value={searchTerm}
+        placeholder={getSearchText('placeholder') as string}
+        value={searchQuery}
         onChange={handleSearchChange}
       />
 
       <select
         className={styles.criteriaSelector}
         id="searchCriteria"
-        value={selectedCriteria}
+        value={searchCriteria}
         onChange={(e) => handleCriteriaChange(e.target.value)}
       >
-        {searchCriteria.map((criteria) => (
-          <option key={criteria.key} value={criteria.key}>
-            {criteria.label}
+        {searchOptions.map((option) => (
+          <option key={option.key} value={option.key}>
+            {option.label}
           </option>
         ))}
       </select>

@@ -48,7 +48,7 @@ export const sampleMovies: Movie[] = [
   },
   {
     id: '6',
-    title: 'Schindler\'s List',
+    title: "Schindler's List",
     director: 'Steven Spielberg',
     releaseYear: 1993,
     genre: 'Drama',

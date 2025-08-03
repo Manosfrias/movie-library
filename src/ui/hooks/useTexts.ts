@@ -7,12 +7,18 @@ export function useTexts() {
     getMovieDetailText: (key: keyof typeof TEXTS.movieDetail) =>
       TEXTS.movieDetail[key],
     getSearchText: (key: keyof typeof TEXTS.search) => TEXTS.search[key],
+    getSearchCriteria: (key: keyof typeof TEXTS.search.criteria) =>
+      TEXTS.search.criteria[key],
     getMovieOfTheDayText: (key: keyof typeof TEXTS.movieOfTheDay) =>
       TEXTS.movieOfTheDay[key],
     getOrderText: (key: keyof typeof TEXTS.order) => TEXTS.order[key],
     getOrderOptions: (key: keyof typeof TEXTS.order.options) =>
       TEXTS.order.options[key],
     getFilterText: (key: keyof typeof TEXTS.filter) => TEXTS.filter[key],
+    getFilterOptions: (key: keyof typeof TEXTS.filter.options) =>
+      TEXTS.filter.options[key],
+    getGenreText: (genre: keyof typeof TEXTS.genres) =>
+      TEXTS.genres[genre] || genre,
     getBadgeText: (key: keyof typeof TEXTS.badge) => TEXTS.badge[key],
     getFavoriteToggleText: (key: keyof typeof TEXTS.favoriteToggle) =>
       TEXTS.favoriteToggle[key],
@@ -25,12 +31,17 @@ export const getText = {
   home: (key: keyof typeof TEXTS.home) => TEXTS.home[key],
   movieDetail: (key: keyof typeof TEXTS.movieDetail) => TEXTS.movieDetail[key],
   search: (key: keyof typeof TEXTS.search) => TEXTS.search[key],
+  searchCriteria: (key: keyof typeof TEXTS.search.criteria) =>
+    TEXTS.search.criteria[key],
   movieOfTheDay: (key: keyof typeof TEXTS.movieOfTheDay) =>
     TEXTS.movieOfTheDay[key],
   order: (key: keyof typeof TEXTS.order) => TEXTS.order[key],
   orderOptions: (key: keyof typeof TEXTS.order.options) =>
     TEXTS.order.options[key],
   filter: (key: keyof typeof TEXTS.filter) => TEXTS.filter[key],
+  filterOptions: (key: keyof typeof TEXTS.filter.options) =>
+    TEXTS.filter.options[key],
+  genre: (genre: keyof typeof TEXTS.genres) => TEXTS.genres[genre] || genre,
   badge: (key: keyof typeof TEXTS.badge) => TEXTS.badge[key],
   favoriteToggle: (key: keyof typeof TEXTS.favoriteToggle) =>
     TEXTS.favoriteToggle[key],
