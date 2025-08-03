@@ -20,9 +20,6 @@ vi.mock('@/ui/hooks/useTexts', () => ({
   })),
 }));
 
-// Mock console.log para los tests
-const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
-
 describe('FavoriteToggle', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -35,7 +32,7 @@ describe('FavoriteToggle', () => {
       loading: false,
       searchQuery: '',
       searchCriteria: 'byTitle',
-      selectedGenre: 'All Genres',
+      selectedGenre: 'Todos los Géneros',
       sortBy: '',
       setSearchQuery: vi.fn(),
       setSearchCriteria: vi.fn(),
@@ -46,7 +43,7 @@ describe('FavoriteToggle', () => {
   });
 
   afterEach(() => {
-    consoleSpy.mockClear();
+    vi.clearAllMocks();
   });
 
   it('should render correctly when showOnlyFavorites is false', () => {
@@ -81,7 +78,6 @@ describe('FavoriteToggle', () => {
     fireEvent.click(button);
 
     expect(mockSetShowOnlyFavorites).toHaveBeenCalledWith(true);
-    expect(consoleSpy).toHaveBeenCalledWith('Mostrar solo favoritas:', true);
   });
 
   it('should have correct CSS classes when active', () => {

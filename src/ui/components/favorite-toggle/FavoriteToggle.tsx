@@ -11,7 +11,6 @@ export default function FavoriteToggle() {
   const handleToggle = () => {
     const newValue = !showOnlyFavorites;
     setShowOnlyFavorites(newValue);
-    console.log('Mostrar solo favoritas:', newValue);
   };
 
   return (
