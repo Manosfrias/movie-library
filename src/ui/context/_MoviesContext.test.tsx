@@ -50,7 +50,7 @@ describe('MoviesContext', () => {
     expect(result.current.showOnlyFavorites).toBe(false);
     expect(result.current.searchQuery).toBe('');
     expect(result.current.searchCriteria).toBe('byTitle');
-    expect(result.current.selectedGenre).toBe('All Genres');
+    expect(result.current.selectedGenre).toBe('Todos los Géneros');
     expect(result.current.sortBy).toBe('');
   });
 
