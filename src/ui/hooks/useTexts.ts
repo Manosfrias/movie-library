@@ -15,6 +15,10 @@ export function useTexts() {
     getOrderOptions: (key: keyof typeof TEXTS.order.options) =>
       TEXTS.order.options[key],
     getFilterText: (key: keyof typeof TEXTS.filter) => TEXTS.filter[key],
+    getFilterOptions: (key: keyof typeof TEXTS.filter.options) =>
+      TEXTS.filter.options[key],
+    getGenreText: (genre: keyof typeof TEXTS.genres) =>
+      TEXTS.genres[genre] || genre,
     getBadgeText: (key: keyof typeof TEXTS.badge) => TEXTS.badge[key],
     getFavoriteToggleText: (key: keyof typeof TEXTS.favoriteToggle) =>
       TEXTS.favoriteToggle[key],
@@ -35,6 +39,9 @@ export const getText = {
   orderOptions: (key: keyof typeof TEXTS.order.options) =>
     TEXTS.order.options[key],
   filter: (key: keyof typeof TEXTS.filter) => TEXTS.filter[key],
+  filterOptions: (key: keyof typeof TEXTS.filter.options) =>
+    TEXTS.filter.options[key],
+  genre: (genre: keyof typeof TEXTS.genres) => TEXTS.genres[genre] || genre,
   badge: (key: keyof typeof TEXTS.badge) => TEXTS.badge[key],
   favoriteToggle: (key: keyof typeof TEXTS.favoriteToggle) =>
     TEXTS.favoriteToggle[key],
