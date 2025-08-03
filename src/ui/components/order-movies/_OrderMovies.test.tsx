@@ -38,7 +38,7 @@ describe('OrderMovies', () => {
       showOnlyFavorites: false,
       searchQuery: '',
       searchCriteria: 'byTitle',
-      selectedGenre: 'All Genres',
+      selectedGenre: 'Todos los Géneros',
       setShowOnlyFavorites: vi.fn(),
       setSearchQuery: vi.fn(),
       setSearchCriteria: vi.fn(),

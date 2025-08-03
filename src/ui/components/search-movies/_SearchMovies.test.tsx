@@ -41,7 +41,7 @@ describe('SearchMovies', () => {
       filteredMovies: [],
       loading: false,
       showOnlyFavorites: false,
-      selectedGenre: 'All Genres',
+      selectedGenre: 'Todos los Géneros',
       sortBy: '',
       setShowOnlyFavorites: vi.fn(),
       setSelectedGenre: vi.fn(),
