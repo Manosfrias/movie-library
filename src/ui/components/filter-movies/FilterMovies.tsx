@@ -2,36 +2,19 @@
 import React from 'react';
 import AsideCard from '../aside-card/AsideCard';
 import { useTexts } from '@/ui/hooks/useTexts';
-import { useMovies } from '@/ui/context/MoviesContext';
+import { useFilterMovies } from './useFilterMovies.hook';
 
 export default function FilterMovies() {
   const { getFilterText } = useTexts();
-  const { selectedGenre, setSelectedGenre } = useMovies();
-
-  const filterOptions = [
-    'All Genres',
-    'Action',
-    'Adventure',
-    'Comedy',
-    'Crime',
-    'Drama',
-    'Horror',
-    'Romance',
-    'Sci-Fi',
-    'Thriller',
-  ];
-
-  const handleFilterChange = (option: string) => {
-    setSelectedGenre(option);
-    console.log('Filtrar por género:', option);
-  };
+  const { filterOptions, getTranslatedSelectedGenre, handleFilterChange } =
+    useFilterMovies();
 
   return (
     <AsideCard
       title={getFilterText('title') as string}
       items={filterOptions}
       onItemClick={handleFilterChange}
-      selectedItem={selectedGenre}
+      selectedItem={getTranslatedSelectedGenre()}
     />
   );
 }
