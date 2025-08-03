@@ -13,9 +13,15 @@ interface UsePersistentFiltersProps {
   initialFilters: MovieFilters;
 }
 
-export const usePersistentFilters = ({ initialFilters }: UsePersistentFiltersProps) => {
-  const [showOnlyFavorites, setShowOnlyFavoritesState] = useState(initialFilters.showOnlyFavorites);
-  const [selectedGenre, setSelectedGenreState] = useState(initialFilters.selectedGenre);
+export const usePersistentFilters = ({
+  initialFilters,
+}: UsePersistentFiltersProps) => {
+  const [showOnlyFavorites, setShowOnlyFavoritesState] = useState(
+    initialFilters.showOnlyFavorites
+  );
+  const [selectedGenre, setSelectedGenreState] = useState(
+    initialFilters.selectedGenre
+  );
   const [sortBy, setSortByState] = useState(initialFilters.sortBy);
 
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -49,11 +55,11 @@ export const usePersistentFilters = ({ initialFilters }: UsePersistentFiltersPro
     const getCookieValue = (name: string) => {
       const value = document.cookie
         .split('; ')
-        .find(row => row.startsWith(`${name}=`))
+        .find((row) => row.startsWith(`${name}=`))
         ?.split('=')[1];
-      
+
       if (!value) return null;
-      
+
       try {
         return JSON.parse(decodeURIComponent(value));
       } catch {
@@ -62,7 +68,9 @@ export const usePersistentFilters = ({ initialFilters }: UsePersistentFiltersPro
     };
 
     const checkCookieChanges = () => {
-      const cookieFilters = getCookieValue('movie-filters') as MovieFilters | null;
+      const cookieFilters = getCookieValue(
+        'movie-filters'
+      ) as MovieFilters | null;
       if (cookieFilters) {
         setShowOnlyFavoritesState(cookieFilters.showOnlyFavorites);
         setSelectedGenreState(cookieFilters.selectedGenre);
@@ -81,12 +89,12 @@ export const usePersistentFilters = ({ initialFilters }: UsePersistentFiltersPro
     setSelectedGenre,
     sortBy,
     setSortBy,
-    
+
     searchQuery,
     setSearchQuery,
     searchCriteria,
     setSearchCriteria,
-    
+
     clearAllFilters,
   };
 };

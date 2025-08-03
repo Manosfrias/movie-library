@@ -23,7 +23,7 @@ export const mockCookies = () => {
 
 export const mockNextjsCookies = () => {
   const cookieStore = mockCookies();
-  
+
   return {
     cookies: () => cookieStore,
     revalidatePath: () => {},

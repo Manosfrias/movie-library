@@ -12,7 +12,7 @@ const COOKIE_MAX_AGE = 60 * 60 * 24 * 30; // 30 días
 export const getFiltersFromCookies = (): MovieFilters => {
   const cookieStore = cookies();
   const filtersCookie = cookieStore.get(COOKIE_NAME);
-  
+
   if (!filtersCookie) {
     return {
       showOnlyFavorites: false,

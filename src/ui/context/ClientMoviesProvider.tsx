@@ -14,9 +14,9 @@ interface ClientMoviesProviderProps extends MoviesProviderProps {
   initialFilters: MovieFilters;
 }
 
-export const ClientMoviesProvider: React.FC<ClientMoviesProviderProps> = ({ 
-  children, 
-  initialFilters 
+export const ClientMoviesProvider: React.FC<ClientMoviesProviderProps> = ({
+  children,
+  initialFilters,
 }) => {
   const { movies, setMovies, loading, setLoading } = useMoviesState();
 

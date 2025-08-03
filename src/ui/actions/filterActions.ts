@@ -10,7 +10,7 @@ const COOKIE_MAX_AGE = 60 * 60 * 24 * 30; // 30 días
 export async function updateShowOnlyFavorites(showOnlyFavorites: boolean) {
   const cookieStore = cookies();
   const currentFilters = getCurrentFilters();
-  
+
   const newFilters: MovieFilters = {
     ...currentFilters,
     showOnlyFavorites,
@@ -29,7 +29,7 @@ export async function updateShowOnlyFavorites(showOnlyFavorites: boolean) {
 export async function updateSelectedGenre(selectedGenre: string) {
   const cookieStore = cookies();
   const currentFilters = getCurrentFilters();
-  
+
   const newFilters: MovieFilters = {
     ...currentFilters,
     selectedGenre,
@@ -48,7 +48,7 @@ export async function updateSelectedGenre(selectedGenre: string) {
 export async function updateSortBy(sortBy: string) {
   const cookieStore = cookies();
   const currentFilters = getCurrentFilters();
-  
+
   const newFilters: MovieFilters = {
     ...currentFilters,
     sortBy,
@@ -66,7 +66,7 @@ export async function updateSortBy(sortBy: string) {
 
 export async function clearAllFilters() {
   const cookieStore = cookies();
-  
+
   const defaultFilters: MovieFilters = {
     showOnlyFavorites: false,
     selectedGenre: 'Todos los Géneros',
@@ -86,7 +86,7 @@ export async function clearAllFilters() {
 function getCurrentFilters(): MovieFilters {
   const cookieStore = cookies();
   const filtersCookie = cookieStore.get(COOKIE_NAME);
-  
+
   if (!filtersCookie) {
     return {
       showOnlyFavorites: false,
