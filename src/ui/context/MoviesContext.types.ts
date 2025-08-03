@@ -15,6 +15,9 @@ export interface MoviesContextType {
   setSelectedGenre: (genre: string) => void;
   setSortBy: (sort: string) => void;
   toggleFavorite: (movieId: string) => void;
+  loadMovies: () => Promise<void>;
+  addMovie: (movie: Omit<Movie, 'id'>) => Promise<void>;
+  deleteMovie: (movieId: string) => Promise<void>;
 }
 
 export interface MoviesProviderProps {

@@ -1,8 +1,19 @@
 'use client';
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { Movie } from '../../core/models/movie';
 import { sampleMovies } from '../../../sample';
 import { MoviesContextType, MoviesProviderProps } from './MoviesContext.types';
+import { applyAllFilters } from './movieFilters';
+import {
+  toggleMovieFavorite,
+  addNewMovie,
+  removeMovie,
+} from './movieOperations';
+import {
+  loadMoviesFromAPI,
+  saveMovieToAPI,
+  deleteMovieFromAPI,
+} from './movieAPI';
 
 const MoviesContext = createContext<MoviesContextType | undefined>(undefined);
 
@@ -12,75 +23,58 @@ export const MoviesProvider: React.FC<MoviesProviderProps> = ({ children }) => {
   const [showOnlyFavorites, setShowOnlyFavorites] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [searchCriteria, setSearchCriteria] = useState<string>('byTitle');
-  const [selectedGenre, setSelectedGenre] = useState<string>('All Genres');
+  const [selectedGenre, setSelectedGenre] =
+    useState<string>('Todos los Géneros');
   const [sortBy, setSortBy] = useState<string>('');
 
   const toggleFavorite = (movieId: string) => {
-    setMovies((prevMovies) =>
-      prevMovies.map((movie) =>
-        movie.id === movieId ? { ...movie, favorite: !movie.favorite } : movie
-      )
-    );
+    setMovies((prevMovies) => toggleMovieFavorite(prevMovies, movieId));
   };
 
-  // Filtrar y ordenar películas
-  const getFilteredMovies = (): Movie[] => {
-    let filtered = [...movies];
-
-    // Filtrar por favoritas
-    if (showOnlyFavorites) {
-      filtered = filtered.filter((movie) => movie.favorite);
+  const loadMovies = async () => {
+    setLoading(true);
+    try {
+      const moviesData = await loadMoviesFromAPI();
+      setMovies(moviesData);
+    } catch (error) {
+      console.error('Error loading movies:', error);
+    } finally {
+      setLoading(false);
     }
-
-    // Filtrar por búsqueda
-    if (searchQuery.trim()) {
-      filtered = filtered.filter((movie) => {
-        const query = searchQuery.toLowerCase();
-        switch (searchCriteria) {
-          case 'byTitle':
-            return movie.title.toLowerCase().includes(query);
-          case 'byDirector':
-            return movie.director.toLowerCase().includes(query);
-          case 'byReleaseDate':
-            return movie.releaseYear.toString().includes(query);
-          case 'byRating':
-            return movie.rating.toString().includes(query);
-          default:
-            return (
-              movie.title.toLowerCase().includes(query) ||
-              movie.director.toLowerCase().includes(query)
-            );
-        }
-      });
-    }
-
-    // Filtrar por género
-    if (selectedGenre && selectedGenre !== 'All Genres') {
-      filtered = filtered.filter((movie) => movie.genre === selectedGenre);
-    }
-
-    // Ordenar
-    if (sortBy) {
-      filtered.sort((a, b) => {
-        switch (sortBy) {
-          case 'Por Título':
-            return a.title.localeCompare(b.title);
-          case 'Por Director':
-            return a.director.localeCompare(b.director);
-          case 'Por Fecha de Estreno':
-            return b.releaseYear - a.releaseYear;
-          case 'Por Calificación':
-            return b.rating - a.rating;
-          default:
-            return 0;
-        }
-      });
-    }
-
-    return filtered;
   };
 
-  const filteredMovies = getFilteredMovies();
+  const addMovie = async (movie: Omit<Movie, 'id'>) => {
+    setLoading(true);
+    try {
+      const savedMovie = await saveMovieToAPI(movie);
+      setMovies((prevMovies) => addNewMovie(prevMovies, savedMovie));
+    } catch (error) {
+      console.error('Error adding movie:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const deleteMovie = async (movieId: string) => {
+    setLoading(true);
+    try {
+      await deleteMovieFromAPI(movieId);
+      setMovies((prevMovies) => removeMovie(prevMovies, movieId));
+    } catch (error) {
+      console.error('Error deleting movie:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const filteredMovies = applyAllFilters(
+    movies,
+    showOnlyFavorites,
+    searchQuery,
+    searchCriteria,
+    selectedGenre,
+    sortBy
+  );
 
   return (
     <MoviesContext.Provider
@@ -99,6 +93,9 @@ export const MoviesProvider: React.FC<MoviesProviderProps> = ({ children }) => {
         setSelectedGenre,
         setSortBy,
         toggleFavorite,
+        loadMovies,
+        addMovie,
+        deleteMovie,
       }}
     >
       {children}
@@ -114,5 +111,7 @@ export const useMovies = (): MoviesContextType => {
   return context;
 };
 
-// Re-exportar tipos para facilitar las importaciones
-export type { MoviesContextType, MoviesProviderProps } from './MoviesContext.types';
+export type {
+  MoviesContextType,
+  MoviesProviderProps,
+} from './MoviesContext.types';
