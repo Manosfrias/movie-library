@@ -2,7 +2,7 @@ import packageJson from '../../package.json';
 
 const config = {
   api: {
-    baseUrl: process.env.NEXT_PUBLIC_MOVIES_API_URL!,
+    baseUrl: process.env.NEXT_PUBLIC_MOVIES_API_URL || '',
     timeout: 10000,
     retryAttempts: 3,
   },
