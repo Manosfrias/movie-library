@@ -114,8 +114,7 @@ Antes de cada commit se ejecutan automáticamente:
 - **Cypress**: Para pruebas end-to-end
 - **@testing-library/react**: Para testing de componentes React
 - **Coverage mínimo**: 80% en líneas, funciones, ramas y declaraciones
-- **Estructura**: Tests co-localizados con prefijo `_` (ver [TESTING_CONVENTIONS.md](TESTING_CONVENTIONS.md))
-- **Documentación**: Ver [COVERAGE.md](COVERAGE.md) para detalles de configuración
+- **Estructura**: Tests co-localizados con prefijo `_`
 
 ### TypeScript
 
@@ -124,6 +123,35 @@ Configuración estricta de TypeScript con:
 - Resolución de módulos optimizada
 - Alias de importación (`@/*` para `src/*`)
 - Verificación de tipos estricta
+
+## 🤖 Metodología de Desarrollo
+
+Este proyecto está siendo desarrollado mediante una **colaboración única entre humano e IA**, utilizando **GitHub Copilot** como asistente de desarrollo principal.
+
+### 🎯 Proceso de Colaboración
+
+- **Planificación**: Utilizamos un [KANBAN.md](KANBAN.md) dinámico para el seguimiento de tareas y progreso
+- **Arquitectura**: Definición humana de la estructura del proyecto y patrones de código
+- **Implementación**: GitHub Copilot genera código basado en especificaciones y mejores prácticas
+- **Revisión**: Iteración continua para optimizar la calidad y funcionalidad del código
+- **Testing**: Implementación de pruebas comprehensivas para garantizar la robustez
+
+### 📊 Métricas del Proyecto
+
+- **Progreso actual**: 77.5% completado (55/71 tareas) - Ver [KANBAN.md](KANBAN.md)
+- **Cobertura de tests**: 80% mínimo requerido
+- **Arquitectura**: Patrón Repository + Service Layer
+- **API**: Integración con MockAPI para prototipado rápido
+
+### 🔧 Flujo de Trabajo
+
+1. **Análisis de requisitos** → Definición de tareas en KANBAN
+2. **Implementación asistida** → Generación de código con GitHub Copilot
+3. **Testing automático** → Pruebas unitarias y de integración
+4. **Revisión de calidad** → ESLint, Prettier, y Husky hooks
+5. **Documentación** → Actualización continua de progreso y arquitectura
+
+Esta metodología combina la **creatividad y visión estratégica humana** con la **eficiencia y precisión de la IA** para crear un proyecto robusto y bien estructurado.
 
 ## 🎯 Próximos Pasos
 
