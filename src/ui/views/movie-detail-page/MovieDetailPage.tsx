@@ -18,7 +18,6 @@ export default function MovieDetailPage({ params }: MovieDetailPageProps) {
     <main className={styles.container}>
       {currentMovie && (
         <>
-          
           <MovieDetailSidebar
             currentMovieId={currentMovie.id}
             previousMovieId={previousMovie?.id}
@@ -27,7 +26,6 @@ export default function MovieDetailPage({ params }: MovieDetailPageProps) {
           <MovieDetailContent movie={currentMovie} />
         </>
       )}
- 
     </main>
   );
 }
