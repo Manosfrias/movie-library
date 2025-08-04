@@ -16,12 +16,12 @@ describe('Movie Validation', () => {
     });
 
     it('should throw error for empty title', () => {
-      expect(() => validateMovieTitle('')).toThrow('Movie title is required');
+      expect(() => validateMovieTitle('')).toThrow('El título de la película es requerido');
     });
 
     it('should throw error for whitespace-only title', () => {
       expect(() => validateMovieTitle('   ')).toThrow(
-        'Movie title is required'
+        'El título de la película es requerido'
       );
     });
   });
@@ -33,7 +33,7 @@ describe('Movie Validation', () => {
 
     it('should throw error for empty director', () => {
       expect(() => validateMovieDirector('')).toThrow(
-        'Movie director is required'
+        'El director de la película es requerido'
       );
     });
   });
@@ -44,7 +44,7 @@ describe('Movie Validation', () => {
     });
 
     it('should throw error for empty genre', () => {
-      expect(() => validateMovieGenre('')).toThrow('Movie genre is required');
+      expect(() => validateMovieGenre('')).toThrow('El género de la película es requerido');
     });
   });
 
@@ -60,14 +60,14 @@ describe('Movie Validation', () => {
 
     it('should throw error for year before 1800', () => {
       expect(() => validateMovieReleaseYear(1799)).toThrow(
-        'Release year must be between'
+        'El año de lanzamiento debe estar entre'
       );
     });
 
     it('should throw error for year too far in future', () => {
-      const farFuture = new Date().getFullYear() + 10;
-      expect(() => validateMovieReleaseYear(farFuture)).toThrow(
-        'Release year must be between'
+      const nextYear = new Date().getFullYear() + 1; // Cambio: ahora cualquier año futuro debe fallar
+      expect(() => validateMovieReleaseYear(nextYear)).toThrow(
+        'El año de lanzamiento debe estar entre'
       );
     });
   });
@@ -87,13 +87,13 @@ describe('Movie Validation', () => {
 
     it('should throw error for negative rating', () => {
       expect(() => validateMovieRating(-1)).toThrow(
-        'Rating must be between 0 and 10'
+        'La calificación debe estar entre 0 y 10'
       );
     });
 
     it('should throw error for rating above 10', () => {
       expect(() => validateMovieRating(11)).toThrow(
-        'Rating must be between 0 and 10'
+        'La calificación debe estar entre 0 y 10'
       );
     });
   });

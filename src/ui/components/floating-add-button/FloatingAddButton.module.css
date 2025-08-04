@@ -1,0 +1,46 @@
+.floatingAddButton {
+  position: fixed;
+  bottom: var(--spacing-6);
+  right: var(--spacing-6);
+  width: var(--spacing-14);
+  height: var(--spacing-14);
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-medium);
+  transition: var(--transition);
+  z-index: var(--z-floating);
+  color: var(--color-bg);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-regular);
+}
+
+.floatingAddButton:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-strong);
+  background: var(--color-primary-hover);
+}
+
+.floatingAddButton:active {
+  transform: scale(0.95);
+  transition-duration: 0.1s;
+}
+
+.floatingAddButton:focus {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+  .floatingAddButton {
+    bottom: var(--spacing-4);
+    right: var(--spacing-4);
+    width: var(--spacing-12);
+    height: var(--spacing-12);
+    font-size: var(--font-size-lg);
+  }
+}

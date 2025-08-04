@@ -18,7 +18,7 @@ export const createMovieValidationError = (
 
 export const validateMovieTitle = (title: string): void => {
   if (!title || title.trim() === '') {
-    throw createMovieValidationError('title', title, 'Movie title is required');
+    throw createMovieValidationError('title', title, 'El título de la película es requerido');
   }
 };
 
@@ -27,27 +27,27 @@ export const validateMovieDirector = (director: string): void => {
     throw createMovieValidationError(
       'director',
       director,
-      'Movie director is required'
+      'El director de la película es requerido'
     );
   }
 };
 
 export const validateMovieGenre = (genre: string): void => {
   if (!genre || genre.trim() === '') {
-    throw createMovieValidationError('genre', genre, 'Movie genre is required');
+    throw createMovieValidationError('genre', genre, 'El género de la película es requerido');
   }
 };
 
 export const validateMovieReleaseYear = (releaseYear: number): void => {
   const currentYear = new Date().getFullYear();
   const minYear = 1800;
-  const maxYear = currentYear + 5;
+  const maxYear = currentYear; // Cambio: solo hasta el año actual
 
   if (releaseYear < minYear || releaseYear > maxYear) {
     throw createMovieValidationError(
       'releaseYear',
       releaseYear,
-      `Release year must be between ${minYear} and ${maxYear}`
+      `El año de lanzamiento debe estar entre ${minYear} y ${maxYear}`
     );
   }
 };
@@ -57,7 +57,7 @@ export const validateMovieRating = (rating: number): void => {
     throw createMovieValidationError(
       'rating',
       rating,
-      'Rating must be between 0 and 10'
+      'La calificación debe estar entre 0 y 10'
     );
   }
 };

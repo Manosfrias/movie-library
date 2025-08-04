@@ -22,6 +22,13 @@ export function useTexts() {
     getBadgeText: (key: keyof typeof TEXTS.badge) => TEXTS.badge[key],
     getFavoriteToggleText: (key: keyof typeof TEXTS.favoriteToggle) =>
       TEXTS.favoriteToggle[key],
+    getAddMovieText: (key: keyof typeof TEXTS.addMovie) => TEXTS.addMovie[key],
+    getAddMovieFormText: (key: keyof typeof TEXTS.addMovie.form) =>
+      TEXTS.addMovie.form[key],
+    getAddMovieActionsText: (key: keyof typeof TEXTS.addMovie.actions) =>
+      TEXTS.addMovie.actions[key],
+    getAddMovieValidationText: (key: keyof typeof TEXTS.addMovie.validation) =>
+      TEXTS.addMovie.validation[key],
     getCommonText: (key: keyof typeof TEXTS.common) => TEXTS.common[key],
     getMetaText: (key: keyof typeof TEXTS.meta) => TEXTS.meta[key],
   };
@@ -45,6 +52,13 @@ export const getText = {
   badge: (key: keyof typeof TEXTS.badge) => TEXTS.badge[key],
   favoriteToggle: (key: keyof typeof TEXTS.favoriteToggle) =>
     TEXTS.favoriteToggle[key],
+  addMovie: (key: keyof typeof TEXTS.addMovie) => TEXTS.addMovie[key],
+  addMovieForm: (key: keyof typeof TEXTS.addMovie.form) =>
+    TEXTS.addMovie.form[key],
+  addMovieActions: (key: keyof typeof TEXTS.addMovie.actions) =>
+    TEXTS.addMovie.actions[key],
+  addMovieValidation: (key: keyof typeof TEXTS.addMovie.validation) =>
+    TEXTS.addMovie.validation[key],
   common: (key: keyof typeof TEXTS.common) => TEXTS.common[key],
   meta: (key: keyof typeof TEXTS.meta) => TEXTS.meta[key],
 };
