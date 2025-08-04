@@ -26,5 +26,5 @@
 
 ## File Organization
 - Group related functionality in folders
-- Use index.ts for clean exports
+- Export directly from individual files, avoid index.ts barrel exports
 - Keep files focused on single responsibility
