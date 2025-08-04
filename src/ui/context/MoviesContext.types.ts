@@ -14,9 +14,13 @@ export interface MoviesContextType {
   setSearchCriteria: (criteria: string) => void;
   setSelectedGenre: (genre: string) => void;
   setSortBy: (sort: string) => void;
-  toggleFavorite: (movieId: string) => void;
+  toggleFavorite: (movieId: string) => Promise<void>;
   loadMovies: () => Promise<void>;
-  addMovie: (movie: Omit<Movie, 'id'>) => Promise<void>;
+  addMovie: (movie: Omit<Movie, 'id'>) => Promise<Movie>;
+  updateMovie: (
+    id: string,
+    movieData: Partial<Omit<Movie, 'id'>>
+  ) => Promise<Movie | null>;
   deleteMovie: (movieId: string) => Promise<void>;
 }
 

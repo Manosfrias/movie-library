@@ -1,10 +1,10 @@
 'use client';
 import React, { createContext, useContext, useMemo } from 'react';
-import { MoviesContextType, MoviesProviderProps } from './MoviesContext.types';
-import { applyAllFilters } from './movieFilters';
-import { useMoviesState } from '../hooks/useMoviesState';
 import { useFiltersState } from '../hooks/useFiltersState';
 import { useMovieOperations } from '../hooks/useMovieOperations';
+import { useMoviesState } from '../hooks/useMoviesState';
+import { MoviesContextType, MoviesProviderProps } from './MoviesContext.types';
+import { applyAllFilters } from './movieFilters';
 
 const MoviesContext = createContext<MoviesContextType | undefined>(undefined);
 
@@ -26,7 +26,7 @@ export const MoviesProvider: React.FC<MoviesProviderProps> = ({ children }) => {
   } = useFiltersState();
 
   // Operaciones de películas
-  const { toggleFavorite, loadMovies, addMovie, deleteMovie } =
+  const { toggleFavorite, loadMovies, addMovie, updateMovie, deleteMovie } =
     useMovieOperations({
       setMovies,
       setLoading,
@@ -70,6 +70,7 @@ export const MoviesProvider: React.FC<MoviesProviderProps> = ({ children }) => {
       toggleFavorite,
       loadMovies,
       addMovie,
+      updateMovie,
       deleteMovie,
     }),
     [
@@ -89,6 +90,7 @@ export const MoviesProvider: React.FC<MoviesProviderProps> = ({ children }) => {
       toggleFavorite,
       loadMovies,
       addMovie,
+      updateMovie,
       deleteMovie,
     ]
   );

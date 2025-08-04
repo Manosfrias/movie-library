@@ -8,7 +8,7 @@ export default function MovieDetailPageNotFound({
     <main className={styles.container}>
       <div className={styles.errorMessage}>
         <h1>Movie not found</h1>
-        <p>The movie with ID {params.id} could not be found.</p>
+        <p>The movie with ID {params?.id} could not be found.</p>
       </div>
     </main>
   );
