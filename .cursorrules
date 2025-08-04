@@ -28,3 +28,18 @@
 - Group related functionality in folders
 - Export directly from individual files, avoid index.ts barrel exports
 - Keep files focused on single responsibility
+
+## Project-Specific Rules
+- Never create duplicate files - always unify and consolidate
+- Use cases should be in core/use-cases with types in core/models
+- Service layer (application services) acts as facade between UI and domain
+- API layer should use real use cases, not simulations
+- All operations should be async and handle errors gracefully
+- Use fallback patterns for resilient UX (local fallback if API fails)
+- Remove documentation files after integration - keep knowledge in code
+
+## Integration Patterns
+- UI Context → Hooks → API Layer → Application Service → Use Cases → Repository
+- Maintain backward compatibility when refactoring
+- Use single source of truth for data operations
+- Mock services only in tests, not in production code paths
