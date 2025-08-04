@@ -1,3 +1,6 @@
+'use client';
+import MovieDetailContent from '@/ui/components/movie-detail-content/MovieDetailContent';
+import MovieDetailSidebar from '@/ui/components/movie-detail-sidebar/MovieDetailSidebar';
 import { useMovies } from '@/ui/context/MoviesContext';
 import styles from './MovieDetailPage.module.css';
 import { MovieDetailPageProps } from './movieDetailPage.type';
@@ -13,12 +16,18 @@ export default function MovieDetailPage({ params }: MovieDetailPageProps) {
 
   return (
     <main className={styles.container}>
-      {/* <MovieDetailSidebar
-        currentMovieId={currentMovie.id}
-        previousMovieId={previousMovie?.id}
-        nextMovieId={nextMovie?.id}
-      />
-      <MovieDetailContent movie={currentMovie} /> */}
+      {currentMovie && (
+        <>
+          
+          <MovieDetailSidebar
+            currentMovieId={currentMovie.id}
+            previousMovieId={previousMovie?.id}
+            nextMovieId={nextMovie?.id}
+          />
+          <MovieDetailContent movie={currentMovie} />
+        </>
+      )}
+ 
     </main>
   );
 }

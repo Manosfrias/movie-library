@@ -23,7 +23,7 @@ export const useMovieOperations = ({
       try {
         const updatedMovie = await movieService.toggleMovieFavorite(movieId);
         if (!updatedMovie) return;
-        
+
         setMovies((prevMovies) =>
           prevMovies.map((movie) =>
             movie.id === movieId ? updatedMovie : movie
@@ -71,7 +71,7 @@ export const useMovieOperations = ({
       try {
         const updatedMovie = await movieService.updateMovie(id, movieData);
         if (!updatedMovie) return null;
-        
+
         setMovies((prevMovies) =>
           prevMovies.map((movie) => (movie.id === id ? updatedMovie : movie))
         );

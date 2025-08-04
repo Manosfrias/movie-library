@@ -30,10 +30,7 @@ export default function MovieDetailSidebar({
           <h3 className={styles.sectionTitle}>Browse Movies</h3>
 
           {previousMovieId && (
-            <Link
-              href={`/${previousMovieId}`}
-              className={styles.navButton}
-            >
+            <Link href={`/${previousMovieId}`} className={styles.navButton}>
               <span className={styles.icon}>⬅️</span>
               <span className={styles.navText}>Previous Movie</span>
             </Link>
