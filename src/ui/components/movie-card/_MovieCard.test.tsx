@@ -1,6 +1,5 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
-import React from 'react';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 import { Movie } from '../../../core/models/movie';
 
 // Mock CSS modules
@@ -110,7 +109,7 @@ describe('MovieCard', () => {
     render(<MovieCard movie={mockMovie} />);
 
     const link = screen.getByRole('link');
-    expect(link).toHaveAttribute('href', '/movies/1');
+    expect(link).toHaveAttribute('href', '/1');
   });
 
   it('formats rating correctly', () => {

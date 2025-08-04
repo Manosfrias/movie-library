@@ -12,8 +12,8 @@ export const useMoviesState = () => {
         const movieService = getMovieApplicationService();
         const allMovies = await movieService.getAllMovies();
         setMovies(allMovies);
-      } catch (error) {
-        console.error('Error loading initial movies:', error);
+      } catch {
+        throw new Error('Failed to load initial movies');
       } finally {
         setLoading(false);
       }

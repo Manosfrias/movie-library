@@ -1,5 +1,4 @@
 'use client';
-import React from 'react';
 import Link from 'next/link';
 import styles from './MovieDetailSidebar.module.css';
 
@@ -32,7 +31,7 @@ export default function MovieDetailSidebar({
 
           {previousMovieId && (
             <Link
-              href={`/movies/${previousMovieId}`}
+              href={`/${previousMovieId}`}
               className={styles.navButton}
             >
               <span className={styles.icon}>⬅️</span>
@@ -41,7 +40,7 @@ export default function MovieDetailSidebar({
           )}
 
           {nextMovieId && (
-            <Link href={`/movies/${nextMovieId}`} className={styles.navButton}>
+            <Link href={`/${nextMovieId}`} className={styles.navButton}>
               <span className={styles.icon}>➡️</span>
               <span className={styles.navText}>Next Movie</span>
             </Link>
