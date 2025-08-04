@@ -7,6 +7,14 @@ const config = {
     retryAttempts: 3,
   },
 
+  storage: {
+    filtersKey:
+      process.env.NEXT_PUBLIC_STORAGE_FILTERS_KEY || 'movie-library-filters',
+    favoritesKey:
+      process.env.NEXT_PUBLIC_STORAGE_FAVORITES_KEY ||
+      'movie-library-favorites',
+  },
+
   isDevelopment: process.env.NODE_ENV === 'development',
   isProduction: process.env.NODE_ENV === 'production',
   isTest: process.env.NODE_ENV === 'test',

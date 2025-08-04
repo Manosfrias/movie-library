@@ -1,6 +1,6 @@
 'use client';
+import { useFiltersState } from '@/ui/hooks/filters/useFiltersState';
 import React, { createContext, useContext, useMemo } from 'react';
-import { useFiltersState } from '../hooks/useFiltersState';
 import { useMovieOperations } from '../hooks/useMovieOperations';
 import { useMoviesState } from '../hooks/useMoviesState';
 import { MoviesContextType, MoviesProviderProps } from './MoviesContext.types';
