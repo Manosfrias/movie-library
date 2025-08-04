@@ -27,7 +27,15 @@ cd movie-library
 npm install
 ```
 
-3. Configura los hooks de Git:
+3. Configura las variables de entorno:
+
+```bash
+cp .env.example .env.local
+```
+
+Edita `.env.local` y configura las variables necesarias (ver sección **Configuración**).
+
+4. Configura los hooks de Git:
 
 ```bash
 npm run prepare
@@ -63,6 +71,47 @@ npm run lint:fix     # Corrige automáticamente errores de ESLint
 npm run format       # Formatea el código con Prettier
 npm run format:check # Verifica el formato del código
 npm run type-check   # Verifica los tipos de TypeScript
+```
+
+## ⚙️ Configuración
+
+### Variables de Entorno
+
+La aplicación utiliza las siguientes variables de entorno:
+
+```bash
+# API Configuration - URL de la API de películas
+NEXT_PUBLIC_MOVIES_API_URL=https://68820fb566a7eb81224d439c.mockapi.io/api/v1/movies
+
+# Environment - Entorno de ejecución
+NODE_ENV=development
+```
+
+### Archivo de Configuración
+
+El archivo `src/config/env.ts` centraliza toda la configuración de la aplicación:
+
+```typescript
+import config from '@/config/env';
+
+// Configuración de API
+config.api.baseUrl        // URL base de la API
+config.api.timeout        // Timeout de requests (10s)
+config.api.retryAttempts   // Intentos de reintento (3)
+
+// Detección de entorno
+config.isDevelopment       // true si NODE_ENV === 'development'
+config.isProduction        // true si NODE_ENV === 'production'
+config.isTest             // true si NODE_ENV === 'test'
+
+// Feature flags (vacío, listo para futuras funcionalidades)
+config.features           // {}
+
+// Configuración de la app (lee del package.json)
+config.app.name           // Nombre de la app
+config.app.version        // Versión de la app
+config.app.defaultPageSize // Paginación por defecto (20)
+config.app.maxRetries     // Máximo de reintentos (3)
 ```
 
 ## 🏗️ Estructura del Proyecto
