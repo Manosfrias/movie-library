@@ -1,0 +1,30 @@
+# Movie Library - Coding Rules
+
+## Import Rules
+- ALWAYS use @/ for absolute imports within src/
+- NEVER use relative imports like ../../../
+- Exception: files outside src/ use relative paths when needed
+
+## Code Style  
+- Use functional programming over classes
+- Export individual functions, not classes
+- Prefer pure functions and immutability
+- Avoid comments unless absolutely necessary - code should be self-documenting
+- Use arrow functions for simple functions
+- Use const over let when possible
+
+## Architecture
+- Follow hexagonal architecture pattern
+- Use Repository pattern for data access
+- Use Factory functions over constructors
+- Keep domain logic separate from infrastructure
+
+## TypeScript
+- Use proper typing, avoid any
+- Prefer interfaces over types for object shapes
+- Use type for unions and aliases
+
+## File Organization
+- Group related functionality in folders
+- Use index.ts for clean exports
+- Keep files focused on single responsibility
