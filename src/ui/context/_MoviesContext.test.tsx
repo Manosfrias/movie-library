@@ -1,10 +1,8 @@
-import { render, renderHook, act } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { act, renderHook } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 import { MoviesProvider, useMovies } from './MoviesContext';
-import { Movie } from '../../core/models/movie';
 
-// Mock de las películas de ejemplo
-vi.mock('../../../sample', () => ({
+vi.mock('@/core/data/sampleMovies', () => ({
   sampleMovies: [
     {
       id: '1',

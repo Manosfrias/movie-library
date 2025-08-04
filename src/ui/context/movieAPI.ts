@@ -1,5 +1,5 @@
-import { Movie } from '../../core/models/movie';
-import { sampleMovies } from '../../../sample';
+import { sampleMovies } from '@/core/data/sampleMovies';
+import { Movie } from '@/core/models/movie';
 
 export const loadMoviesFromAPI = async (): Promise<Movie[]> => {
   // Simular una API call

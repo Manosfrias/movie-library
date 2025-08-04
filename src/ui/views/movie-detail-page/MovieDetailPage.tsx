@@ -1,12 +1,6 @@
-import React from 'react';
-import { Movie } from '../../../core/models/movie';
-import MovieDetailSidebar from '../../components/movie-detail-sidebar/MovieDetailSidebar';
-import MovieDetailContent from '../../components/movie-detail-content/MovieDetailContent';
+import { sampleMovies } from '@/core/data/sampleMovies';
 import styles from './MovieDetailPage.module.css';
 import { MovieDetailPageProps } from './movieDetailPage.type';
-import { sampleMovies as data } from '../../../../sample';
-
-const sampleMovies: Movie[] = data;
 
 export default function MovieDetailPage({ params }: MovieDetailPageProps) {
   const currentMovie = sampleMovies.find((movie) => movie.id === params.id);
