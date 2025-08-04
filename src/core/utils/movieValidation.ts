@@ -24,7 +24,11 @@ export const validateMovieTitle = (title: string): void => {
 
 export const validateMovieDirector = (director: string): void => {
   if (!director || director.trim() === '') {
-    throw createMovieValidationError('director', director, 'Movie director is required');
+    throw createMovieValidationError(
+      'director',
+      director,
+      'Movie director is required'
+    );
   }
 };
 
@@ -38,7 +42,7 @@ export const validateMovieReleaseYear = (releaseYear: number): void => {
   const currentYear = new Date().getFullYear();
   const minYear = 1800;
   const maxYear = currentYear + 5;
-  
+
   if (releaseYear < minYear || releaseYear > maxYear) {
     throw createMovieValidationError(
       'releaseYear',
@@ -66,7 +70,9 @@ export const validateMovieData = (movieData: Omit<Movie, 'id'>): void => {
   validateMovieRating(movieData.rating);
 };
 
-export const sanitizeMovieData = (movieData: Omit<Movie, 'id'>): Omit<Movie, 'id'> => ({
+export const sanitizeMovieData = (
+  movieData: Omit<Movie, 'id'>
+): Omit<Movie, 'id'> => ({
   ...movieData,
   title: movieData.title.trim(),
   director: movieData.director.trim(),

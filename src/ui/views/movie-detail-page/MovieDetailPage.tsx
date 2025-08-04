@@ -1,18 +1,19 @@
-import { sampleMovies } from '@/core/data/sampleMovies';
+import { useMovies } from '@/ui/context/MoviesContext';
 import styles from './MovieDetailPage.module.css';
 import { MovieDetailPageProps } from './movieDetailPage.type';
 
 export default function MovieDetailPage({ params }: MovieDetailPageProps) {
-  const currentMovie = sampleMovies.find((movie) => movie.id === params.id);
+  const { movies } = useMovies();
+  const currentMovie = movies.find((movie) => movie.id === params.id);
 
-  const currentIndex = sampleMovies.findIndex(
+  const currentIndex = movies.findIndex(
     (movie) => movie.id === params.id
   );
   const previousMovie =
-    currentIndex > 0 ? sampleMovies[currentIndex - 1] : undefined;
+    currentIndex > 0 ? movies[currentIndex - 1] : undefined;
   const nextMovie =
-    currentIndex < sampleMovies.length - 1
-      ? sampleMovies[currentIndex + 1]
+    currentIndex < movies.length - 1
+      ? movies[currentIndex + 1]
       : undefined;
 
   return (

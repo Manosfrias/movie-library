@@ -9,7 +9,6 @@ export const createDeleteMovieUseCase = (
       throw new Error('Movie ID is required');
     }
 
-    // Verificar que la película existe antes de intentar eliminarla
     const existingMovie = await movieRepository.findById(id);
     if (!existingMovie) {
       throw new Error(`Movie with ID ${id} not found`);

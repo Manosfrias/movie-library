@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import {
-    createMovieValidationError,
-    sanitizeMovieData,
-    validateMovieDirector,
-    validateMovieGenre,
-    validateMovieRating,
-    validateMovieReleaseYear,
-    validateMovieTitle
+  createMovieValidationError,
+  sanitizeMovieData,
+  validateMovieDirector,
+  validateMovieGenre,
+  validateMovieRating,
+  validateMovieReleaseYear,
+  validateMovieTitle,
 } from './movieValidation';
 
 describe('Movie Validation', () => {
@@ -20,7 +20,9 @@ describe('Movie Validation', () => {
     });
 
     it('should throw error for whitespace-only title', () => {
-      expect(() => validateMovieTitle('   ')).toThrow('Movie title is required');
+      expect(() => validateMovieTitle('   ')).toThrow(
+        'Movie title is required'
+      );
     });
   });
 
@@ -30,7 +32,9 @@ describe('Movie Validation', () => {
     });
 
     it('should throw error for empty director', () => {
-      expect(() => validateMovieDirector('')).toThrow('Movie director is required');
+      expect(() => validateMovieDirector('')).toThrow(
+        'Movie director is required'
+      );
     });
   });
 
@@ -55,12 +59,16 @@ describe('Movie Validation', () => {
     });
 
     it('should throw error for year before 1800', () => {
-      expect(() => validateMovieReleaseYear(1799)).toThrow('Release year must be between');
+      expect(() => validateMovieReleaseYear(1799)).toThrow(
+        'Release year must be between'
+      );
     });
 
     it('should throw error for year too far in future', () => {
       const farFuture = new Date().getFullYear() + 10;
-      expect(() => validateMovieReleaseYear(farFuture)).toThrow('Release year must be between');
+      expect(() => validateMovieReleaseYear(farFuture)).toThrow(
+        'Release year must be between'
+      );
     });
   });
 
@@ -78,11 +86,15 @@ describe('Movie Validation', () => {
     });
 
     it('should throw error for negative rating', () => {
-      expect(() => validateMovieRating(-1)).toThrow('Rating must be between 0 and 10');
+      expect(() => validateMovieRating(-1)).toThrow(
+        'Rating must be between 0 and 10'
+      );
     });
 
     it('should throw error for rating above 10', () => {
-      expect(() => validateMovieRating(11)).toThrow('Rating must be between 0 and 10');
+      expect(() => validateMovieRating(11)).toThrow(
+        'Rating must be between 0 and 10'
+      );
     });
   });
 
@@ -126,7 +138,11 @@ describe('Movie Validation', () => {
 
   describe('createMovieValidationError', () => {
     it('should create error with field and value properties', () => {
-      const error = createMovieValidationError('title', '', 'Title is required');
+      const error = createMovieValidationError(
+        'title',
+        '',
+        'Title is required'
+      );
 
       expect(error.message).toBe('Title is required');
       expect(error.field).toBe('title');

@@ -52,7 +52,9 @@ describe('GetAllMoviesUseCase', () => {
 
     const useCase = createGetAllMoviesUseCase(mockRepository);
 
-    await expect(useCase.execute()).rejects.toThrow('Failed to retrieve movies');
+    await expect(useCase.execute()).rejects.toThrow(
+      'Failed to retrieve movies'
+    );
     expect(mockRepository.findAll).toHaveBeenCalledOnce();
   });
 });

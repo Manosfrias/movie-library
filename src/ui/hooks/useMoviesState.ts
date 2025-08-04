@@ -1,10 +1,26 @@
-import { sampleMovies } from '@/core/data/sampleMovies';
 import { Movie } from '@/core/models/movie';
-import { useState } from 'react';
+import { getMovieApplicationService } from '@/ui/services/MovieApplicationService';
+import { useEffect, useState } from 'react';
 
 export const useMoviesState = () => {
-  const [movies, setMovies] = useState<Movie[]>(sampleMovies);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    const loadInitialMovies = async () => {
+      try {
+        const movieService = getMovieApplicationService();
+        const allMovies = await movieService.getAllMovies();
+        setMovies(allMovies);
+      } catch (error) {
+        console.error('Error loading initial movies:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadInitialMovies();
+  }, []);
 
   return {
     movies,

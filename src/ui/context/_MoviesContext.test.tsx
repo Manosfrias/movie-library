@@ -2,8 +2,9 @@ import { act, renderHook } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { MoviesProvider, useMovies } from './MoviesContext';
 
-vi.mock('@/core/data/sampleMovies', () => ({
-  sampleMovies: [
+// Mock del servicio de aplicación de películas
+vi.mock('../services/MovieApplicationService', () => {
+  const createMockMovies = () => [
     {
       id: '1',
       title: 'The Matrix',
@@ -31,20 +32,70 @@ vi.mock('@/core/data/sampleMovies', () => ({
       genre: 'Crime',
       favorite: true,
     },
-  ],
-}));
+  ];
+
+  return {
+    getMovieApplicationService: () => {
+      let mockMovies = createMockMovies(); // Crear una nueva instancia para cada test
+      
+      return {
+        getAllMovies: vi.fn().mockImplementation(() => {
+          mockMovies = createMockMovies(); // Reset para cada llamada
+          return Promise.resolve(mockMovies);
+        }),
+        getMovieById: vi.fn().mockImplementation((id: string) => 
+          Promise.resolve(mockMovies.find(movie => movie.id === id) || null)
+        ),
+        createMovie: vi.fn().mockImplementation((movie) => 
+          Promise.resolve({ ...movie, id: Date.now().toString() })
+        ),
+        updateMovie: vi.fn().mockImplementation((id: string, data) => {
+          const movieIndex = mockMovies.findIndex(m => m.id === id);
+          if (movieIndex >= 0) {
+            mockMovies[movieIndex] = { ...mockMovies[movieIndex], ...data };
+            return Promise.resolve(mockMovies[movieIndex]);
+          }
+          return Promise.resolve(null);
+        }),
+        deleteMovie: vi.fn().mockResolvedValue(true),
+        toggleMovieFavorite: vi.fn().mockImplementation((id: string) => {
+          const movie = mockMovies.find(m => m.id === id);
+          if (movie) {
+            movie.favorite = !movie.favorite;
+            return Promise.resolve(movie);
+          }
+          return Promise.resolve(null);
+        }),
+      };
+    },
+  };
+});
 
 describe('MoviesContext', () => {
   const wrapper = ({ children }: { children: React.ReactNode }) => (
     <MoviesProvider>{children}</MoviesProvider>
   );
 
-  it('should provide initial state correctly', () => {
+  // Helper function to wait for initial data load
+  const waitForInitialLoad = async () => {
+    await act(async () => {
+      await new Promise(resolve => setTimeout(resolve, 0));
+    });
+  };
+
+  it('should provide initial state correctly', async () => {
     const { result } = renderHook(() => useMovies(), { wrapper });
 
+    // Initially should be loading
+    expect(result.current.loading).toBe(true);
+    expect(result.current.movies).toHaveLength(0);
+
+    // Wait for movies to load
+    await waitForInitialLoad();
+
+    expect(result.current.loading).toBe(false);
     expect(result.current.movies).toHaveLength(3);
     expect(result.current.filteredMovies).toHaveLength(3);
-    expect(result.current.loading).toBe(false);
     expect(result.current.showOnlyFavorites).toBe(false);
     expect(result.current.searchQuery).toBe('');
     expect(result.current.searchCriteria).toBe('byTitle');
@@ -52,8 +103,11 @@ describe('MoviesContext', () => {
     expect(result.current.sortBy).toBe('');
   });
 
-  it('should filter by favorites', () => {
+  it('should filter by favorites', async () => {
     const { result } = renderHook(() => useMovies(), { wrapper });
+
+    // Wait for initial load
+    await waitForInitialLoad();
 
     act(() => {
       result.current.setShowOnlyFavorites(true);
@@ -66,8 +120,11 @@ describe('MoviesContext', () => {
     );
   });
 
-  it('should filter by search query with title criteria', () => {
+  it('should filter by search query with title criteria', async () => {
     const { result } = renderHook(() => useMovies(), { wrapper });
+
+    // Wait for initial load
+    await waitForInitialLoad();
 
     act(() => {
       result.current.setSearchQuery('Matrix');
@@ -78,8 +135,9 @@ describe('MoviesContext', () => {
     expect(result.current.filteredMovies[0].title).toBe('The Matrix');
   });
 
-  it('should filter by search query with director criteria', () => {
+  it('should filter by search query with director criteria', async () => {
     const { result } = renderHook(() => useMovies(), { wrapper });
+    await waitForInitialLoad();
 
     act(() => {
       result.current.setSearchQuery('Nolan');
@@ -90,8 +148,9 @@ describe('MoviesContext', () => {
     expect(result.current.filteredMovies[0].director).toBe('Christopher Nolan');
   });
 
-  it('should filter by search query with release date criteria', () => {
+  it('should filter by search query with release date criteria', async () => {
     const { result } = renderHook(() => useMovies(), { wrapper });
+    await waitForInitialLoad();
 
     act(() => {
       result.current.setSearchQuery('1999');
@@ -102,8 +161,9 @@ describe('MoviesContext', () => {
     expect(result.current.filteredMovies[0].title).toBe('The Matrix');
   });
 
-  it('should filter by search query with rating criteria', () => {
+  it('should filter by search query with rating criteria', async () => {
     const { result } = renderHook(() => useMovies(), { wrapper });
+    await waitForInitialLoad();
 
     act(() => {
       result.current.setSearchQuery('9.2');
@@ -114,8 +174,9 @@ describe('MoviesContext', () => {
     expect(result.current.filteredMovies[0].title).toBe('The Godfather');
   });
 
-  it('should filter by genre', () => {
+  it('should filter by genre', async () => {
     const { result } = renderHook(() => useMovies(), { wrapper });
+    await waitForInitialLoad();
 
     act(() => {
       result.current.setSelectedGenre('Sci-Fi');
@@ -127,8 +188,9 @@ describe('MoviesContext', () => {
     ).toBe(true);
   });
 
-  it('should sort by title', () => {
+  it('should sort by title', async () => {
     const { result } = renderHook(() => useMovies(), { wrapper });
+    await waitForInitialLoad();
 
     act(() => {
       result.current.setSortBy('Por Título');
@@ -138,8 +200,9 @@ describe('MoviesContext', () => {
     expect(titles).toEqual(['Inception', 'The Godfather', 'The Matrix']);
   });
 
-  it('should sort by rating', () => {
+  it('should sort by rating', async () => {
     const { result } = renderHook(() => useMovies(), { wrapper });
+    await waitForInitialLoad();
 
     act(() => {
       result.current.setSortBy('Por Calificación');
@@ -149,34 +212,38 @@ describe('MoviesContext', () => {
     expect(ratings).toEqual([9.2, 8.8, 8.7]); // Descendente
   });
 
-  it('should toggle favorite status', () => {
+  it('should toggle favorite status', async () => {
     const { result } = renderHook(() => useMovies(), { wrapper });
+    await waitForInitialLoad();
 
     const initialFavoriteStatus = result.current.movies[1].favorite; // Inception (false)
 
-    act(() => {
-      result.current.toggleFavorite('2');
+    await act(async () => {
+      await result.current.toggleFavorite('2');
     });
 
     expect(result.current.movies[1].favorite).toBe(!initialFavoriteStatus);
   });
 
-  it('should combine multiple filters', () => {
+  it('should combine multiple filters', async () => {
     const { result } = renderHook(() => useMovies(), { wrapper });
+    await waitForInitialLoad();
 
     act(() => {
       result.current.setShowOnlyFavorites(true);
       result.current.setSelectedGenre('Sci-Fi');
     });
 
+    // Should only show favorite Sci-Fi movies
     expect(result.current.filteredMovies).toHaveLength(1);
     expect(result.current.filteredMovies[0].title).toBe('The Matrix');
     expect(result.current.filteredMovies[0].favorite).toBe(true);
     expect(result.current.filteredMovies[0].genre).toBe('Sci-Fi');
   });
 
-  it('should combine search with other filters', () => {
+  it('should combine search with other filters', async () => {
     const { result } = renderHook(() => useMovies(), { wrapper });
+    await waitForInitialLoad();
 
     act(() => {
       result.current.setSearchQuery('Matrix');
