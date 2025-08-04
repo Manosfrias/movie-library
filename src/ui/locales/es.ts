@@ -72,6 +72,35 @@ export const TEXTS = {
     showOnlyFavorites: 'Mostrar Favoritas',
   },
 
+  addMovie: {
+    title: 'Agregar Nueva Película',
+    form: {
+      title: 'Título',
+      titlePlaceholder: 'Ej. El Padrino',
+      director: 'Director',
+      directorPlaceholder: 'Ej. Francis Ford Coppola',
+      releaseYear: 'Año de lanzamiento',
+      genre: 'Género',
+      genreSelect: 'Selecciona un género',
+      rating: 'Calificación (0-10)',
+      ratingPlaceholder: 'Ej. 8.5',
+      isFavorite: 'Marcar como favorita',
+      required: '*',
+    },
+    actions: {
+      cancel: 'Cancelar',
+      save: 'Guardar película',
+      saving: 'Guardando...',
+    },
+    validation: {
+      titleRequired: 'El título es requerido',
+      directorRequired: 'El director es requerido',
+      releaseYearRequired: 'El año de lanzamiento es requerido',
+      genreRequired: 'El género es requerido',
+      ratingRequired: 'La calificación es requerida',
+    },
+  },
+
   meta: {
     title: 'Movie Library',
     description:
@@ -86,5 +115,6 @@ export type MovieDetailTextKeys = keyof TextKeys['movieDetail'];
 export type SearchTextKeys = keyof TextKeys['search'];
 export type OrderTextKeys = keyof TextKeys['order'];
 export type FilterTextKeys = keyof TextKeys['filter'];
+export type AddMovieTextKeys = keyof TextKeys['addMovie'];
 export type CommonTextKeys = keyof TextKeys['common'];
 export type MetaTextKeys = keyof TextKeys['meta'];

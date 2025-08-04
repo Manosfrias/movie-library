@@ -20,10 +20,21 @@
   /* Gradientes y sombras */
   --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.05);
   --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.1);
+  --shadow-strong: 0 8px 32px rgba(0, 0, 0, 0.15);
 
   /* Bordes y radios */
   --radius-sm: 2px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
   --radius-full: 9999px;
+
+  /* Z-Index */
+  --z-base: 1;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-floating: 1000;
+  --z-modal: 2000;
+  --z-toast: 3000;
 
   /* Transiciones */
   --transition: all 0.2s ease-in-out;
@@ -63,6 +74,7 @@
   --spacing-8: 2rem; /* 32px */
   --spacing-10: 2.5rem; /* 40px */
   --spacing-12: 3rem; /* 48px */
+  --spacing-14: 3.5rem; /* 56px */
   --spacing-16: 4rem; /* 64px */
 
   /* Gaps (uso para grid/flex) */

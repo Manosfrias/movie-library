@@ -1,3 +1,4 @@
+import { AddNewMovie } from '@/ui/components/add-new-movie/AddNewMovie';
 import FavoriteToggle from '@/ui/components/favorite-toggle/FavoriteToggle';
 import FilterMovies from '@/ui/components/filter-movies/FilterMovies';
 import MovieOfTheDay from '@/ui/components/movie-of-the-day/MovieOfTheDay';
@@ -23,6 +24,8 @@ export default function HomePage() {
         <MovieOfTheDay />
         <MoviesList />
       </section>
+      
+      <AddNewMovie />
     </main>
   );
 }

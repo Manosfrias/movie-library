@@ -67,7 +67,7 @@ describe('CreateMovieUseCase', () => {
     };
 
     await expect(useCase.execute(movieData)).rejects.toThrow(
-      'Movie title is required'
+      'El título de la película es requerido'
     );
     expect(mockRepository.create).not.toHaveBeenCalled();
   });
@@ -92,7 +92,7 @@ describe('CreateMovieUseCase', () => {
     };
 
     await expect(useCase.execute(movieData)).rejects.toThrow(
-      'Rating must be between 0 and 10'
+      'La calificación debe estar entre 0 y 10'
     );
     expect(mockRepository.create).not.toHaveBeenCalled();
   });
@@ -117,7 +117,7 @@ describe('CreateMovieUseCase', () => {
     };
 
     await expect(useCase.execute(movieData)).rejects.toThrow(
-      'Release year must be between'
+      'El año de lanzamiento debe estar entre 1800 y'
     );
     expect(mockRepository.create).not.toHaveBeenCalled();
   });
