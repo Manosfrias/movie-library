@@ -4,6 +4,7 @@ Una aplicación de biblioteca de películas moderna construida con Next.js, Type
 
 ## 🚀 Stack Tecnológico
 
+
 - **Frontend**: React 18 + TypeScript
 - **Framework**: Next.js 14 (App Router)
 - **Build Tool**: Vite
