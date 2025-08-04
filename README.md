@@ -83,11 +83,17 @@ La aplicación utiliza las siguientes variables de entorno:
 # API Configuration - URL de la API de películas (OBLIGATORIA)
 NEXT_PUBLIC_MOVIES_API_URL=https://68820fb566a7eb81224d439c.mockapi.io/api/v1/movies
 
+# Storage Configuration - Keys para localStorage (OPCIONALES)
+NEXT_PUBLIC_STORAGE_FILTERS_KEY=movie-library-filters
+NEXT_PUBLIC_STORAGE_FAVORITES_KEY=movie-library-favorites
+
 # Environment - Entorno de ejecución
 NODE_ENV=development
 ```
 
 > ⚠️ **Importante**: `NEXT_PUBLIC_MOVIES_API_URL` es obligatoria. La aplicación no arrancará sin ella.
+>
+> **Storage Keys**: Las claves de localStorage son opcionales. Si no se proporcionan, se usarán valores por defecto.
 
 ### Archivo de Configuración
 
