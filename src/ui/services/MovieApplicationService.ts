@@ -9,7 +9,10 @@ export interface MovieApplicationService {
   getAllMovies(): Promise<Movie[]>;
   getMovieById(id: string): Promise<Movie | null>;
   createMovie(movieData: Omit<Movie, 'id'>): Promise<Movie>;
-  updateMovie(id: string, movieData: Partial<Omit<Movie, 'id'>>): Promise<Movie | null>;
+  updateMovie(
+    id: string,
+    movieData: Partial<Omit<Movie, 'id'>>
+  ): Promise<Movie | null>;
   deleteMovie(id: string): Promise<boolean>;
   toggleMovieFavorite(id: string): Promise<Movie | null>;
 }
@@ -32,7 +35,7 @@ export const createMovieApplicationService = (): MovieApplicationService => {
     },
 
     updateMovie: async (
-      id: string, 
+      id: string,
       movieData: Partial<Omit<Movie, 'id'>>
     ): Promise<Movie | null> => {
       return useCases.updateMovie.execute(id, movieData);

@@ -6,15 +6,10 @@ export default function MovieDetailPage({ params }: MovieDetailPageProps) {
   const { movies } = useMovies();
   const currentMovie = movies.find((movie) => movie.id === params.id);
 
-  const currentIndex = movies.findIndex(
-    (movie) => movie.id === params.id
-  );
-  const previousMovie =
-    currentIndex > 0 ? movies[currentIndex - 1] : undefined;
+  const currentIndex = movies.findIndex((movie) => movie.id === params.id);
+  const previousMovie = currentIndex > 0 ? movies[currentIndex - 1] : undefined;
   const nextMovie =
-    currentIndex < movies.length - 1
-      ? movies[currentIndex + 1]
-      : undefined;
+    currentIndex < movies.length - 1 ? movies[currentIndex + 1] : undefined;
 
   return (
     <main className={styles.container}>

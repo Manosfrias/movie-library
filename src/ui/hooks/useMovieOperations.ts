@@ -1,16 +1,16 @@
 import { useCallback } from 'react';
 import { Movie } from '../../core/models/movie';
 import {
-    deleteMovieFromAPI,
-    loadMoviesFromAPI,
-    saveMovieToAPI,
-    toggleMovieFavoriteInAPI,
-    updateMovieInAPI,
+  deleteMovieFromAPI,
+  loadMoviesFromAPI,
+  saveMovieToAPI,
+  toggleMovieFavoriteInAPI,
+  updateMovieInAPI,
 } from '../context/movieAPI';
 import {
-    addNewMovie,
-    removeMovie,
-    toggleMovieFavorite,
+  addNewMovie,
+  removeMovie,
+  toggleMovieFavorite,
 } from '../context/movieOperations';
 
 interface UseMovieOperationsProps {
@@ -27,8 +27,8 @@ export const useMovieOperations = ({
       try {
         const updatedMovie = await toggleMovieFavoriteInAPI(movieId);
         if (updatedMovie) {
-          setMovies((prevMovies) => 
-            prevMovies.map(movie => 
+          setMovies((prevMovies) =>
+            prevMovies.map((movie) =>
               movie.id === movieId ? updatedMovie : movie
             )
           );
@@ -79,9 +79,7 @@ export const useMovieOperations = ({
         const updatedMovie = await updateMovieInAPI(id, movieData);
         if (updatedMovie) {
           setMovies((prevMovies) =>
-            prevMovies.map(movie => 
-              movie.id === id ? updatedMovie : movie
-            )
+            prevMovies.map((movie) => (movie.id === id ? updatedMovie : movie))
           );
         }
         return updatedMovie;

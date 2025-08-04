@@ -37,20 +37,24 @@ vi.mock('../services/MovieApplicationService', () => {
   return {
     getMovieApplicationService: () => {
       let mockMovies = createMockMovies(); // Crear una nueva instancia para cada test
-      
+
       return {
         getAllMovies: vi.fn().mockImplementation(() => {
           mockMovies = createMockMovies(); // Reset para cada llamada
           return Promise.resolve(mockMovies);
         }),
-        getMovieById: vi.fn().mockImplementation((id: string) => 
-          Promise.resolve(mockMovies.find(movie => movie.id === id) || null)
-        ),
-        createMovie: vi.fn().mockImplementation((movie) => 
-          Promise.resolve({ ...movie, id: Date.now().toString() })
-        ),
+        getMovieById: vi
+          .fn()
+          .mockImplementation((id: string) =>
+            Promise.resolve(mockMovies.find((movie) => movie.id === id) || null)
+          ),
+        createMovie: vi
+          .fn()
+          .mockImplementation((movie) =>
+            Promise.resolve({ ...movie, id: Date.now().toString() })
+          ),
         updateMovie: vi.fn().mockImplementation((id: string, data) => {
-          const movieIndex = mockMovies.findIndex(m => m.id === id);
+          const movieIndex = mockMovies.findIndex((m) => m.id === id);
           if (movieIndex >= 0) {
             mockMovies[movieIndex] = { ...mockMovies[movieIndex], ...data };
             return Promise.resolve(mockMovies[movieIndex]);
@@ -59,7 +63,7 @@ vi.mock('../services/MovieApplicationService', () => {
         }),
         deleteMovie: vi.fn().mockResolvedValue(true),
         toggleMovieFavorite: vi.fn().mockImplementation((id: string) => {
-          const movie = mockMovies.find(m => m.id === id);
+          const movie = mockMovies.find((m) => m.id === id);
           if (movie) {
             movie.favorite = !movie.favorite;
             return Promise.resolve(movie);
@@ -79,7 +83,7 @@ describe('MoviesContext', () => {
   // Helper function to wait for initial data load
   const waitForInitialLoad = async () => {
     await act(async () => {
-      await new Promise(resolve => setTimeout(resolve, 0));
+      await new Promise((resolve) => setTimeout(resolve, 0));
     });
   };
 
