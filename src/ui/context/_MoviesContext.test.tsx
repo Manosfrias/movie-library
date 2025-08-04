@@ -3,7 +3,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { MoviesProvider, useMovies } from './MoviesContext';
 
 // Mock del servicio de aplicación de películas
-vi.mock('../services/MovieApplicationService', () => {
+vi.mock('../hooks/useMovieService', () => {
   const createMockMovies = () => [
     {
       id: '1',
@@ -34,44 +34,48 @@ vi.mock('../services/MovieApplicationService', () => {
     },
   ];
 
-  return {
-    getMovieApplicationService: () => {
-      let mockMovies = createMockMovies(); // Crear una nueva instancia para cada test
+  const mockServiceInstance = () => {
+    let mockMovies = createMockMovies(); // Crear una nueva instancia para cada test
 
-      return {
-        getAllMovies: vi.fn().mockImplementation(() => {
-          mockMovies = createMockMovies(); // Reset para cada llamada
-          return Promise.resolve(mockMovies);
-        }),
-        getMovieById: vi
-          .fn()
-          .mockImplementation((id: string) =>
-            Promise.resolve(mockMovies.find((movie) => movie.id === id) || null)
-          ),
-        createMovie: vi
-          .fn()
-          .mockImplementation((movie) =>
-            Promise.resolve({ ...movie, id: Date.now().toString() })
-          ),
-        updateMovie: vi.fn().mockImplementation((id: string, data) => {
-          const movieIndex = mockMovies.findIndex((m) => m.id === id);
-          if (movieIndex >= 0) {
-            mockMovies[movieIndex] = { ...mockMovies[movieIndex], ...data };
-            return Promise.resolve(mockMovies[movieIndex]);
-          }
-          return Promise.resolve(null);
-        }),
-        deleteMovie: vi.fn().mockResolvedValue(true),
-        toggleMovieFavorite: vi.fn().mockImplementation((id: string) => {
-          const movie = mockMovies.find((m) => m.id === id);
-          if (movie) {
-            movie.favorite = !movie.favorite;
-            return Promise.resolve(movie);
-          }
-          return Promise.resolve(null);
-        }),
-      };
-    },
+    return {
+      getAllMovies: vi.fn().mockImplementation(() => {
+        mockMovies = createMockMovies(); // Reset para cada llamada
+        return Promise.resolve(mockMovies);
+      }),
+      getMovieById: vi
+        .fn()
+        .mockImplementation((id: string) =>
+          Promise.resolve(mockMovies.find((movie) => movie.id === id) || null)
+        ),
+      createMovie: vi
+        .fn()
+        .mockImplementation((movie) =>
+          Promise.resolve({ ...movie, id: Date.now().toString() })
+        ),
+      updateMovie: vi.fn().mockImplementation((id: string, data) => {
+        const movieIndex = mockMovies.findIndex((m) => m.id === id);
+        if (movieIndex >= 0) {
+          mockMovies[movieIndex] = { ...mockMovies[movieIndex], ...data };
+          return Promise.resolve(mockMovies[movieIndex]);
+        }
+        return Promise.resolve(null);
+      }),
+      deleteMovie: vi.fn().mockResolvedValue(true),
+      toggleMovieFavorite: vi.fn().mockImplementation((id: string) => {
+        const movie = mockMovies.find((m) => m.id === id);
+        if (movie) {
+          movie.favorite = !movie.favorite;
+          return Promise.resolve(movie);
+        }
+        return Promise.resolve(null);
+      }),
+    };
+  };
+
+  return {
+    getMovieApplicationService: mockServiceInstance,
+    createMovieApplicationService: mockServiceInstance,
+    useMovieService: () => mockServiceInstance(),
   };
 });
 

@@ -1,7 +1,7 @@
 import { Movie } from '@/core/models/movie';
-import { getMovieApplicationService } from '../services/MovieApplicationService';
+import { createMovieApplicationService } from '../hooks/useMovieService';
 
-const movieService = getMovieApplicationService();
+const movieService = createMovieApplicationService();
 
 export const loadMoviesFromAPI = async (): Promise<Movie[]> => {
   return movieService.getAllMovies();

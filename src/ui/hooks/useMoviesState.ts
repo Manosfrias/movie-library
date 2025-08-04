@@ -1,5 +1,5 @@
 import { Movie } from '@/core/models/movie';
-import { getMovieApplicationService } from '@/ui/services/MovieApplicationService';
+import { getMovieApplicationService } from '@/ui/hooks/useMovieService';
 import { useEffect, useState } from 'react';
 
 export const useMoviesState = () => {
