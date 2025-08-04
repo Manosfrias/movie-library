@@ -80,12 +80,14 @@ npm run type-check   # Verifica los tipos de TypeScript
 La aplicación utiliza las siguientes variables de entorno:
 
 ```bash
-# API Configuration - URL de la API de películas
+# API Configuration - URL de la API de películas (OBLIGATORIA)
 NEXT_PUBLIC_MOVIES_API_URL=https://68820fb566a7eb81224d439c.mockapi.io/api/v1/movies
 
 # Environment - Entorno de ejecución
 NODE_ENV=development
 ```
+
+> ⚠️ **Importante**: `NEXT_PUBLIC_MOVIES_API_URL` es obligatoria. La aplicación no arrancará sin ella.
 
 ### Archivo de Configuración
 
@@ -95,23 +97,23 @@ El archivo `src/config/env.ts` centraliza toda la configuración de la aplicaci�
 import config from '@/config/env';
 
 // Configuración de API
-config.api.baseUrl        // URL base de la API
-config.api.timeout        // Timeout de requests (10s)
-config.api.retryAttempts   // Intentos de reintento (3)
+config.api.baseUrl; // URL base de la API
+config.api.timeout; // Timeout de requests (10s)
+config.api.retryAttempts; // Intentos de reintento (3)
 
 // Detección de entorno
-config.isDevelopment       // true si NODE_ENV === 'development'
-config.isProduction        // true si NODE_ENV === 'production'
-config.isTest             // true si NODE_ENV === 'test'
+config.isDevelopment; // true si NODE_ENV === 'development'
+config.isProduction; // true si NODE_ENV === 'production'
+config.isTest; // true si NODE_ENV === 'test'
 
 // Feature flags (vacío, listo para futuras funcionalidades)
-config.features           // {}
+config.features; // {}
 
 // Configuración de la app (lee del package.json)
-config.app.name           // Nombre de la app
-config.app.version        // Versión de la app
-config.app.defaultPageSize // Paginación por defecto (20)
-config.app.maxRetries     // Máximo de reintentos (3)
+config.app.name; // Nombre de la app
+config.app.version; // Versión de la app
+config.app.defaultPageSize; // Paginación por defecto (20)
+config.app.maxRetries; // Máximo de reintentos (3)
 ```
 
 ## 🏗️ Estructura del Proyecto

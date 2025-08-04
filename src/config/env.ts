@@ -2,17 +2,17 @@ import packageJson from '../../package.json';
 
 const config = {
   api: {
-    baseUrl: process.env.NEXT_PUBLIC_MOVIES_API_URL || 'https://68820fb566a7eb81224d439c.mockapi.io/api/v1/movies',
+    baseUrl: process.env.NEXT_PUBLIC_MOVIES_API_URL!,
     timeout: 10000,
     retryAttempts: 3,
   },
-  
+
   isDevelopment: process.env.NODE_ENV === 'development',
   isProduction: process.env.NODE_ENV === 'production',
   isTest: process.env.NODE_ENV === 'test',
-  
+
   features: {},
-  
+
   app: {
     name: packageJson.name,
     version: packageJson.version,
@@ -23,9 +23,11 @@ const config = {
 
 const validateConfig = () => {
   if (!config.api.baseUrl) {
-    throw new Error('NEXT_PUBLIC_MOVIES_API_URL environment variable is required');
+    throw new Error(
+      'NEXT_PUBLIC_MOVIES_API_URL environment variable is required'
+    );
   }
-  
+
   try {
     new URL(config.api.baseUrl);
   } catch {
