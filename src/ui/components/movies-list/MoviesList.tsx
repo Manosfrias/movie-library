@@ -6,7 +6,7 @@ import { useMovies } from '@/ui/context/MoviesContext';
 import styles from './MoviesList.module.css';
 
 export const MoviesList: React.FC<MoviesListProps> = () => {
-  const { filteredMovies, loading } = useMovies();
+  const { filteredMovies, loading, toggleFavorite } = useMovies();
 
   if (loading) {
     return <div className={styles.loading}>Cargando películas...</div>;
@@ -16,7 +16,11 @@ export const MoviesList: React.FC<MoviesListProps> = () => {
     <div className={styles.moviesList}>
       <div className={styles.moviesGrid}>
         {filteredMovies.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
+          <MovieCard
+            key={movie.id}
+            movie={movie}
+            onToggleFavorite={toggleFavorite}
+          />
         ))}
       </div>
     </div>
