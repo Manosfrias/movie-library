@@ -1,6 +1,7 @@
 import { useTexts } from '../../hooks/useTexts';
 import styles from './AddMovieForm.module.css';
 import { AddMovieFormProps } from './AddMovieForm.types';
+import { MovieFormRow } from './MovieFormRow';
 
 const GENRE_OPTIONS = [
   'Acción',
@@ -66,10 +67,11 @@ export const AddMovieForm: React.FC<AddMovieFormProps> = ({
 
   return (
     <form className={styles.addMovieForm} onSubmit={handleSubmit}>
-      <div className={styles.formRow}>
-        <label htmlFor="title" className={styles.formLabel}>
-          {texts.addMovie.form.title} {texts.addMovie.form.required}
-        </label>
+      <MovieFormRow
+        label={texts.addMovie.form.title}
+        required
+        errors={errors.title}
+      >
         <input
           id="title"
           name="title"
@@ -81,15 +83,12 @@ export const AddMovieForm: React.FC<AddMovieFormProps> = ({
           placeholder={texts.addMovie.form.titlePlaceholder}
           disabled={isSubmitting}
         />
-        {errors.title && (
-          <span className={styles.errorMessage}>{errors.title}</span>
-        )}
-      </div>
-
-      <div className={styles.formRow}>
-        <label htmlFor="director" className={styles.formLabel}>
-          {texts.addMovie.form.director} {texts.addMovie.form.required}
-        </label>
+      </MovieFormRow>
+      <MovieFormRow
+        label={texts.addMovie.form.director}
+        required
+        errors={errors.director}
+      >
         <input
           id="director"
           name="director"
@@ -101,15 +100,13 @@ export const AddMovieForm: React.FC<AddMovieFormProps> = ({
           placeholder={texts.addMovie.form.directorPlaceholder}
           disabled={isSubmitting}
         />
-        {errors.director && (
-          <span className={styles.errorMessage}>{errors.director}</span>
-        )}
-      </div>
+      </MovieFormRow>
 
-      <div className={styles.formRow}>
-        <label htmlFor="releaseYear" className={styles.formLabel}>
-          {texts.addMovie.form.releaseYear} {texts.addMovie.form.required}
-        </label>
+      <MovieFormRow
+        label={texts.addMovie.form.releaseYear}
+        required
+        errors={errors.releaseYear}
+      >
         <input
           id="releaseYear"
           name="releaseYear"
@@ -126,15 +123,13 @@ export const AddMovieForm: React.FC<AddMovieFormProps> = ({
           }}
           disabled={isSubmitting}
         />
-        {errors.releaseYear && (
-          <span className={styles.errorMessage}>{errors.releaseYear}</span>
-        )}
-      </div>
+      </MovieFormRow>
 
-      <div className={styles.formGroup}>
-        <label htmlFor="genre" className={styles.formLabel}>
-          {texts.addMovie.form.genre} {texts.addMovie.form.required}
-        </label>
+      <MovieFormRow
+        label={texts.addMovie.form.genre}
+        required
+        errors={errors.genre}
+      >
         <select
           id="genre"
           name="genre"
@@ -151,15 +146,82 @@ export const AddMovieForm: React.FC<AddMovieFormProps> = ({
             </option>
           ))}
         </select>
-        {errors.genre && (
-          <span className={styles.errorMessage}>{errors.genre}</span>
-        )}
-      </div>
+      </MovieFormRow>
 
-      <div className={styles.formRow}>
-        <label htmlFor="rating" className={styles.formLabel}>
-          {texts.addMovie.form.rating} {texts.addMovie.form.required}
-        </label>
+      <MovieFormRow
+        label={texts.addMovie.form.rating}
+        required
+        errors={errors.rating}
+      >
+        <input
+          id="rating"
+          name="rating"
+          type="number"
+          className={`${styles.formInput} ${errors.rating ? styles.error : ''}`}
+          value={formData.rating}
+          onChange={(e) => {
+            const value = e.target.value;
+            onFieldChange('rating', value === '' ? '' : parseFloat(value));
+          }}
+          onBlur={(e) => {
+            const value = e.target.value;
+            onFieldChange('rating', value === '' ? '' : parseFloat(value));
+          }}
+          disabled={isSubmitting}
+        />
+      </MovieFormRow>
+
+      <MovieFormRow
+        label={texts.addMovie.form.releaseYear}
+        required
+        errors={errors.releaseYear}
+      >
+        <input
+          id="releaseYear"
+          name="releaseYear"
+          type="number"
+          className={`${styles.formInput} ${errors.releaseYear ? styles.error : ''}`}
+          value={formData.releaseYear}
+          onChange={(e) => {
+            const value = e.target.value;
+            onFieldChange('releaseYear', value === '' ? '' : parseInt(value));
+          }}
+          onBlur={(e) => {
+            const value = e.target.value;
+            onFieldChange('releaseYear', value === '' ? '' : parseInt(value));
+          }}
+          disabled={isSubmitting}
+        />
+      </MovieFormRow>
+
+      <MovieFormRow
+        label={texts.addMovie.form.genre}
+        required
+        errors={errors.genre}
+      >
+        <select
+          id="genre"
+          name="genre"
+          className={`${styles.formSelect} ${errors.genre ? styles.error : ''}`}
+          value={formData.genre}
+          onChange={(e) => onFieldChange('genre', e.target.value)}
+          onBlur={(e) => onFieldChange('genre', e.target.value)}
+          disabled={isSubmitting}
+        >
+          <option value="">{texts.addMovie.form.genreSelect}</option>
+          {GENRE_OPTIONS.map((genre) => (
+            <option key={genre} value={genre}>
+              {genre}
+            </option>
+          ))}
+        </select>
+      </MovieFormRow>
+
+      <MovieFormRow
+        label={texts.addMovie.form.rating}
+        required
+        errors={errors.rating}
+      >
         <input
           id="rating"
           name="rating"
@@ -180,22 +242,20 @@ export const AddMovieForm: React.FC<AddMovieFormProps> = ({
           }}
           placeholder={texts.addMovie.form.ratingPlaceholder}
         />
-        {errors.rating && (
-          <span className={styles.errorMessage}>{errors.rating}</span>
-        )}
-      </div>
+      </MovieFormRow>
 
-      <div className={styles.formRow}>
-        <label className={`${styles.formLabel} ${styles.checkboxLabel}`}>
-          <input
-            type="checkbox"
-            checked={formData.isFavorite || false}
-            onChange={(e) => onFieldChange('isFavorite', e.target.checked)}
-            disabled={isSubmitting}
-          />
-          {texts.addMovie.form.isFavorite}
-        </label>
-      </div>
+      <MovieFormRow
+        label={texts.addMovie.form.isFavorite}
+        errors={errors.isFavorite}
+      >
+        <input
+          type="checkbox"
+          checked={formData.isFavorite || false}
+          onChange={(e) => onFieldChange('isFavorite', e.target.checked)}
+          disabled={isSubmitting}
+        />
+        {texts.addMovie.form.isFavorite}
+      </MovieFormRow>
 
       <div className={styles.formActions}>
         <button

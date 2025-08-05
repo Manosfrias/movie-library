@@ -1,5 +1,5 @@
 import { MoviesProvider } from '@/ui/context/MoviesContext';
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import MovieDetailPage from './MovieDetailPage';
@@ -178,7 +178,9 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
 
     // Entrar en modo de edición
     const editButton = screen.getByRole('button', { name: 'Editar' });
-    await user.click(editButton);
+    await act(async () => {
+      await user.click(editButton);
+    });
 
     // Esperar a que aparezca el checkbox de favoritos
     await waitFor(() => {
@@ -190,12 +192,16 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
     const favoriteCheckbox = screen.getByRole('checkbox') as HTMLInputElement;
     expect(favoriteCheckbox.checked).toBe(true);
 
-    await user.click(favoriteCheckbox);
+    await act(async () => {
+      await user.click(favoriteCheckbox);
+    });
     expect(favoriteCheckbox.checked).toBe(false);
 
     // Guardar los cambios
     const saveButton = screen.getByRole('button', { name: 'Guardar cambios' });
-    await user.click(saveButton);
+    await act(async () => {
+      await user.click(saveButton);
+    });
 
     // Verificar que el cambio se ha guardado
     await waitFor(() => {
@@ -209,7 +215,7 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
 
     // Verificar que existe contenido del sidebar (navegación)
     await waitFor(() => {
-      const homeLink = screen.getByRole('link', { name: 'Home' });
+      const homeLink = screen.getByRole('link', { name: 'Mi Filmoteca' });
       expect(homeLink).toBeInTheDocument();
       expect(homeLink).toHaveAttribute('href', '/');
     });
@@ -244,7 +250,7 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
 
     // Verificar que los elementos de navegación están presentes
     await waitFor(() => {
-      const homeLink = screen.getByRole('link', { name: 'Home' });
+      const homeLink = screen.getByRole('link', { name: 'Mi Filmoteca' });
       expect(homeLink).toBeInTheDocument();
       expect(homeLink).toHaveAttribute('href', '/');
     });
@@ -268,7 +274,9 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
 
     // Test de la funcionalidad de edición que usa localStorage
     const editButton = screen.getByRole('button', { name: 'Editar' });
-    await user.click(editButton);
+    await act(async () => {
+      await user.click(editButton);
+    });
 
     // Esperar a que aparezca el checkbox de favoritos
     await waitFor(() => {
@@ -280,12 +288,16 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
     const favoriteCheckbox = screen.getByRole('checkbox') as HTMLInputElement;
     const initialState = favoriteCheckbox.checked;
 
-    await user.click(favoriteCheckbox);
+    await act(async () => {
+      await user.click(favoriteCheckbox);
+    });
     expect(favoriteCheckbox.checked).toBe(!initialState);
 
     // Guardar los cambios
     const saveButton = screen.getByRole('button', { name: 'Guardar cambios' });
-    await user.click(saveButton);
+    await act(async () => {
+      await user.click(saveButton);
+    });
 
     // Verificar que el cambio se ha guardado
     await waitFor(() => {

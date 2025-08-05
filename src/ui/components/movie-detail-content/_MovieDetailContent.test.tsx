@@ -31,45 +31,46 @@ describe('MovieDetailContent', () => {
       'The Shawshank Redemption'
     );
     expect(screen.getByText('Frank Darabont')).toBeInTheDocument();
-    expect(screen.getAllByText('1994')).toHaveLength(2); // Aparece en info básica y stats
-    expect(screen.getAllByText('Drama')).toHaveLength(2); // Aparece en info básica y stats
-    expect(screen.getAllByText('9.3')).toHaveLength(2); // Aparece en rating y stats
+    expect(screen.getByText('1994')).toBeInTheDocument();
+    expect(screen.getByText('Drama')).toBeInTheDocument();
+    expect(screen.getByText('9.3')).toBeInTheDocument();
   });
 
-  it('should show favorite badge when movie is favorite', () => {
+  it('should show favorite status when movie is favorite', () => {
     renderWithProvider(<MovieDetailContent movie={mockMovie} />);
 
-    expect(screen.getByText('⭐ Favorite')).toBeInTheDocument();
+    expect(screen.getByText('Yes')).toBeInTheDocument();
   });
 
-  it('should not show favorite badge when movie is not favorite', () => {
+  it('should not show favorite status when movie is not favorite', () => {
     renderWithProvider(<MovieDetailContent movie={mockNonFavoriteMovie} />);
 
-    expect(screen.queryByText('⭐ Favorite')).not.toBeInTheDocument();
+    expect(screen.getByText('No')).toBeInTheDocument();
+    expect(screen.queryByText('Yes')).not.toBeInTheDocument();
   });
 
-  it('should render all sections', () => {
+  it('should render all basic information sections', () => {
     renderWithProvider(<MovieDetailContent movie={mockMovie} />);
 
-    expect(screen.getByText('Plot Summary')).toBeInTheDocument();
-    expect(screen.getByText('Additional Information')).toBeInTheDocument();
     expect(screen.getByText('Director')).toBeInTheDocument();
-    expect(screen.getAllByText('Release Year')).toHaveLength(2); // Aparece en ambas secciones
+    expect(screen.getByText('Release Year')).toBeInTheDocument();
     expect(screen.getByText('Genre')).toBeInTheDocument();
+    expect(screen.getByText('Favorite')).toBeInTheDocument();
   });
 
   it('should render rating with correct format', () => {
     renderWithProvider(<MovieDetailContent movie={mockMovie} />);
 
-    expect(screen.getAllByText('9.3')).toHaveLength(2); // Header y stats
+    expect(screen.getByText('9.3')).toBeInTheDocument();
     expect(screen.getByText('/ 10')).toBeInTheDocument();
   });
 
-  it('should render statistical cards', () => {
+  it('should render edit and delete buttons', () => {
     renderWithProvider(<MovieDetailContent movie={mockMovie} />);
 
-    expect(screen.getByText('IMDb Rating')).toBeInTheDocument();
-    expect(screen.getAllByText('Release Year')).toHaveLength(2);
-    expect(screen.getByText('Primary Genre')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Editar' })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'Eliminar' })
+    ).toBeInTheDocument();
   });
 });

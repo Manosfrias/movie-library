@@ -74,11 +74,7 @@
 }
 
 .submitButton {
-  background: linear-gradient(
-    135deg,
-    var(--color-primary),
-    var(--color-secondary)
-  );
+  background: var(--color-primary);
   color: var(--color-bg);
   border: none;
   padding: var(--spacing-3) var(--spacing-6);

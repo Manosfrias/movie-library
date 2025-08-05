@@ -14,14 +14,6 @@ vi.mock('next/link', () => ({
 }));
 
 describe('MovieDetailSidebar', () => {
-  it('should render home link', () => {
-    render(<MovieDetailSidebar />);
-
-    expect(screen.getByText('Home')).toBeInTheDocument();
-    const homeLink = screen.getByRole('link', { name: 'Home' });
-    expect(homeLink).toHaveAttribute('href', '/');
-  });
-
   it('should render previous movie link when provided', () => {
     render(<MovieDetailSidebar previousMovieId="1" />);
 
@@ -57,7 +49,21 @@ describe('MovieDetailSidebar', () => {
     expect(screen.queryByText('Previous')).not.toBeInTheDocument();
     expect(screen.queryByText('Next')).not.toBeInTheDocument();
 
-    // Only home link should be present
-    expect(screen.getByText('Home')).toBeInTheDocument();
+    // Should render empty fragment - no content
+    const container = screen.queryByRole('navigation');
+    expect(container).not.toBeInTheDocument();
+  });
+
+  it('should render navigation section only when at least one movie ID is provided', () => {
+    const { rerender } = render(<MovieDetailSidebar previousMovieId="1" />);
+
+    // Should have navigation section
+    expect(screen.getByText('Previous')).toBeInTheDocument();
+
+    // Re-render with no IDs
+    rerender(<MovieDetailSidebar />);
+
+    expect(screen.queryByText('Previous')).not.toBeInTheDocument();
+    expect(screen.queryByText('Next')).not.toBeInTheDocument();
   });
 });
