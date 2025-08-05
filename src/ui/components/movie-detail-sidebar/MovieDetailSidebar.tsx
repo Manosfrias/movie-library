@@ -9,21 +9,17 @@ export default function MovieDetailSidebar({
 }: MovieDetailSidebarProps) {
   return (
     <>
-      <Link href="/" className={styles.navButton}>
-        Home
-      </Link>
-
       {(previousMovieId || nextMovieId) && (
         <div className={styles.navigationSection}>
           {previousMovieId && (
-            <Link href={`/${previousMovieId}`} className={styles.navButton}>
-              <span className={styles.navText}>Previous</span>
+            <Link href={`/${previousMovieId}`} className={styles.button}>
+              Previous
             </Link>
           )}
 
           {nextMovieId && (
-            <Link href={`/${nextMovieId}`} className={styles.navButton}>
-              <span className={styles.navText}>Next</span>
+            <Link href={`/${nextMovieId}`} className={styles.button}>
+              Next
             </Link>
           )}
         </div>

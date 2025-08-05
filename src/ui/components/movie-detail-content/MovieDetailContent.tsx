@@ -1,8 +1,8 @@
+import { Movie } from '@/core/models/movie';
+import DeleteMovieModal from '@/ui/components/delete-movie-modal/DeleteMovieModal';
 import { useMovies } from '@/ui/context/MoviesContext';
 import { useTexts } from '@/ui/hooks/useTexts';
 import { useState } from 'react';
-import { Movie } from '../../../core/models/movie';
-import DeleteMovieModal from '../delete-movie-modal/DeleteMovieModal';
 import styles from './MovieDetailContent.module.css';
 
 interface MovieDetailContentProps {
@@ -25,7 +25,6 @@ export default function MovieDetailContent({ movie }: MovieDetailContentProps) {
 
   const handleEditToggle = () => {
     if (isEditing) {
-      // Cancelar edición - resetear datos
       setEditData({
         title: movie.title,
         director: movie.director,
@@ -44,7 +43,6 @@ export default function MovieDetailContent({ movie }: MovieDetailContentProps) {
       setIsEditing(false);
     } catch (error) {
       console.error('Error updating movie:', error);
-      // Aquí podrías mostrar un toast de error
     }
   };
 
@@ -52,11 +50,9 @@ export default function MovieDetailContent({ movie }: MovieDetailContentProps) {
     try {
       await deleteMovie(movie.id);
       setIsDeleteModalOpen(false);
-      // Navegar de vuelta a la página principal
       window.history.back();
     } catch (error) {
       console.error('Error deleting movie:', error);
-      // Aquí podrías mostrar un toast de error
     }
   };
 
@@ -64,8 +60,7 @@ export default function MovieDetailContent({ movie }: MovieDetailContentProps) {
     setEditData((prev) => ({ ...prev, [field]: value }));
   };
   return (
-    <div className={styles.content}>
-      {/* Header de la película */}
+    <section className={styles.content}>
       <header className={styles.header}>
         <div className={styles.titleSection}>
           {isEditing ? (
@@ -77,9 +72,6 @@ export default function MovieDetailContent({ movie }: MovieDetailContentProps) {
             />
           ) : (
             <h1 className={styles.title}>{movie.title}</h1>
-          )}
-          {movie.favorite && (
-            <span className={styles.favoritebadge}>⭐ Favorite</span>
           )}
         </div>
         <div className={styles.rating}>
@@ -106,50 +98,6 @@ export default function MovieDetailContent({ movie }: MovieDetailContentProps) {
         </div>
       </header>
 
-      {/* Botones de acción */}
-      <div className={styles.actionButtons}>
-        {isEditing ? (
-          <>
-            <button
-              type="button"
-              onClick={handleSaveEdit}
-              className={styles.saveButton}
-              disabled={loading}
-            >
-              {loading
-                ? texts.editMovie.actions.saving
-                : texts.editMovie.actions.save}
-            </button>
-            <button
-              type="button"
-              onClick={handleEditToggle}
-              className={styles.cancelButton}
-              disabled={loading}
-            >
-              {texts.editMovie.actions.cancel}
-            </button>
-          </>
-        ) : (
-          <>
-            <button
-              type="button"
-              onClick={handleEditToggle}
-              className={styles.editButton}
-            >
-              {texts.editMovie.actions.edit}
-            </button>
-            <button
-              type="button"
-              onClick={() => setIsDeleteModalOpen(true)}
-              className={styles.deleteButton}
-            >
-              {texts.deleteMovie.actions.delete}
-            </button>
-          </>
-        )}
-      </div>
-
-      {/* Información básica */}
       <section className={styles.basicInfo}>
         <div className={styles.infoGrid}>
           <div className={styles.infoItem}>
@@ -227,39 +175,48 @@ export default function MovieDetailContent({ movie }: MovieDetailContentProps) {
         </div>
       </section>
 
-      {/* Sección de descripción (placeholder) */}
-      <section className={styles.descriptionSection}>
-        <h2 className={styles.sectionTitle}>Plot Summary</h2>
-        <p className={styles.description}>
-          This is a placeholder for the movie description. In a real
-          application, this would contain the plot summary, cast information,
-          and other details about the movie. The movie &ldquo;{movie.title}
-          &rdquo; directed by {movie.director}
-          was released in {movie.releaseYear} and belongs to the {movie.genre}{' '}
-          genre.
-        </p>
-      </section>
+      <div className={styles.actionButtons}>
+        {isEditing ? (
+          <>
+            <button
+              type="button"
+              onClick={handleSaveEdit}
+              className={styles.saveButton}
+              disabled={loading}
+            >
+              {loading
+                ? texts.editMovie.actions.saving
+                : texts.editMovie.actions.save}
+            </button>
+            <button
+              type="button"
+              onClick={handleEditToggle}
+              className={styles.cancelButton}
+              disabled={loading}
+            >
+              {texts.editMovie.actions.cancel}
+            </button>
+          </>
+        ) : (
+          <>
+            <button
+              type="button"
+              onClick={handleEditToggle}
+              className={styles.editButton}
+            >
+              {texts.editMovie.actions.edit}
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsDeleteModalOpen(true)}
+              className={styles.deleteButton}
+            >
+              {texts.deleteMovie.actions.delete}
+            </button>
+          </>
+        )}
+      </div>
 
-      {/* Información adicional */}
-      <section className={styles.additionalInfo}>
-        <h2 className={styles.sectionTitle}>Additional Information</h2>
-        <div className={styles.statsGrid}>
-          <div className={styles.statCard}>
-            <span className={styles.statValue}>{movie.rating}</span>
-            <span className={styles.statLabel}>IMDb Rating</span>
-          </div>
-          <div className={styles.statCard}>
-            <span className={styles.statValue}>{movie.releaseYear}</span>
-            <span className={styles.statLabel}>Release Year</span>
-          </div>
-          <div className={styles.statCard}>
-            <span className={styles.statValue}>{movie.genre}</span>
-            <span className={styles.statLabel}>Primary Genre</span>
-          </div>
-        </div>
-      </section>
-
-      {/* Modal de confirmación de eliminación */}
       <DeleteMovieModal
         movieTitle={movie.title}
         isOpen={isDeleteModalOpen}
@@ -267,6 +224,6 @@ export default function MovieDetailContent({ movie }: MovieDetailContentProps) {
         onConfirm={handleDeleteConfirm}
         onCancel={() => setIsDeleteModalOpen(false)}
       />
-    </div>
+    </section>
   );
 }

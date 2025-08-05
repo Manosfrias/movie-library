@@ -6,7 +6,6 @@ import { useMovies } from '@/ui/context/MoviesContext';
 import { MovieDetailPageProps } from './MovieDetailPage.type';
 
 export default function MovieDetailPage({ params }: MovieDetailPageProps) {
-  console.log('MovieDetailPage params:', params);
   const { movies } = useMovies();
   const currentMovie = movies.find((movie) => movie.id === params.id);
   const currentIndex = movies.findIndex((movie) => movie.id === params.id);

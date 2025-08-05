@@ -19,20 +19,46 @@ vi.mock('@/ui/hooks/useMovieService', () => ({
       },
     ],
     getMovieById: vi.fn(),
+    getMovieOfTheDay: async () => ({
+      id: '1',
+      title: 'The Shawshank Redemption',
+      director: 'Frank Darabont',
+      releaseYear: 1994,
+      genre: 'Drama',
+      rating: 9.3,
+      favorite: true,
+    }),
     createMovie: vi.fn(),
     updateMovie: vi.fn(),
     deleteMovie: vi.fn(),
-    toggleMovieFavorite: vi.fn().mockImplementation((movieId: string) => {
-      // Simular actualización de localStorage
-      const favorites = JSON.parse(
-        localStorage.getItem('favoriteMovies') || '[]'
-      );
-      if (!favorites.includes(movieId)) {
-        favorites.push(movieId);
-        localStorage.setItem('favoriteMovies', JSON.stringify(favorites));
-      }
-      return Promise.resolve();
+    toggleMovieFavorite: vi.fn(),
+  }),
+  createMovieApplicationService: () => ({
+    getAllMovies: async () => [
+      {
+        id: '1',
+        title: 'The Shawshank Redemption',
+        director: 'Frank Darabont',
+        releaseYear: 1994,
+        genre: 'Drama',
+        rating: 9.3,
+        favorite: true,
+      },
+    ],
+    getMovieById: vi.fn(),
+    getMovieOfTheDay: async () => ({
+      id: '1',
+      title: 'The Shawshank Redemption',
+      director: 'Frank Darabont',
+      releaseYear: 1994,
+      genre: 'Drama',
+      rating: 9.3,
+      favorite: true,
     }),
+    createMovie: vi.fn(),
+    updateMovie: vi.fn(),
+    deleteMovie: vi.fn(),
+    toggleMovieFavorite: vi.fn(),
   }),
   getMovieApplicationService: () => ({
     getAllMovies: async () => [
@@ -47,20 +73,19 @@ vi.mock('@/ui/hooks/useMovieService', () => ({
       },
     ],
     getMovieById: vi.fn(),
+    getMovieOfTheDay: async () => ({
+      id: '1',
+      title: 'The Shawshank Redemption',
+      director: 'Frank Darabont',
+      releaseYear: 1994,
+      genre: 'Drama',
+      rating: 9.3,
+      favorite: true,
+    }),
     createMovie: vi.fn(),
     updateMovie: vi.fn(),
     deleteMovie: vi.fn(),
-    toggleMovieFavorite: vi.fn().mockImplementation((movieId: string) => {
-      // Simular actualización de localStorage
-      const favorites = JSON.parse(
-        localStorage.getItem('favoriteMovies') || '[]'
-      );
-      if (!favorites.includes(movieId)) {
-        favorites.push(movieId);
-        localStorage.setItem('favoriteMovies', JSON.stringify(favorites));
-      }
-      return Promise.resolve();
-    }),
+    toggleMovieFavorite: vi.fn(),
   }),
 }));
 
@@ -97,8 +122,10 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
   const waitForMovieToLoad = async () => {
     // Esperar a que el contexto cargue las películas y renderice contenido
     await waitFor(() => {
-      const main = screen.getByRole('main');
-      expect(main.children.length).toBeGreaterThan(0);
+      // Buscar por cualquier elemento que indique que la página se ha cargado
+      const headings = screen.queryAllByRole('heading');
+      const content = screen.queryByText('The Shawshank Redemption');
+      expect(headings.length > 0 || content).toBeTruthy();
     });
   };
 
@@ -107,9 +134,9 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
 
     // Esperar a que el contexto cargue las películas y renderice contenido
     await waitFor(() => {
-      const main = screen.getByRole('main');
-      expect(main).toBeInTheDocument();
-      expect(main.children.length).toBeGreaterThan(0);
+      // Verificar que existe contenido de la película
+      const movieTitle = screen.getByText('The Shawshank Redemption');
+      expect(movieTitle).toBeInTheDocument();
     });
 
     // Verificar que existe al menos un heading de película
@@ -150,7 +177,7 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
     await waitForMovieToLoad();
 
     // Entrar en modo de edición
-    const editButton = screen.getByRole('button', { name: /Editar/i });
+    const editButton = screen.getByRole('button', { name: 'Editar' });
     await user.click(editButton);
 
     // Esperar a que aparezca el checkbox de favoritos
@@ -167,7 +194,7 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
     expect(favoriteCheckbox.checked).toBe(false);
 
     // Guardar los cambios
-    const saveButton = screen.getByRole('button', { name: /Guardar/i });
+    const saveButton = screen.getByRole('button', { name: 'Guardar cambios' });
     await user.click(saveButton);
 
     // Verificar que el cambio se ha guardado
@@ -188,11 +215,11 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
     });
 
     // Verificar que existe el botón de editar en el contenido principal
-    const editButton = screen.getByRole('button', { name: /Editar/i });
+    const editButton = screen.getByRole('button', { name: 'Editar' });
     expect(editButton).toBeInTheDocument();
 
     // Verificar que existe el botón de eliminar
-    const deleteButton = screen.getByRole('button', { name: /Eliminar/i });
+    const deleteButton = screen.getByRole('button', { name: 'Eliminar' });
     expect(deleteButton).toBeInTheDocument();
   });
 
@@ -223,11 +250,11 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
     });
 
     // Verificar funcionalidad básica de los botones de acción
-    const editButton = screen.getByRole('button', { name: /Editar/i });
+    const editButton = screen.getByRole('button', { name: 'Editar' });
     expect(editButton).toBeInTheDocument();
     expect(editButton).toBeEnabled();
 
-    const deleteButton = screen.getByRole('button', { name: /Eliminar/i });
+    const deleteButton = screen.getByRole('button', { name: 'Eliminar' });
     expect(deleteButton).toBeInTheDocument();
     expect(deleteButton).toBeEnabled();
   });
@@ -240,7 +267,7 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
     expect(localStorage).toBeDefined();
 
     // Test de la funcionalidad de edición que usa localStorage
-    const editButton = screen.getByRole('button', { name: /Editar/i });
+    const editButton = screen.getByRole('button', { name: 'Editar' });
     await user.click(editButton);
 
     // Esperar a que aparezca el checkbox de favoritos
@@ -257,7 +284,7 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
     expect(favoriteCheckbox.checked).toBe(!initialState);
 
     // Guardar los cambios
-    const saveButton = screen.getByRole('button', { name: /Guardar/i });
+    const saveButton = screen.getByRole('button', { name: 'Guardar cambios' });
     await user.click(saveButton);
 
     // Verificar que el cambio se ha guardado
@@ -272,16 +299,19 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
     // Esperar a que las películas se carguen del contexto
     await waitFor(() => {
       // Como no encuentra la película, el componente retorna null
-      // Así que solo debería existir el div vacío del render
-      const body = document.body;
-      expect(body).toBeInTheDocument();
+      // Verificar que no hay contenido específico de película
+      expect(
+        screen.queryByText('The Shawshank Redemption')
+      ).not.toBeInTheDocument();
     });
 
     // Verificar que no hay contenido de película específica
-    expect(screen.queryByRole('main')).not.toBeInTheDocument();
     expect(screen.queryAllByRole('heading')).toHaveLength(0);
     expect(
-      screen.queryByText('The Shawshank Redemption')
+      screen.queryByRole('button', { name: 'Editar' })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: 'Eliminar' })
     ).not.toBeInTheDocument();
   });
 });
