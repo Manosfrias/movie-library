@@ -7,10 +7,13 @@ export const validateField = (
   value: string | number | boolean
 ): string | null => {
   if (field === 'isFavorite') return null;
-  
+
   const rules = VALIDATION_RULES[field];
-  
-  if (rules.required && (value === '' || value === null || value === undefined)) {
+
+  if (
+    rules.required &&
+    (value === '' || value === null || value === undefined)
+  ) {
     switch (field) {
       case 'title':
         return TEXTS.addMovie.validation.titleRequired;
@@ -48,7 +51,9 @@ export const validateField = (
   return null;
 };
 
-export const validateAllFields = (formData: MovieFormData): Partial<Record<keyof MovieFormData, string>> => {
+export const validateAllFields = (
+  formData: MovieFormData
+): Partial<Record<keyof MovieFormData, string>> => {
   const errors: Partial<Record<keyof MovieFormData, string>> = {};
 
   (Object.keys(formData) as Array<keyof MovieFormData>).forEach((field) => {

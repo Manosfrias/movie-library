@@ -3,27 +3,43 @@ import styles from './AddMovieForm.module.css';
 import { AddMovieFormProps } from './AddMovieForm.types';
 
 const GENRE_OPTIONS = [
-  'Acción', 'Aventura', 'Animación', 'Biografía', 'Comedia', 
-  'Crime', 'Documental', 'Drama', 'Familiar', 'Fantasía', 
-  'Historia', 'Horror', 'Musical', 'Misterio', 'Romance', 
-  'Sci-Fi', 'Deporte', 'Suspense', 'Guerra', 'Western'
+  'Acción',
+  'Aventura',
+  'Animación',
+  'Biografía',
+  'Comedia',
+  'Crime',
+  'Documental',
+  'Drama',
+  'Familiar',
+  'Fantasía',
+  'Historia',
+  'Horror',
+  'Musical',
+  'Misterio',
+  'Romance',
+  'Sci-Fi',
+  'Deporte',
+  'Suspense',
+  'Guerra',
+  'Western',
 ];
 
-export const AddMovieForm: React.FC<AddMovieFormProps> = ({ 
+export const AddMovieForm: React.FC<AddMovieFormProps> = ({
   formData,
   errors,
   onFieldChange,
-  onSubmit, 
-  onCancel, 
-  isSubmitting = false 
+  onSubmit,
+  onCancel,
+  isSubmitting = false,
 }) => {
   const { texts } = useTexts();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Forzar validación de todos los campos llamando onFieldChange con valores actuales
     onFieldChange('title', formData.title);
-    onFieldChange('director', formData.director); 
+    onFieldChange('director', formData.director);
     onFieldChange('releaseYear', formData.releaseYear);
     onFieldChange('genre', formData.genre);
     onFieldChange('rating', formData.rating);
@@ -31,14 +47,18 @@ export const AddMovieForm: React.FC<AddMovieFormProps> = ({
     // Dar tiempo para que las validaciones se procesen
     setTimeout(() => {
       // Verificar si hay errores antes de enviar
-      const hasErrors = Object.values(errors).some(error => error !== null && error !== undefined);
-      
-      if (!hasErrors && 
-          formData.title && 
-          formData.director && 
-          formData.genre && 
-          formData.releaseYear && 
-          formData.rating) {
+      const hasErrors = Object.values(errors).some(
+        (error) => error !== null && error !== undefined
+      );
+
+      if (
+        !hasErrors &&
+        formData.title &&
+        formData.director &&
+        formData.genre &&
+        formData.releaseYear &&
+        formData.rating
+      ) {
         onSubmit();
       }
     }, 100);
@@ -191,7 +211,9 @@ export const AddMovieForm: React.FC<AddMovieFormProps> = ({
           className={styles.submitButton}
           disabled={isSubmitting}
         >
-          {isSubmitting ? texts.addMovie.actions.saving : texts.addMovie.actions.save}
+          {isSubmitting
+            ? texts.addMovie.actions.saving
+            : texts.addMovie.actions.save}
         </button>
       </div>
     </form>

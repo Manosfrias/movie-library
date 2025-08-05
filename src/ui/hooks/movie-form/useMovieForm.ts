@@ -7,18 +7,23 @@ import { validateAllFields, validateField } from './movieFormValidation';
 export const useMovieForm = (): UseMovieFormReturn => {
   const { addMovie } = useMovies();
   const [formData, setFormData] = useState<MovieFormData>(defaultFormData);
-  const [errors, setErrors] = useState<Partial<Record<keyof MovieFormData, string>>>({});
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof MovieFormData, string>>
+  >({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const updateField = (field: keyof MovieFormData, value: string | number | boolean) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-    
+  const updateField = (
+    field: keyof MovieFormData,
+    value: string | number | boolean
+  ) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+
     // Validar el campo inmediatamente
     const error = validateField(field, value);
-    
-    setErrors(prev => ({ 
-      ...prev, 
-      [field]: error 
+
+    setErrors((prev) => ({
+      ...prev,
+      [field]: error,
     }));
   };
 
@@ -38,14 +43,20 @@ export const useMovieForm = (): UseMovieFormReturn => {
     if (!validateForm()) return null;
 
     setIsSubmitting(true);
-    
+
     try {
       const newMovie = await addMovie({
         title: formData.title,
         director: formData.director,
-        releaseYear: typeof formData.releaseYear === 'number' ? formData.releaseYear : parseInt(formData.releaseYear) || new Date().getFullYear(),
+        releaseYear:
+          typeof formData.releaseYear === 'number'
+            ? formData.releaseYear
+            : parseInt(formData.releaseYear) || new Date().getFullYear(),
         genre: formData.genre,
-        rating: typeof formData.rating === 'number' ? formData.rating : parseFloat(formData.rating) || 0,
+        rating:
+          typeof formData.rating === 'number'
+            ? formData.rating
+            : parseFloat(formData.rating) || 0,
         favorite: formData.isFavorite,
       });
 
@@ -53,7 +64,7 @@ export const useMovieForm = (): UseMovieFormReturn => {
         resetForm();
         return newMovie;
       }
-      
+
       return null;
     } catch (error) {
       console.error('Error creating movie:', error);
