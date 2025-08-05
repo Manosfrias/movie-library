@@ -34,20 +34,16 @@ export const AddMovieForm: React.FC<AddMovieFormProps> = ({
   onCancel,
   isSubmitting = false,
 }) => {
-  const { texts } = useTexts();
+  const { getAddMovieFormText, getAddMovieActionsText } = useTexts();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Forzar validación de todos los campos llamando onFieldChange con valores actuales
     onFieldChange('title', formData.title);
     onFieldChange('director', formData.director);
     onFieldChange('releaseYear', formData.releaseYear);
     onFieldChange('genre', formData.genre);
     onFieldChange('rating', formData.rating);
 
-    // Dar tiempo para que las validaciones se procesen
     setTimeout(() => {
-      // Verificar si hay errores antes de enviar
       const hasErrors = Object.values(errors).some(
         (error) => error !== null && error !== undefined
       );
@@ -68,7 +64,7 @@ export const AddMovieForm: React.FC<AddMovieFormProps> = ({
   return (
     <form className={styles.addMovieForm} onSubmit={handleSubmit}>
       <MovieFormRow
-        label={texts.addMovie.form.title}
+        label={getAddMovieFormText('title')}
         required
         errors={errors.title}
       >
@@ -80,12 +76,12 @@ export const AddMovieForm: React.FC<AddMovieFormProps> = ({
           value={formData.title}
           onChange={(e) => onFieldChange('title', e.target.value)}
           onBlur={(e) => onFieldChange('title', e.target.value)}
-          placeholder={texts.addMovie.form.titlePlaceholder}
+          placeholder={getAddMovieFormText('titlePlaceholder')}
           disabled={isSubmitting}
         />
       </MovieFormRow>
       <MovieFormRow
-        label={texts.addMovie.form.director}
+        label={getAddMovieFormText('director')}
         required
         errors={errors.director}
       >
@@ -97,13 +93,13 @@ export const AddMovieForm: React.FC<AddMovieFormProps> = ({
           value={formData.director}
           onChange={(e) => onFieldChange('director', e.target.value)}
           onBlur={(e) => onFieldChange('director', e.target.value)}
-          placeholder={texts.addMovie.form.directorPlaceholder}
+          placeholder={getAddMovieFormText('directorPlaceholder')}
           disabled={isSubmitting}
         />
       </MovieFormRow>
 
       <MovieFormRow
-        label={texts.addMovie.form.releaseYear}
+        label={getAddMovieFormText('releaseYear')}
         required
         errors={errors.releaseYear}
       >
@@ -126,7 +122,7 @@ export const AddMovieForm: React.FC<AddMovieFormProps> = ({
       </MovieFormRow>
 
       <MovieFormRow
-        label={texts.addMovie.form.genre}
+        label={getAddMovieFormText('genre')}
         required
         errors={errors.genre}
       >
@@ -139,7 +135,7 @@ export const AddMovieForm: React.FC<AddMovieFormProps> = ({
           onBlur={(e) => onFieldChange('genre', e.target.value)}
           disabled={isSubmitting}
         >
-          <option value="">{texts.addMovie.form.genreSelect}</option>
+          <option value="">{getAddMovieFormText('genreSelect')}</option>
           {GENRE_OPTIONS.map((genre) => (
             <option key={genre} value={genre}>
               {genre}
@@ -149,7 +145,7 @@ export const AddMovieForm: React.FC<AddMovieFormProps> = ({
       </MovieFormRow>
 
       <MovieFormRow
-        label={texts.addMovie.form.rating}
+        label={getAddMovieFormText('rating')}
         required
         errors={errors.rating}
       >
@@ -164,97 +160,28 @@ export const AddMovieForm: React.FC<AddMovieFormProps> = ({
             onFieldChange('rating', value === '' ? '' : parseFloat(value));
           }}
           onBlur={(e) => {
-            const value = e.target.value;
-            onFieldChange('rating', value === '' ? '' : parseFloat(value));
-          }}
-          disabled={isSubmitting}
-        />
-      </MovieFormRow>
-
-      <MovieFormRow
-        label={texts.addMovie.form.releaseYear}
-        required
-        errors={errors.releaseYear}
-      >
-        <input
-          id="releaseYear"
-          name="releaseYear"
-          type="number"
-          className={`${styles.formInput} ${errors.releaseYear ? styles.error : ''}`}
-          value={formData.releaseYear}
-          onChange={(e) => {
-            const value = e.target.value;
-            onFieldChange('releaseYear', value === '' ? '' : parseInt(value));
-          }}
-          onBlur={(e) => {
-            const value = e.target.value;
-            onFieldChange('releaseYear', value === '' ? '' : parseInt(value));
-          }}
-          disabled={isSubmitting}
-        />
-      </MovieFormRow>
-
-      <MovieFormRow
-        label={texts.addMovie.form.genre}
-        required
-        errors={errors.genre}
-      >
-        <select
-          id="genre"
-          name="genre"
-          className={`${styles.formSelect} ${errors.genre ? styles.error : ''}`}
-          value={formData.genre}
-          onChange={(e) => onFieldChange('genre', e.target.value)}
-          onBlur={(e) => onFieldChange('genre', e.target.value)}
-          disabled={isSubmitting}
-        >
-          <option value="">{texts.addMovie.form.genreSelect}</option>
-          {GENRE_OPTIONS.map((genre) => (
-            <option key={genre} value={genre}>
-              {genre}
-            </option>
-          ))}
-        </select>
-      </MovieFormRow>
-
-      <MovieFormRow
-        label={texts.addMovie.form.rating}
-        required
-        errors={errors.rating}
-      >
-        <input
-          id="rating"
-          name="rating"
-          type="number"
-          className={`${styles.formInput} ${errors.rating ? styles.error : ''}`}
-          value={formData.rating}
-          onChange={(e) => {
             const value = e.target.value;
             onFieldChange('rating', value === '' ? '' : parseFloat(value));
           }}
           min="0"
           max="10"
           step="0.1"
+          placeholder={getAddMovieFormText('ratingPlaceholder')}
           disabled={isSubmitting}
-          onBlur={(e) => {
-            const value = e.target.value;
-            onFieldChange('rating', value === '' ? '' : parseFloat(value));
-          }}
-          placeholder={texts.addMovie.form.ratingPlaceholder}
         />
       </MovieFormRow>
 
       <MovieFormRow
-        label={texts.addMovie.form.isFavorite}
+        label={getAddMovieFormText('isFavorite')}
         errors={errors.isFavorite}
       >
         <input
+          className={styles.formCheckbox}
           type="checkbox"
           checked={formData.isFavorite || false}
           onChange={(e) => onFieldChange('isFavorite', e.target.checked)}
           disabled={isSubmitting}
         />
-        {texts.addMovie.form.isFavorite}
       </MovieFormRow>
 
       <div className={styles.formActions}>
@@ -264,7 +191,7 @@ export const AddMovieForm: React.FC<AddMovieFormProps> = ({
           onClick={onCancel}
           disabled={isSubmitting}
         >
-          {texts.addMovie.actions.cancel}
+          {getAddMovieActionsText('cancel')}
         </button>
         <button
           type="submit"
@@ -272,8 +199,8 @@ export const AddMovieForm: React.FC<AddMovieFormProps> = ({
           disabled={isSubmitting}
         >
           {isSubmitting
-            ? texts.addMovie.actions.saving
-            : texts.addMovie.actions.save}
+            ? getAddMovieActionsText('saving')
+            : getAddMovieActionsText('save')}
         </button>
       </div>
     </form>

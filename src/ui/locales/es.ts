@@ -9,6 +9,17 @@ export const TEXTS = {
     title: 'Detalle de Película',
     notFound: 'Película no encontrada',
     loading: 'Cargando...',
+    fields: {
+      director: 'Director',
+      releaseYear: 'Año de Estreno',
+      genre: 'Género',
+      favorite: 'Favorito',
+      rating: '/ 10',
+    },
+    favoriteStatus: {
+      yes: 'Sí',
+      no: 'No',
+    },
   },
 
   search: {
@@ -60,6 +71,11 @@ export const TEXTS = {
     error: 'Ha ocurrido un error',
     retry: 'Reintentar',
     back: 'Volver',
+  },
+
+  navigation: {
+    previous: 'Anterior',
+    next: 'Siguiente',
   },
 
   badge: {
@@ -134,6 +150,9 @@ export type TextKeys = typeof TEXTS;
 export type TextPath = keyof TextKeys;
 export type HomeTextKeys = keyof TextKeys['home'];
 export type MovieDetailTextKeys = keyof TextKeys['movieDetail'];
+export type MovieDetailFieldsTextKeys = keyof TextKeys['movieDetail']['fields'];
+export type MovieDetailFavoriteStatusTextKeys =
+  keyof TextKeys['movieDetail']['favoriteStatus'];
 export type SearchTextKeys = keyof TextKeys['search'];
 export type OrderTextKeys = keyof TextKeys['order'];
 export type FilterTextKeys = keyof TextKeys['filter'];
@@ -141,4 +160,5 @@ export type AddMovieTextKeys = keyof TextKeys['addMovie'];
 export type EditMovieTextKeys = keyof TextKeys['editMovie'];
 export type DeleteMovieTextKeys = keyof TextKeys['deleteMovie'];
 export type CommonTextKeys = keyof TextKeys['common'];
+export type NavigationTextKeys = keyof TextKeys['navigation'];
 export type MetaTextKeys = keyof TextKeys['meta'];

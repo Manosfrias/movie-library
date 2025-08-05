@@ -51,3 +51,9 @@
 .criteriaSelector:hover {
   border-color: var(--color-border-hover);
 }
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+}

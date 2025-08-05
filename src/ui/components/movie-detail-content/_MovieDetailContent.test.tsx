@@ -39,23 +39,23 @@ describe('MovieDetailContent', () => {
   it('should show favorite status when movie is favorite', () => {
     renderWithProvider(<MovieDetailContent movie={mockMovie} />);
 
-    expect(screen.getByText('Yes')).toBeInTheDocument();
+    expect(screen.getByText('Sí')).toBeInTheDocument();
   });
 
   it('should not show favorite status when movie is not favorite', () => {
     renderWithProvider(<MovieDetailContent movie={mockNonFavoriteMovie} />);
 
     expect(screen.getByText('No')).toBeInTheDocument();
-    expect(screen.queryByText('Yes')).not.toBeInTheDocument();
+    expect(screen.queryByText('Sí')).not.toBeInTheDocument();
   });
 
   it('should render all basic information sections', () => {
     renderWithProvider(<MovieDetailContent movie={mockMovie} />);
 
     expect(screen.getByText('Director')).toBeInTheDocument();
-    expect(screen.getByText('Release Year')).toBeInTheDocument();
-    expect(screen.getByText('Genre')).toBeInTheDocument();
-    expect(screen.getByText('Favorite')).toBeInTheDocument();
+    expect(screen.getByText('Año de Estreno')).toBeInTheDocument();
+    expect(screen.getByText('Género')).toBeInTheDocument();
+    expect(screen.getByText('Favorito')).toBeInTheDocument();
   });
 
   it('should render rating with correct format', () => {

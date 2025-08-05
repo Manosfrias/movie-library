@@ -11,7 +11,12 @@ interface MovieDetailContentProps {
 
 export default function MovieDetailContent({ movie }: MovieDetailContentProps) {
   const { updateMovie, deleteMovie, loading } = useMovies();
-  const { texts } = useTexts();
+  const {
+    texts,
+    getMovieDetailFieldText,
+    getMovieDetailFavoriteStatusText,
+    getGenreText,
+  } = useTexts();
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [editData, setEditData] = useState({
@@ -92,7 +97,9 @@ export default function MovieDetailContent({ movie }: MovieDetailContentProps) {
               <span className={styles.ratingValue}>
                 {movie.rating.toFixed(1)}
               </span>
-              <span className={styles.ratingLabel}>/ 10</span>
+              <span className={styles.ratingLabel}>
+                {getMovieDetailFieldText('rating')}
+              </span>
             </>
           )}
         </div>
@@ -101,7 +108,9 @@ export default function MovieDetailContent({ movie }: MovieDetailContentProps) {
       <section className={styles.basicInfo}>
         <div className={styles.infoGrid}>
           <div className={styles.infoItem}>
-            <span className={styles.infoLabel}>Director</span>
+            <span className={styles.infoLabel}>
+              {getMovieDetailFieldText('director')}
+            </span>
             {isEditing ? (
               <input
                 type="text"
@@ -114,7 +123,9 @@ export default function MovieDetailContent({ movie }: MovieDetailContentProps) {
             )}
           </div>
           <div className={styles.infoItem}>
-            <span className={styles.infoLabel}>Release Year</span>
+            <span className={styles.infoLabel}>
+              {getMovieDetailFieldText('releaseYear')}
+            </span>
             {isEditing ? (
               <input
                 type="number"
@@ -134,29 +145,35 @@ export default function MovieDetailContent({ movie }: MovieDetailContentProps) {
             )}
           </div>
           <div className={styles.infoItem}>
-            <span className={styles.infoLabel}>Genre</span>
+            <span className={styles.infoLabel}>
+              {getMovieDetailFieldText('genre')}
+            </span>
             {isEditing ? (
               <select
                 value={editData.genre}
                 onChange={(e) => handleInputChange('genre', e.target.value)}
                 className={styles.infoSelect}
               >
-                <option value="Action">Action</option>
-                <option value="Adventure">Adventure</option>
-                <option value="Comedy">Comedy</option>
-                <option value="Crime">Crime</option>
-                <option value="Drama">Drama</option>
-                <option value="Horror">Horror</option>
-                <option value="Romance">Romance</option>
-                <option value="Sci-Fi">Sci-Fi</option>
-                <option value="Thriller">Thriller</option>
+                <option value="Action">{getGenreText('Action')}</option>
+                <option value="Adventure">{getGenreText('Adventure')}</option>
+                <option value="Comedy">{getGenreText('Comedy')}</option>
+                <option value="Crime">{getGenreText('Crime')}</option>
+                <option value="Drama">{getGenreText('Drama')}</option>
+                <option value="Horror">{getGenreText('Horror')}</option>
+                <option value="Romance">{getGenreText('Romance')}</option>
+                <option value="Sci-Fi">{getGenreText('Sci-Fi')}</option>
+                <option value="Thriller">{getGenreText('Thriller')}</option>
               </select>
             ) : (
-              <span className={styles.genreTag}>{movie.genre}</span>
+              <span className={styles.genreTag}>
+                {getGenreText(movie.genre as keyof typeof texts.genres)}
+              </span>
             )}
           </div>
           <div className={styles.infoItem}>
-            <span className={styles.infoLabel}>Favorite</span>
+            <span className={styles.infoLabel}>
+              {getMovieDetailFieldText('favorite')}
+            </span>
             {isEditing ? (
               <input
                 type="checkbox"
@@ -168,7 +185,9 @@ export default function MovieDetailContent({ movie }: MovieDetailContentProps) {
               />
             ) : (
               <span className={styles.infoValue}>
-                {movie.favorite ? 'Yes' : 'No'}
+                {movie.favorite
+                  ? getMovieDetailFavoriteStatusText('yes')
+                  : getMovieDetailFavoriteStatusText('no')}
               </span>
             )}
           </div>

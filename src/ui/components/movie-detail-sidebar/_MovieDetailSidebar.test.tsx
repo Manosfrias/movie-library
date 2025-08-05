@@ -17,27 +17,27 @@ describe('MovieDetailSidebar', () => {
   it('should render previous movie link when provided', () => {
     render(<MovieDetailSidebar previousMovieId="1" />);
 
-    expect(screen.getByText('Previous')).toBeInTheDocument();
-    const previousLink = screen.getByRole('link', { name: 'Previous' });
+    expect(screen.getByText('Anterior')).toBeInTheDocument();
+    const previousLink = screen.getByRole('link', { name: 'Anterior' });
     expect(previousLink).toHaveAttribute('href', '/1');
   });
 
   it('should render next movie link when provided', () => {
     render(<MovieDetailSidebar nextMovieId="2" />);
 
-    expect(screen.getByText('Next')).toBeInTheDocument();
-    const nextLink = screen.getByRole('link', { name: 'Next' });
+    expect(screen.getByText('Siguiente')).toBeInTheDocument();
+    const nextLink = screen.getByRole('link', { name: 'Siguiente' });
     expect(nextLink).toHaveAttribute('href', '/2');
   });
 
   it('should render both previous and next links when both are provided', () => {
     render(<MovieDetailSidebar previousMovieId="1" nextMovieId="3" />);
 
-    expect(screen.getByText('Previous')).toBeInTheDocument();
-    expect(screen.getByText('Next')).toBeInTheDocument();
+    expect(screen.getByText('Anterior')).toBeInTheDocument();
+    expect(screen.getByText('Siguiente')).toBeInTheDocument();
 
-    const previousLink = screen.getByRole('link', { name: 'Previous' });
-    const nextLink = screen.getByRole('link', { name: 'Next' });
+    const previousLink = screen.getByRole('link', { name: 'Anterior' });
+    const nextLink = screen.getByRole('link', { name: 'Siguiente' });
 
     expect(previousLink).toHaveAttribute('href', '/1');
     expect(nextLink).toHaveAttribute('href', '/3');
@@ -58,12 +58,12 @@ describe('MovieDetailSidebar', () => {
     const { rerender } = render(<MovieDetailSidebar previousMovieId="1" />);
 
     // Should have navigation section
-    expect(screen.getByText('Previous')).toBeInTheDocument();
+    expect(screen.getByText('Anterior')).toBeInTheDocument();
 
     // Re-render with no IDs
     rerender(<MovieDetailSidebar />);
 
-    expect(screen.queryByText('Previous')).not.toBeInTheDocument();
-    expect(screen.queryByText('Next')).not.toBeInTheDocument();
+    expect(screen.queryByText('Anterior')).not.toBeInTheDocument();
+    expect(screen.queryByText('Siguiente')).not.toBeInTheDocument();
   });
 });

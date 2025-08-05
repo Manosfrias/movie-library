@@ -6,10 +6,9 @@
   max-width: 500px;
 }
 
-.formRow {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-2);
+.formCheckbox {
+  display: block;
+  width: 13px;
 }
 
 .formLabel {

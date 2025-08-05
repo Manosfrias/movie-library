@@ -28,12 +28,16 @@
   color: var(--color-primary);
   line-height: var(--line-height-tight);
 }
+@media (max-width: 1024px) {
+  .title {
+    font-size: var(--font-size-xl);
+  }
+  .container {
+    grid-template-columns: 1fr 3fr;
+  }
+}
 
 @media (max-width: 768px) {
-  .title {
-    font-size: var(--font-size-2xl);
-  }
-
   .container {
     grid-template-columns: 1fr;
     padding: var(--spacing-6);

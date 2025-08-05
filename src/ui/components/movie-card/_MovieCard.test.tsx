@@ -51,7 +51,7 @@ describe('MovieCard', () => {
 
     expect(screen.getByText('The Matrix')).toBeInTheDocument();
     expect(screen.getByText('1999')).toBeInTheDocument();
-    expect(screen.getByText('Sci-Fi')).toBeInTheDocument();
+    expect(screen.getByText('Ciencia Ficción')).toBeInTheDocument();
     expect(
       screen.getByText((content, element) => {
         return element?.textContent === 'Dir. The Wachowskis';
