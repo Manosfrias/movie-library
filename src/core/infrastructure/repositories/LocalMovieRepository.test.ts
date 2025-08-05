@@ -270,7 +270,7 @@ describe('LocalMovieRepository', () => {
       ];
       localStorageMock.getItem.mockReturnValue(JSON.stringify(existingMovies));
       const testRepo = createLocalMovieRepository();
-      
+
       const updatedData = { ...mockMovie, title: 'Updated Title', rating: 9.0 };
 
       const result = await testRepo.update('test-123', updatedData);
@@ -300,7 +300,7 @@ describe('LocalMovieRepository', () => {
       ];
       localStorageMock.getItem.mockReturnValue(JSON.stringify(existingMovies));
       const testRepo = createLocalMovieRepository();
-      
+
       const partialUpdate = {
         ...mockMovie,
         title: 'Partially Updated',
@@ -322,7 +322,7 @@ describe('LocalMovieRepository', () => {
       ];
       localStorageMock.getItem.mockReturnValue(JSON.stringify(existingMovies));
       const testRepo = createLocalMovieRepository();
-      
+
       const updateWithNewId = { ...mockMovie, id: 'changed-id' };
 
       const result = await testRepo.update('test-123', updateWithNewId);
@@ -337,7 +337,7 @@ describe('LocalMovieRepository', () => {
       ];
       localStorageMock.getItem.mockReturnValue(JSON.stringify(existingMovies));
       const testRepo = createLocalMovieRepository();
-      
+
       localStorageMock.setItem.mockImplementation(() => {
         throw new Error('Storage error');
       });
@@ -409,7 +409,7 @@ describe('LocalMovieRepository', () => {
       ];
       localStorageMock.getItem.mockReturnValue(JSON.stringify(existingMovies));
       const testRepo = createLocalMovieRepository();
-      
+
       localStorageMock.setItem.mockImplementation(() => {
         throw new Error('Storage error');
       });
@@ -445,7 +445,9 @@ describe('LocalMovieRepository', () => {
         localStorageMock.setItem.mockImplementation(() => {
           throw new Error('Storage error');
         });
-        const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+        const consoleSpy = vi
+          .spyOn(console, 'warn')
+          .mockImplementation(() => {});
 
         await repository.clear();
 
