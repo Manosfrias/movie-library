@@ -1,7 +1,7 @@
-import type { MovieRepository } from '../../models/repository';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import type { MovieRepository } from '@/core/models/repository';
 
-vi.mock('../../../../config/env', () => ({
+vi.mock('@/config/env', () => ({
   default: {
     isDevelopment: true,
     api: {
@@ -10,7 +10,7 @@ vi.mock('../../../../config/env', () => ({
   },
 }));
 
-vi.mock('../http/ApiConfig', () => ({
+vi.mock('@/core/infrastructure/http/ApiConfig', () => ({
   apiConfig: {
     baseURL: 'http://localhost:3000/api',
     timeout: 5000,
@@ -19,7 +19,7 @@ vi.mock('../http/ApiConfig', () => ({
   },
 }));
 
-vi.mock('../http/HttpClient', () => ({
+vi.mock('@/core/infrastructure/http/HttpClient', () => ({
   FetchHttpClient: vi.fn().mockImplementation(() => ({
     get: vi.fn(),
     post: vi.fn(),
@@ -28,7 +28,7 @@ vi.mock('../http/HttpClient', () => ({
   })),
 }));
 
-vi.mock('./localMovieRepository', () => ({
+vi.mock('@/core/infrastructure/repositories/localMovieRepository', () => ({
   createLocalMovieRepository: vi.fn().mockReturnValue({
     findAll: vi.fn(),
     findById: vi.fn(),
@@ -38,7 +38,7 @@ vi.mock('./localMovieRepository', () => ({
   }),
 }));
 
-vi.mock('./mockApiMovieRepository', () => ({
+vi.mock('@/core/infrastructure/repositories/mockApiMovieRepository', () => ({
   createMockApiMovieRepository: vi.fn().mockReturnValue({
     findAll: vi.fn(),
     findById: vi.fn(),
@@ -83,10 +83,10 @@ describe('RepositoryFactory', () => {
     };
 
     const { createLocalMovieRepository } = await import(
-      './localMovieRepository'
+      '@/core/infrastructure/repositories/localMovieRepository'
     );
     const { createMockApiMovieRepository } = await import(
-      './mockApiMovieRepository'
+      '@/core/infrastructure/repositories/mockApiMovieRepository'
     );
 
     vi.mocked(createLocalMovieRepository).mockReturnValue(mockLocalRepository);
@@ -148,7 +148,7 @@ describe('RepositoryFactory', () => {
 
     it('should use local repository when API URL is not configured', async () => {
       // Mock config without API URL
-      vi.doMock('../../../../config/env', () => ({
+      vi.doMock('@/config/env', () => ({
         default: {
           isDevelopment: true,
           api: {
@@ -274,7 +274,7 @@ describe('RepositoryFactory', () => {
 
   describe('Environment-based repository selection', () => {
     it('should use API repository in production mode', async () => {
-      vi.doMock('../../../../config/env', () => ({
+      vi.doMock('@/config/env', () => ({
         default: {
           isDevelopment: false,
           api: {
@@ -313,7 +313,7 @@ describe('RepositoryFactory', () => {
 
   describe('HTTP Client creation', () => {
     it('should create HTTP client only once', async () => {
-      const { FetchHttpClient } = await import('../http/HttpClient');
+      const { FetchHttpClient } = await import('@/core/infrastructure/http/HttpClient');
       const { createMovieRepository, resetRepositories } = await import(
         './repositoryFactory'
       );
@@ -326,8 +326,8 @@ describe('RepositoryFactory', () => {
     });
 
     it('should use correct API configuration', async () => {
-      const { FetchHttpClient } = await import('../http/HttpClient');
-      const { apiConfig } = await import('../http/ApiConfig');
+      const { FetchHttpClient } = await import('@/core/infrastructure/http/HttpClient');
+      const { apiConfig } = await import('@/core/infrastructure/http/ApiConfig');
       const { createMovieRepository, resetRepositories } = await import(
         './repositoryFactory'
       );
