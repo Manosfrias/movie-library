@@ -1,6 +1,6 @@
-import { createMovieRepository } from '@/core/infrastructure/repositories/repositoryFactory';
-import type { Movie } from '@/core/models/movie';
-import { createMovieUseCases } from '@/core/use-cases/movieUseCases';
+import { createMovieRepository } from '../../core/infrastructure/repositories/repositoryFactory';
+import type { Movie } from '../../core/models/movie';
+import { createMovieUseCases } from '../../core/use-cases/movieUseCases';
 import { useMemo } from 'react';
 
 export interface MovieService {
