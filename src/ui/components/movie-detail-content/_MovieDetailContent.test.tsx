@@ -1,5 +1,6 @@
+import { MoviesProvider } from '@/ui/context/MoviesContext';
 import { render, screen } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { Movie } from '../../../core/models/movie';
 import MovieDetailContent from './MovieDetailContent';
 
@@ -18,9 +19,17 @@ const mockNonFavoriteMovie: Movie = {
   favorite: false,
 };
 
+const renderWithProvider = (component: React.ReactElement) => {
+  return render(
+    <MoviesProvider>
+      {component}
+    </MoviesProvider>
+  );
+};
+
 describe('MovieDetailContent', () => {
   it('should render movie information correctly', () => {
-    render(<MovieDetailContent movie={mockMovie} />);
+    renderWithProvider(<MovieDetailContent movie={mockMovie} />);
 
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent(
       'The Shawshank Redemption'
@@ -32,19 +41,19 @@ describe('MovieDetailContent', () => {
   });
 
   it('should show favorite badge when movie is favorite', () => {
-    render(<MovieDetailContent movie={mockMovie} />);
+    renderWithProvider(<MovieDetailContent movie={mockMovie} />);
 
     expect(screen.getByText('⭐ Favorite')).toBeInTheDocument();
   });
 
   it('should not show favorite badge when movie is not favorite', () => {
-    render(<MovieDetailContent movie={mockNonFavoriteMovie} />);
+    renderWithProvider(<MovieDetailContent movie={mockNonFavoriteMovie} />);
 
     expect(screen.queryByText('⭐ Favorite')).not.toBeInTheDocument();
   });
 
   it('should render all sections', () => {
-    render(<MovieDetailContent movie={mockMovie} />);
+    renderWithProvider(<MovieDetailContent movie={mockMovie} />);
 
     expect(screen.getByText('Plot Summary')).toBeInTheDocument();
     expect(screen.getByText('Additional Information')).toBeInTheDocument();
@@ -54,14 +63,14 @@ describe('MovieDetailContent', () => {
   });
 
   it('should render rating with correct format', () => {
-    render(<MovieDetailContent movie={mockMovie} />);
+    renderWithProvider(<MovieDetailContent movie={mockMovie} />);
 
     expect(screen.getAllByText('9.3')).toHaveLength(2); // Header y stats
     expect(screen.getByText('/ 10')).toBeInTheDocument();
   });
 
   it('should render statistical cards', () => {
-    render(<MovieDetailContent movie={mockMovie} />);
+    renderWithProvider(<MovieDetailContent movie={mockMovie} />);
 
     expect(screen.getByText('IMDb Rating')).toBeInTheDocument();
     expect(screen.getAllByText('Release Year')).toHaveLength(2);

@@ -17,6 +17,29 @@
   --color-secondary-hover: #9cabc7;
   --color-secondary-light: #e8ecf3;
 
+  /* Estados y acciones */
+  --color-success: #10b981;
+  --color-success-dark: #059669;
+  --color-danger: #ef4444;
+  --color-danger-dark: #dc2626;
+  --color-warning: #f59e0b;
+  --color-info: #3b82f6;
+  --color-white: #ffffff;
+
+  /* Backgrounds adicionales */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f8f9fb;
+  --color-text-primary: #2e3a59;
+  --color-text-secondary: #6b7280;
+
+  /* Radios y espaciados adicionales */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+
   /* Gradientes y sombras */
   --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.05);
   --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.1);

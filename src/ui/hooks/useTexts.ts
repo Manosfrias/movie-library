@@ -29,6 +29,12 @@ export function useTexts() {
       TEXTS.addMovie.actions[key],
     getAddMovieValidationText: (key: keyof typeof TEXTS.addMovie.validation) =>
       TEXTS.addMovie.validation[key],
+    getEditMovieText: (key: keyof typeof TEXTS.editMovie) => TEXTS.editMovie[key],
+    getEditMovieActionsText: (key: keyof typeof TEXTS.editMovie.actions) =>
+      TEXTS.editMovie.actions[key],
+    getDeleteMovieText: (key: keyof typeof TEXTS.deleteMovie) => TEXTS.deleteMovie[key],
+    getDeleteMovieActionsText: (key: keyof typeof TEXTS.deleteMovie.actions) =>
+      TEXTS.deleteMovie.actions[key],
     getCommonText: (key: keyof typeof TEXTS.common) => TEXTS.common[key],
     getMetaText: (key: keyof typeof TEXTS.meta) => TEXTS.meta[key],
   };
@@ -59,6 +65,12 @@ export const getText = {
     TEXTS.addMovie.actions[key],
   addMovieValidation: (key: keyof typeof TEXTS.addMovie.validation) =>
     TEXTS.addMovie.validation[key],
+  editMovie: (key: keyof typeof TEXTS.editMovie) => TEXTS.editMovie[key],
+  editMovieActions: (key: keyof typeof TEXTS.editMovie.actions) =>
+    TEXTS.editMovie.actions[key],
+  deleteMovie: (key: keyof typeof TEXTS.deleteMovie) => TEXTS.deleteMovie[key],
+  deleteMovieActions: (key: keyof typeof TEXTS.deleteMovie.actions) =>
+    TEXTS.deleteMovie.actions[key],
   common: (key: keyof typeof TEXTS.common) => TEXTS.common[key],
   meta: (key: keyof typeof TEXTS.meta) => TEXTS.meta[key],
 };
