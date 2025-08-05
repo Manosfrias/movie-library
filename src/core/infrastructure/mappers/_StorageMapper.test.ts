@@ -11,7 +11,7 @@ import {
   toStorageList,
   validateStorageData,
   validateStorageDataList,
-} from './StorageMapper';
+} from './storageMapper';
 
 describe('StorageMapper', () => {
   const mockMovie: Movie = {

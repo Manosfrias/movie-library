@@ -1,7 +1,7 @@
 import { Movie } from '@/core/models/movie';
 import { describe, expect, it } from 'vitest';
-import { ApiMovieResponse } from './ApiMovie.types';
-import { toApi, toApiUpdate, toDomain, toDomainList } from './MovieMapper';
+import { ApiMovieResponse } from '../../models/apiMovie.types';
+import { toApi, toApiUpdate, toDomain, toDomainList } from './movieMapper';
 
 describe('MovieMapper', () => {
   describe('toDomain', () => {

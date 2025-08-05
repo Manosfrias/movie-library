@@ -5,7 +5,7 @@ import type {
 import type {
   ApiMovieRequest,
   ApiMovieResponse,
-} from '@/core/infrastructure/mappers/ApiMovie.types';
+} from '@/core/models/apiMovie.types';
 import type { Movie } from '@/core/models/movie';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { createMockApiMovieRepository } from './MockApiMovieRepository';

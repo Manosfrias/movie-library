@@ -59,7 +59,6 @@ describe('E2E Flows - Complete User Journeys', () => {
 
       cy.get('a[class*="card"]').first().click();
 
-      
       cy.url().should('match', /\/\d+$/);
       cy.get('h1').should('be.visible');
 

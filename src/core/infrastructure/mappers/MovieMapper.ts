@@ -1,8 +1,5 @@
 import { Movie } from '@/core/models/movie';
-import {
-  ApiMovieRequest,
-  ApiMovieResponse,
-} from '@/core/infrastructure/mappers/ApiMovie.types';
+import { ApiMovieRequest, ApiMovieResponse } from '../../models/apiMovie.types';
 
 export const toDomain = (apiMovie: ApiMovieResponse): Movie => ({
   id: apiMovie.id,

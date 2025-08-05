@@ -1,7 +1,6 @@
 import type { MovieRepository } from '@/core/models/repository';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-// Mock the dependencies
 vi.mock('@/config/env', () => ({
   default: {
     isDevelopment: true,
@@ -59,13 +58,10 @@ describe('RepositoryFactory', () => {
   let mockApiRepository: MovieRepository;
 
   beforeEach(async () => {
-    // Reset environment variables
     delete process.env.NEXT_PUBLIC_USE_LOCAL_REPO;
 
-    // Clear module cache
     vi.clearAllMocks();
 
-    // Mock repositories
     mockLocalRepository = {
       findAll: vi.fn(),
       findById: vi.fn(),
@@ -86,7 +82,6 @@ describe('RepositoryFactory', () => {
       delete: vi.fn(),
     };
 
-    // Update mocks
     const { createLocalMovieRepository } = await import(
       '@/core/infrastructure/repositories/LocalMovieRepository'
     );
@@ -140,7 +135,6 @@ describe('RepositoryFactory', () => {
     it('should use local repository when NEXT_PUBLIC_USE_LOCAL_REPO is true', async () => {
       process.env.NEXT_PUBLIC_USE_LOCAL_REPO = 'true';
 
-      // Re-import to get fresh module with new env var
       vi.resetModules();
       const { createMovieRepository, resetRepositories } = await import(
         './RepositoryFactory'
@@ -246,19 +240,12 @@ describe('RepositoryFactory', () => {
     it('should reset all cached repositories', async () => {
       const { createMovieRepository, resetRepositories, setMovieRepository } =
         await import('./RepositoryFactory');
-
-      // Create and cache repositories
-      const apiRepo1 = createMovieRepository('api');
-      const localRepo1 = createMovieRepository('local');
-
-      // Reset
+      
       resetRepositories();
 
-      // Create new repositories
       const apiRepo2 = createMovieRepository('api');
       const localRepo2 = createMovieRepository('local');
 
-      // Should be new instances
       expect(apiRepo2).toBe(mockApiRepository);
       expect(localRepo2).toBe(mockLocalRepository);
     });
@@ -277,13 +264,10 @@ describe('RepositoryFactory', () => {
 
       setMovieRepository(customRepository, 'api');
 
-      // Verify custom repository is used
       expect(createMovieRepository('api')).toBe(customRepository);
 
-      // Reset
       resetRepositories();
 
-      // Should use default repository again
       expect(createMovieRepository('api')).toBe(mockApiRepository);
     });
   });
@@ -319,11 +303,9 @@ describe('RepositoryFactory', () => {
       );
       resetRepositories();
 
-      // Explicit API type should override environment variable
       const apiRepo = createMovieRepository('api');
       expect(apiRepo).toBe(mockApiRepository);
 
-      // Explicit local type should work
       const localRepo = createMovieRepository('local');
       expect(localRepo).toBe(mockLocalRepository);
     });
@@ -339,11 +321,9 @@ describe('RepositoryFactory', () => {
       );
       resetRepositories();
 
-      // Create multiple API repositories
       createMovieRepository('api');
       createMovieRepository('api');
 
-      // HTTP client should be created only once
       expect(FetchHttpClient).toHaveBeenCalledTimes(1);
     });
 
@@ -372,20 +352,17 @@ describe('RepositoryFactory', () => {
       );
       resetRepositories();
 
-      // @ts-ignore - Testing invalid type
       const repository = createMovieRepository('unknown' as any);
 
       expect(repository).toBe(mockApiRepository);
     });
 
     it('should handle missing dependencies gracefully', async () => {
-      // Test with invalid configuration that should fallback gracefully
-      process.env.NEXT_PUBLIC_API_URL = ''; // Empty URL should trigger fallback
+      process.env.NEXT_PUBLIC_API_URL = '';
 
       const { createMovieRepository } = await import('./RepositoryFactory');
       const repository = createMovieRepository('api');
 
-      // Should fallback to creating API repository even with empty config
       expect(repository).toBeDefined();
       expect(repository).toHaveProperty('findAll');
       expect(repository).toHaveProperty('findById');
