@@ -16,7 +16,7 @@ vi.mock('@/ui/hooks/useMovieService', () => ({
         genre: 'Drama',
         rating: 9.3,
         favorite: true,
-      }
+      },
     ],
     getMovieById: vi.fn(),
     createMovie: vi.fn(),
@@ -24,7 +24,9 @@ vi.mock('@/ui/hooks/useMovieService', () => ({
     deleteMovie: vi.fn(),
     toggleMovieFavorite: vi.fn().mockImplementation((movieId: string) => {
       // Simular actualización de localStorage
-      const favorites = JSON.parse(localStorage.getItem('favoriteMovies') || '[]');
+      const favorites = JSON.parse(
+        localStorage.getItem('favoriteMovies') || '[]'
+      );
       if (!favorites.includes(movieId)) {
         favorites.push(movieId);
         localStorage.setItem('favoriteMovies', JSON.stringify(favorites));
@@ -42,7 +44,7 @@ vi.mock('@/ui/hooks/useMovieService', () => ({
         genre: 'Drama',
         rating: 9.3,
         favorite: true,
-      }
+      },
     ],
     getMovieById: vi.fn(),
     createMovie: vi.fn(),
@@ -50,14 +52,16 @@ vi.mock('@/ui/hooks/useMovieService', () => ({
     deleteMovie: vi.fn(),
     toggleMovieFavorite: vi.fn().mockImplementation((movieId: string) => {
       // Simular actualización de localStorage
-      const favorites = JSON.parse(localStorage.getItem('favoriteMovies') || '[]');
+      const favorites = JSON.parse(
+        localStorage.getItem('favoriteMovies') || '[]'
+      );
       if (!favorites.includes(movieId)) {
         favorites.push(movieId);
         localStorage.setItem('favoriteMovies', JSON.stringify(favorites));
       }
       return Promise.resolve();
     }),
-  })
+  }),
 }));
 
 // Componente de ayuda para tests que necesitan esperar la carga
@@ -102,7 +106,7 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
     renderMovieDetailPage('1');
 
     expect(screen.getByRole('main')).toBeInTheDocument();
-    
+
     // Usar waitFor en lugar de setTimeout
     await waitFor(() => {
       const main = screen.getByRole('main');
@@ -129,7 +133,7 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
 
     // Verificar elementos comunes en detalles de película
     expect(screen.getByText(/Director/i)).toBeInTheDocument();
-    
+
     // Usar getAllByText para obtener todos los elementos con 1994 y tomar el primero
     const yearTexts = screen.getAllByText(/\d{4}/);
     expect(yearTexts.length).toBeGreaterThan(0);
@@ -155,7 +159,7 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
     // Cambiar el estado del checkbox (inicialmente está marcado como favorito)
     const favoriteCheckbox = screen.getByRole('checkbox') as HTMLInputElement;
     expect(favoriteCheckbox.checked).toBe(true);
-    
+
     await user.click(favoriteCheckbox);
     expect(favoriteCheckbox.checked).toBe(false);
 
@@ -180,7 +184,9 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
     });
 
     // Verificar elementos específicos del sidebar
-    const favoriteButton = screen.getByRole('button', { name: /Add to Favorites/i });
+    const favoriteButton = screen.getByRole('button', {
+      name: /Add to Favorites/i,
+    });
     expect(favoriteButton).toBeInTheDocument();
   });
 
@@ -210,7 +216,9 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
     });
 
     // Verificar funcionalidad básica
-    const favoriteButton = screen.getByRole('button', { name: /Add to Favorites/i });
+    const favoriteButton = screen.getByRole('button', {
+      name: /Add to Favorites/i,
+    });
     expect(favoriteButton).toBeInTheDocument();
     expect(favoriteButton).toBeEnabled();
   });
@@ -223,16 +231,22 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
     expect(localStorage).toBeDefined();
 
     await waitFor(() => {
-      const favoriteButton = screen.getByRole('button', { name: /Add to Favorites/i });
+      const favoriteButton = screen.getByRole('button', {
+        name: /Add to Favorites/i,
+      });
       expect(favoriteButton).toBeInTheDocument();
     });
 
-    const favoriteButton = screen.getByRole('button', { name: /Add to Favorites/i });
+    const favoriteButton = screen.getByRole('button', {
+      name: /Add to Favorites/i,
+    });
     await user.click(favoriteButton);
 
     // Verificar que localStorage se actualiza
     await waitFor(() => {
-      const favorites = JSON.parse(localStorage.getItem('favoriteMovies') || '[]');
+      const favorites = JSON.parse(
+        localStorage.getItem('favoriteMovies') || '[]'
+      );
       expect(Array.isArray(favorites)).toBe(true);
     });
   });

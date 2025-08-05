@@ -67,10 +67,13 @@ describe('RootLayout Integration Tests - Real Services Integration', () => {
     expect(screen.getByRole('main')).toBeInTheDocument();
     expect(screen.getByText('Mi Filmoteca')).toBeInTheDocument();
 
-    await waitFor(() => {
-      const movieCards = screen.getAllByRole('article');
-      expect(movieCards.length).toBeGreaterThan(0);
-    }, { timeout: 3000 });
+    await waitFor(
+      () => {
+        const movieCards = screen.getAllByRole('article');
+        expect(movieCards.length).toBeGreaterThan(0);
+      },
+      { timeout: 3000 }
+    );
   });
 
   it('should handle navigation interactions within layout', async () => {
@@ -94,7 +97,7 @@ describe('RootLayout Integration Tests - Real Services Integration', () => {
     expect(localStorage).toBeDefined();
     expect(typeof localStorage.setItem).toBe('function');
     expect(typeof localStorage.getItem).toBe('function');
-    
+
     expect(() => {
       localStorage.setItem('layout-test', 'value');
       localStorage.removeItem('layout-test');
@@ -106,11 +109,11 @@ describe('RootLayout Integration Tests - Real Services Integration', () => {
 
     expect(document.documentElement).toBeInTheDocument();
     expect(screen.getByRole('main')).toBeInTheDocument();
-    
+
     const buttons = screen.getAllByRole('button');
     expect(buttons.length).toBeGreaterThan(0);
-    
-    buttons.forEach(button => {
+
+    buttons.forEach((button) => {
       expect(button).toBeEnabled();
     });
   });
@@ -137,13 +140,15 @@ describe('RootLayout Integration Tests - Real Services Integration', () => {
     renderRootLayoutWithHomePage();
 
     expect(screen.getByRole('main')).toBeInTheDocument();
-    
+
     await waitFor(() => {
       const movieCards = screen.getAllByRole('article');
       expect(movieCards.length).toBeGreaterThan(0);
     });
 
-    const addButton = screen.getByRole('button', { name: 'Añadir nueva película' });
+    const addButton = screen.getByRole('button', {
+      name: 'Añadir nueva película',
+    });
     expect(addButton).toBeInTheDocument();
     expect(addButton).toBeEnabled();
   });

@@ -25,16 +25,21 @@ describe('HomePage Integration Tests - Real Services Integration', () => {
     expect(screen.getByRole('main')).toBeInTheDocument();
     expect(screen.getByText('Mi Filmoteca')).toBeInTheDocument();
 
-    await waitFor(() => {
-      const movieCards = screen.getAllByRole('article');
-      expect(movieCards.length).toBeGreaterThan(0);
-    }, { timeout: 3000 });
+    await waitFor(
+      () => {
+        const movieCards = screen.getAllByRole('article');
+        expect(movieCards.length).toBeGreaterThan(0);
+      },
+      { timeout: 3000 }
+    );
   });
 
   it('should display search functionality and work with real data', async () => {
     renderHomePage();
 
-    expect(screen.getByPlaceholderText('Buscar películas...')).toBeInTheDocument();
+    expect(
+      screen.getByPlaceholderText('Buscar películas...')
+    ).toBeInTheDocument();
     expect(screen.getAllByText('Por Título')).toHaveLength(2);
     expect(screen.getAllByText('Por Director')).toHaveLength(2);
 
@@ -64,7 +69,9 @@ describe('HomePage Integration Tests - Real Services Integration', () => {
       expect(movieCards.length).toBeGreaterThan(0);
     });
 
-    const sortByRating = screen.getByRole('button', { name: 'Por Calificación' });
+    const sortByRating = screen.getByRole('button', {
+      name: 'Por Calificación',
+    });
     await user.click(sortByRating);
 
     await waitFor(() => {
@@ -82,7 +89,7 @@ describe('HomePage Integration Tests - Real Services Integration', () => {
     await waitFor(() => {
       const asideSection = screen.getByRole('complementary');
       expect(asideSection).toBeInTheDocument();
-      
+
       const movieCards = screen.getAllByRole('article');
       expect(movieCards.length).toBeGreaterThan(0);
     });
@@ -124,7 +131,7 @@ describe('HomePage Integration Tests - Real Services Integration', () => {
     expect(typeof localStorage.getItem).toBe('function');
     expect(typeof localStorage.removeItem).toBe('function');
     expect(typeof localStorage.clear).toBe('function');
-    
+
     expect(() => {
       localStorage.setItem('test-key', 'test-value');
       localStorage.removeItem('test-key');
@@ -134,7 +141,9 @@ describe('HomePage Integration Tests - Real Services Integration', () => {
   it('should display add movie button and be interactive', () => {
     renderHomePage();
 
-    const addButton = screen.getByRole('button', { name: 'Añadir nueva película' });
+    const addButton = screen.getByRole('button', {
+      name: 'Añadir nueva película',
+    });
     expect(addButton).toBeInTheDocument();
     expect(addButton).toBeEnabled();
   });
@@ -143,11 +152,11 @@ describe('HomePage Integration Tests - Real Services Integration', () => {
     renderHomePage();
 
     expect(screen.getByRole('main')).toBeInTheDocument();
-    
+
     const buttons = screen.getAllByRole('button');
     expect(buttons.length).toBeGreaterThan(0);
-    
-    buttons.forEach(button => {
+
+    buttons.forEach((button) => {
       expect(button).toBeEnabled();
     });
 
