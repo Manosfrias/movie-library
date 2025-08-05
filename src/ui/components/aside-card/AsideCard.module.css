@@ -17,7 +17,7 @@
 .arrow {
   font-size: var(--font-size-sm);
   transition: transform 0.2s ease;
-  display: none;
+  display: block;
 }
 
 .arrow.collapsed {
@@ -25,19 +25,25 @@
 }
 
 .list {
-  transition: all 0.3s ease;
-}
-
-.list.hidden {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
+  /* En desktop, siempre visible sin transiciones */
+  max-height: none;
+  overflow: visible;
+  opacity: 1;
 }
 
 /* Solo mostrar toggle en móvil */
 @media (max-width: 768px) {
-  .clickable .arrow {
-    display: block;
+  .list {
+    transition: all 0.3s ease;
+    max-height: 500px; /* Altura máxima para la transición */
+  }
+
+  .list.hidden {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    padding: 0;
+    margin: 0;
   }
 
   .title {
@@ -48,16 +54,6 @@
   .title:hover {
     background-color: var(--color-primary-light, #f3f4f6);
     padding: var(--spacing-2) var(--spacing-3);
-  }
-
-  .list {
-    max-height: 500px; /* Altura máxima para la transición */
-  }
-
-  .list.hidden {
-    max-height: 0;
-    padding: 0;
-    margin: 0;
   }
 }
 

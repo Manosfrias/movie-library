@@ -1,11 +1,32 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import { describe, expect, it, vi } from 'vitest';
+import { fireEvent, render, screen, act } from '@testing-library/react';
+import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 import AsideCard from './AsideCard';
 import styles from './AsideCard.module.css';
+
+// Mock window.innerWidth
+const mockInnerWidth = (width: number) => {
+  Object.defineProperty(window, 'innerWidth', {
+    writable: true,
+    configurable: true,
+    value: width,
+  });
+  
+  // Trigger resize event
+  window.dispatchEvent(new Event('resize'));
+};
 
 describe('AsideCard', () => {
   const mockItems = ['Item 1', 'Item 2', 'Item 3'];
   const mockTitle = 'Test Card';
+
+  beforeEach(() => {
+    // Default to desktop
+    mockInnerWidth(1024);
+  });
+
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
 
   it('should render correctly with title and items', () => {
     render(<AsideCard title={mockTitle} items={mockItems} />);
@@ -48,13 +69,14 @@ describe('AsideCard', () => {
     expect(button).toBeInTheDocument();
   });
 
-  it('should toggle list visibility when title is clicked', () => {
+  it('should toggle list visibility when title is clicked in mobile', () => {
+    mockInnerWidth(500); // Mobile width
     render(<AsideCard title={mockTitle} items={mockItems} />);
 
     const title = screen.getByText(mockTitle);
     const list = title.nextElementSibling;
 
-    // Initially, list should be collapsed (hidden)
+    // Initially, list should be collapsed (hidden) in mobile
     expect(list).toHaveClass(styles.hidden);
 
     // Click title to expand
@@ -65,13 +87,30 @@ describe('AsideCard', () => {
     fireEvent.click(title);
     expect(list).toHaveClass(styles.hidden);
   });
-  it('should handle keyboard interactions for toggle', () => {
+
+  it('should not toggle list visibility when title is clicked in desktop', () => {
+    mockInnerWidth(1024); // Desktop width
     render(<AsideCard title={mockTitle} items={mockItems} />);
 
     const title = screen.getByText(mockTitle);
     const list = title.nextElementSibling;
 
-    // Initially collapsed (hidden)
+    // In desktop, list should always be visible
+    expect(list).not.toHaveClass(styles.hidden);
+
+    // Click title should not change visibility
+    fireEvent.click(title);
+    expect(list).not.toHaveClass(styles.hidden);
+  });
+
+  it('should handle keyboard interactions for toggle in mobile only', () => {
+    mockInnerWidth(500); // Mobile width
+    render(<AsideCard title={mockTitle} items={mockItems} />);
+
+    const title = screen.getByText(mockTitle);
+    const list = title.nextElementSibling;
+
+    // Initially collapsed (hidden) in mobile
     expect(list).toHaveClass(styles.hidden);
 
     // Toggle with Enter key to expand
@@ -83,7 +122,8 @@ describe('AsideCard', () => {
     expect(list).toHaveClass(styles.hidden);
   });
 
-  it('should have proper accessibility attributes', () => {
+  it('should have proper accessibility attributes in mobile', () => {
+    mockInnerWidth(500); // Mobile width
     render(<AsideCard title={mockTitle} items={mockItems} />);
 
     const title = screen.getByText(mockTitle);
@@ -96,5 +136,33 @@ describe('AsideCard', () => {
     // Click to expand
     fireEvent.click(title);
     expect(title).toHaveAttribute('aria-expanded', 'true');
+  });
+
+  it('should not have interactive accessibility attributes in desktop', () => {
+    mockInnerWidth(1024); // Desktop width
+    render(<AsideCard title={mockTitle} items={mockItems} />);
+
+    const title = screen.getByText(mockTitle);
+
+    expect(title).not.toHaveAttribute('role');
+    expect(title).not.toHaveAttribute('tabIndex');
+    expect(title).not.toHaveAttribute('aria-expanded');
+    expect(title).not.toHaveAttribute('aria-controls');
+  });
+
+  it('should show arrow only in mobile', () => {
+    // Test mobile
+    mockInnerWidth(500);
+    const { rerender } = render(<AsideCard title={mockTitle} items={mockItems} />);
+    
+    expect(screen.getByText('▼')).toBeInTheDocument();
+
+    // Test desktop
+    act(() => {
+      mockInnerWidth(1024);
+    });
+    rerender(<AsideCard title={mockTitle} items={mockItems} />);
+    
+    expect(screen.queryByText('▼')).not.toBeInTheDocument();
   });
 });
