@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './AsideCard.module.css';
 import { AsideCardProps } from './AsideCard.types';
 
@@ -33,14 +33,18 @@ export default function AsideCard({
       <h2
         className={`${styles.title} ${isMobile ? styles.clickable : ''}`}
         onClick={handleTitleClick}
-        role={isMobile ? "button" : undefined}
+        role={isMobile ? 'button' : undefined}
         tabIndex={isMobile ? 0 : undefined}
-        onKeyDown={isMobile ? (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            handleTitleClick();
-          }
-        } : undefined}
+        onKeyDown={
+          isMobile
+            ? (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  handleTitleClick();
+                }
+              }
+            : undefined
+        }
         aria-expanded={isMobile ? !isCollapsed : undefined}
         aria-controls={isMobile ? `${title}-list` : undefined}
       >

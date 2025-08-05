@@ -25,17 +25,15 @@
 }
 
 .list {
-  /* En desktop, siempre visible sin transiciones */
   max-height: none;
   overflow: visible;
   opacity: 1;
 }
 
-/* Solo mostrar toggle en móvil */
 @media (max-width: 768px) {
   .list {
     transition: all 0.3s ease;
-    max-height: 500px; /* Altura máxima para la transición */
+    max-height: 500px;
   }
 
   .list.hidden {
