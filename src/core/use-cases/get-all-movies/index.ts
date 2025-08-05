@@ -1,0 +1,1 @@
+export { createGetAllMoviesUseCase } from './GetAllMovies';

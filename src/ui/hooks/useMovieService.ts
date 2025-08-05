@@ -45,11 +45,7 @@ export const useMovieService = (): MovieService => {
       },
 
       toggleMovieFavorite: async (id: string): Promise<Movie | null> => {
-        const movie = await useCases.getMovieById.execute(id);
-        if (!movie) {
-          throw new Error(`Movie with ID ${id} not found`);
-        }
-        return useCases.updateMovie.execute(id, { favorite: !movie.favorite });
+        return useCases.toggleFavorite.execute(id);
       },
     };
   }, []);
@@ -86,12 +82,7 @@ export const createMovieApplicationService = (): MovieService => {
     },
 
     toggleMovieFavorite: async (id: string): Promise<Movie | null> => {
-      const movie = await useCases.getMovieById.execute(id);
-      if (!movie) {
-        throw new Error(`Movie with ID ${id} not found`);
-      }
-
-      return useCases.updateMovie.execute(id, { favorite: !movie.favorite });
+      return useCases.toggleFavorite.execute(id);
     },
   };
 };

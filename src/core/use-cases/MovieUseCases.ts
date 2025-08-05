@@ -5,13 +5,15 @@ import type {
   GetAllMoviesUseCase,
   GetMovieByIdUseCase,
   MovieUseCases,
+  ToggleFavoriteUseCase,
   UpdateMovieUseCase,
 } from '@/core/models/useCases';
-import { createCreateMovieUseCase } from './CreateMovie';
-import { createDeleteMovieUseCase } from './DeleteMovie';
-import { createGetAllMoviesUseCase } from './GetAllMovies';
-import { createGetMovieByIdUseCase } from './GetMovieById';
-import { createUpdateMovieUseCase } from './UpdateMovie';
+import { createCreateMovieUseCase } from './create-movie';
+import { createDeleteMovieUseCase } from './delete-movie';
+import { createGetAllMoviesUseCase } from './get-all-movies';
+import { createGetMovieByIdUseCase } from './get-movie-by-id';
+import { createToggleFavoriteUseCase } from './toggle-favorite';
+import { createUpdateMovieUseCase } from './update-movie';
 
 export const createMovieUseCases = (
   movieRepository: MovieRepository
@@ -21,6 +23,7 @@ export const createMovieUseCases = (
   createMovie: createCreateMovieUseCase(movieRepository),
   updateMovie: createUpdateMovieUseCase(movieRepository),
   deleteMovie: createDeleteMovieUseCase(movieRepository),
+  toggleFavorite: createToggleFavoriteUseCase(movieRepository),
 });
 
 export type {
@@ -29,5 +32,6 @@ export type {
   GetAllMoviesUseCase,
   GetMovieByIdUseCase,
   MovieUseCases,
+  ToggleFavoriteUseCase,
   UpdateMovieUseCase,
 };

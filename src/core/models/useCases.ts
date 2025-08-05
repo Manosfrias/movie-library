@@ -23,10 +23,15 @@ export interface DeleteMovieUseCase {
   execute(id: string): Promise<boolean>;
 }
 
+export interface ToggleFavoriteUseCase {
+  execute(id: string): Promise<Movie | null>;
+}
+
 export interface MovieUseCases {
   getAllMovies: GetAllMoviesUseCase;
   getMovieById: GetMovieByIdUseCase;
   createMovie: CreateMovieUseCase;
   updateMovie: UpdateMovieUseCase;
   deleteMovie: DeleteMovieUseCase;
+  toggleFavorite: ToggleFavoriteUseCase;
 }
