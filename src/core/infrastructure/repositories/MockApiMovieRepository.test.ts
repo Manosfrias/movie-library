@@ -1,8 +1,14 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { createMockApiMovieRepository } from './MockApiMovieRepository';
+import type {
+  HttpClient,
+  HttpResponse,
+} from '@/core/infrastructure/http/HttpClient.types';
+import type {
+  ApiMovieRequest,
+  ApiMovieResponse,
+} from '@/core/infrastructure/mappers/ApiMovie.types';
 import type { Movie } from '@/core/models/movie';
-import type { HttpClient, HttpResponse } from '@/core/infrastructure/http/HttpClient.types';
-import type { ApiMovieResponse, ApiMovieRequest } from '@/core/infrastructure/mappers/ApiMovie.types';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { createMockApiMovieRepository } from './MockApiMovieRepository';
 
 describe('MockApiMovieRepository', () => {
   let mockHttpClient: HttpClient;
@@ -63,7 +69,9 @@ describe('MockApiMovieRepository', () => {
       const mockError = new Error('Network error');
       mockHttpClient.get = vi.fn().mockRejectedValue(mockError);
 
-      await expect(repository.findAll()).rejects.toThrow('Failed to fetch movies: Error: Network error');
+      await expect(repository.findAll()).rejects.toThrow(
+        'Failed to fetch movies: Error: Network error'
+      );
     });
   });
 
@@ -152,14 +160,24 @@ describe('MockApiMovieRepository', () => {
       const mockError = new Error('Creation failed');
       mockHttpClient.post = vi.fn().mockRejectedValue(mockError);
 
-      await expect(repository.create(newMovieData)).rejects.toThrow('Failed to create movie: Error: Creation failed');
+      await expect(repository.create(newMovieData)).rejects.toThrow(
+        'Failed to create movie: Error: Creation failed'
+      );
     });
   });
 
   describe('update', () => {
     it('should update and return movie', async () => {
-      const updatedMovie = { ...mockMovie, title: 'Updated Title', favorite: true };
-      const updatedApiMovie = { ...mockApiMovie, title: 'Updated Title', favorite: true };
+      const updatedMovie = {
+        ...mockMovie,
+        title: 'Updated Title',
+        favorite: true,
+      };
+      const updatedApiMovie = {
+        ...mockApiMovie,
+        title: 'Updated Title',
+        favorite: true,
+      };
 
       const expectedApiPayload: ApiMovieRequest = {
         title: 'Updated Title',
@@ -181,7 +199,10 @@ describe('MockApiMovieRepository', () => {
 
       const result = await repository.update('test-123', updatedMovie);
 
-      expect(mockHttpClient.put).toHaveBeenCalledWith('/test-123', expectedApiPayload);
+      expect(mockHttpClient.put).toHaveBeenCalledWith(
+        '/test-123',
+        expectedApiPayload
+      );
       expect(result).toEqual(updatedMovie);
     });
 
@@ -191,7 +212,10 @@ describe('MockApiMovieRepository', () => {
 
       const result = await repository.update('nonexistent', mockMovie);
 
-      expect(mockHttpClient.put).toHaveBeenCalledWith('/nonexistent', expect.any(Object));
+      expect(mockHttpClient.put).toHaveBeenCalledWith(
+        '/nonexistent',
+        expect.any(Object)
+      );
       expect(result).toBeNull();
     });
 
@@ -331,7 +355,8 @@ describe('MockApiMovieRepository', () => {
         headers: {},
       };
 
-      mockHttpClient.get = vi.fn()
+      mockHttpClient.get = vi
+        .fn()
         .mockResolvedValueOnce(mockResponse1)
         .mockResolvedValueOnce(mockResponse2);
 

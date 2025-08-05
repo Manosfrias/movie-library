@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import type { MovieRepository } from '@/core/models/repository';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 // Mock the dependencies
 vi.mock('@/config/env', () => ({
@@ -61,10 +61,10 @@ describe('RepositoryFactory', () => {
   beforeEach(async () => {
     // Reset environment variables
     delete process.env.NEXT_PUBLIC_USE_LOCAL_REPO;
-    
+
     // Clear module cache
     vi.clearAllMocks();
-    
+
     // Mock repositories
     mockLocalRepository = {
       findAll: vi.fn(),
@@ -87,9 +87,13 @@ describe('RepositoryFactory', () => {
     };
 
     // Update mocks
-    const { createLocalMovieRepository } = await import('@/core/infrastructure/repositories/LocalMovieRepository');
-    const { createMockApiMovieRepository } = await import('@/core/infrastructure/repositories/MockApiMovieRepository');
-    
+    const { createLocalMovieRepository } = await import(
+      '@/core/infrastructure/repositories/LocalMovieRepository'
+    );
+    const { createMockApiMovieRepository } = await import(
+      '@/core/infrastructure/repositories/MockApiMovieRepository'
+    );
+
     vi.mocked(createLocalMovieRepository).mockReturnValue(mockLocalRepository);
     vi.mocked(createMockApiMovieRepository).mockReturnValue(mockApiRepository);
   });
@@ -101,7 +105,9 @@ describe('RepositoryFactory', () => {
 
   describe('createMovieRepository', () => {
     it('should return API repository by default in development', async () => {
-      const { createMovieRepository, resetRepositories } = await import('./RepositoryFactory');
+      const { createMovieRepository, resetRepositories } = await import(
+        './RepositoryFactory'
+      );
       resetRepositories();
 
       const repository = createMovieRepository();
@@ -110,7 +116,9 @@ describe('RepositoryFactory', () => {
     });
 
     it('should return local repository when explicitly requested', async () => {
-      const { createMovieRepository, resetRepositories } = await import('./RepositoryFactory');
+      const { createMovieRepository, resetRepositories } = await import(
+        './RepositoryFactory'
+      );
       resetRepositories();
 
       const repository = createMovieRepository('local');
@@ -119,7 +127,9 @@ describe('RepositoryFactory', () => {
     });
 
     it('should return API repository when explicitly requested', async () => {
-      const { createMovieRepository, resetRepositories } = await import('./RepositoryFactory');
+      const { createMovieRepository, resetRepositories } = await import(
+        './RepositoryFactory'
+      );
       resetRepositories();
 
       const repository = createMovieRepository('api');
@@ -129,10 +139,12 @@ describe('RepositoryFactory', () => {
 
     it('should use local repository when NEXT_PUBLIC_USE_LOCAL_REPO is true', async () => {
       process.env.NEXT_PUBLIC_USE_LOCAL_REPO = 'true';
-      
+
       // Re-import to get fresh module with new env var
       vi.resetModules();
-      const { createMovieRepository, resetRepositories } = await import('./RepositoryFactory');
+      const { createMovieRepository, resetRepositories } = await import(
+        './RepositoryFactory'
+      );
       resetRepositories();
 
       const repository = createMovieRepository();
@@ -152,7 +164,9 @@ describe('RepositoryFactory', () => {
       }));
 
       vi.resetModules();
-      const { createMovieRepository, resetRepositories } = await import('./RepositoryFactory');
+      const { createMovieRepository, resetRepositories } = await import(
+        './RepositoryFactory'
+      );
       resetRepositories();
 
       const repository = createMovieRepository();
@@ -161,7 +175,9 @@ describe('RepositoryFactory', () => {
     });
 
     it('should return same instance on multiple calls (singleton pattern)', async () => {
-      const { createMovieRepository, resetRepositories } = await import('./RepositoryFactory');
+      const { createMovieRepository, resetRepositories } = await import(
+        './RepositoryFactory'
+      );
       resetRepositories();
 
       const repository1 = createMovieRepository('api');
@@ -172,7 +188,9 @@ describe('RepositoryFactory', () => {
     });
 
     it('should handle different repository types independently', async () => {
-      const { createMovieRepository, resetRepositories } = await import('./RepositoryFactory');
+      const { createMovieRepository, resetRepositories } = await import(
+        './RepositoryFactory'
+      );
       resetRepositories();
 
       const apiRepo = createMovieRepository('api');
@@ -186,7 +204,8 @@ describe('RepositoryFactory', () => {
 
   describe('setMovieRepository', () => {
     it('should set custom API repository', async () => {
-      const { createMovieRepository, setMovieRepository, resetRepositories } = await import('./RepositoryFactory');
+      const { createMovieRepository, setMovieRepository, resetRepositories } =
+        await import('./RepositoryFactory');
       resetRepositories();
 
       const customRepository: MovieRepository = {
@@ -204,7 +223,8 @@ describe('RepositoryFactory', () => {
     });
 
     it('should set custom local repository', async () => {
-      const { createMovieRepository, setMovieRepository, resetRepositories } = await import('./RepositoryFactory');
+      const { createMovieRepository, setMovieRepository, resetRepositories } =
+        await import('./RepositoryFactory');
       resetRepositories();
 
       const customRepository: MovieRepository = {
@@ -224,8 +244,9 @@ describe('RepositoryFactory', () => {
 
   describe('resetRepositories', () => {
     it('should reset all cached repositories', async () => {
-      const { createMovieRepository, resetRepositories, setMovieRepository } = await import('./RepositoryFactory');
-      
+      const { createMovieRepository, resetRepositories, setMovieRepository } =
+        await import('./RepositoryFactory');
+
       // Create and cache repositories
       const apiRepo1 = createMovieRepository('api');
       const localRepo1 = createMovieRepository('local');
@@ -243,8 +264,9 @@ describe('RepositoryFactory', () => {
     });
 
     it('should clear custom repositories', async () => {
-      const { createMovieRepository, resetRepositories, setMovieRepository } = await import('./RepositoryFactory');
-      
+      const { createMovieRepository, resetRepositories, setMovieRepository } =
+        await import('./RepositoryFactory');
+
       const customRepository: MovieRepository = {
         findAll: vi.fn(),
         findById: vi.fn(),
@@ -254,7 +276,7 @@ describe('RepositoryFactory', () => {
       };
 
       setMovieRepository(customRepository, 'api');
-      
+
       // Verify custom repository is used
       expect(createMovieRepository('api')).toBe(customRepository);
 
@@ -278,7 +300,9 @@ describe('RepositoryFactory', () => {
       }));
 
       vi.resetModules();
-      const { createMovieRepository, resetRepositories } = await import('./RepositoryFactory');
+      const { createMovieRepository, resetRepositories } = await import(
+        './RepositoryFactory'
+      );
       resetRepositories();
 
       const repository = createMovieRepository();
@@ -288,9 +312,11 @@ describe('RepositoryFactory', () => {
 
     it('should prefer explicit type over environment configuration', async () => {
       process.env.NEXT_PUBLIC_USE_LOCAL_REPO = 'true';
-      
+
       vi.resetModules();
-      const { createMovieRepository, resetRepositories } = await import('./RepositoryFactory');
+      const { createMovieRepository, resetRepositories } = await import(
+        './RepositoryFactory'
+      );
       resetRepositories();
 
       // Explicit API type should override environment variable
@@ -305,8 +331,12 @@ describe('RepositoryFactory', () => {
 
   describe('HTTP Client creation', () => {
     it('should create HTTP client only once', async () => {
-      const { FetchHttpClient } = await import('@/core/infrastructure/http/HttpClient');
-      const { createMovieRepository, resetRepositories } = await import('./RepositoryFactory');
+      const { FetchHttpClient } = await import(
+        '@/core/infrastructure/http/HttpClient'
+      );
+      const { createMovieRepository, resetRepositories } = await import(
+        './RepositoryFactory'
+      );
       resetRepositories();
 
       // Create multiple API repositories
@@ -318,9 +348,15 @@ describe('RepositoryFactory', () => {
     });
 
     it('should use correct API configuration', async () => {
-      const { FetchHttpClient } = await import('@/core/infrastructure/http/HttpClient');
-      const { apiConfig } = await import('@/core/infrastructure/http/ApiConfig');
-      const { createMovieRepository, resetRepositories } = await import('./RepositoryFactory');
+      const { FetchHttpClient } = await import(
+        '@/core/infrastructure/http/HttpClient'
+      );
+      const { apiConfig } = await import(
+        '@/core/infrastructure/http/ApiConfig'
+      );
+      const { createMovieRepository, resetRepositories } = await import(
+        './RepositoryFactory'
+      );
       resetRepositories();
 
       createMovieRepository('api');
@@ -331,7 +367,9 @@ describe('RepositoryFactory', () => {
 
   describe('Error handling', () => {
     it('should fallback to API repository for unknown types', async () => {
-      const { createMovieRepository, resetRepositories } = await import('./RepositoryFactory');
+      const { createMovieRepository, resetRepositories } = await import(
+        './RepositoryFactory'
+      );
       resetRepositories();
 
       // @ts-ignore - Testing invalid type
@@ -343,10 +381,10 @@ describe('RepositoryFactory', () => {
     it('should handle missing dependencies gracefully', async () => {
       // Test with invalid configuration that should fallback gracefully
       process.env.NEXT_PUBLIC_API_URL = ''; // Empty URL should trigger fallback
-      
+
       const { createMovieRepository } = await import('./RepositoryFactory');
       const repository = createMovieRepository('api');
-      
+
       // Should fallback to creating API repository even with empty config
       expect(repository).toBeDefined();
       expect(repository).toHaveProperty('findAll');

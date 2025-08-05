@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { Movie } from '@/core/models/movie';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 // Mock the dependencies
 vi.mock('@/core/data/sampleMovies', () => ({
@@ -11,7 +11,7 @@ vi.mock('@/core/data/sampleMovies', () => ({
       releaseYear: 2023,
       genre: 'Action',
       rating: 8.5,
-      favorite: false
+      favorite: false,
     },
     {
       id: '2',
@@ -20,13 +20,13 @@ vi.mock('@/core/data/sampleMovies', () => ({
       releaseYear: 2024,
       genre: 'Drama',
       rating: 9.0,
-      favorite: true
-    }
-  ] as Movie[]
+      favorite: true,
+    },
+  ] as Movie[],
 }));
 
 vi.mock('@/core/infrastructure/repositories/LocalMovieRepository', () => ({
-  createLocalMovieRepository: vi.fn()
+  createLocalMovieRepository: vi.fn(),
 }));
 
 describe('SampleDataHelper', () => {
@@ -51,8 +51,12 @@ describe('SampleDataHelper', () => {
     consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
 
     // Mock the repository factory
-    const { createLocalMovieRepository } = await import('@/core/infrastructure/repositories/LocalMovieRepository');
-    vi.mocked(createLocalMovieRepository).mockReturnValue(mockLocalRepository as any);
+    const { createLocalMovieRepository } = await import(
+      '@/core/infrastructure/repositories/LocalMovieRepository'
+    );
+    vi.mocked(createLocalMovieRepository).mockReturnValue(
+      mockLocalRepository as any
+    );
 
     // Clear all mocks
     vi.clearAllMocks();
@@ -68,7 +72,7 @@ describe('SampleDataHelper', () => {
     it('should initialize with sample data when repository is empty', async () => {
       // Arrange
       mockLocalRepository.findAll.mockResolvedValue([]);
-      
+
       // Act
       const { initializeWithSampleData } = await import('./SampleDataHelper');
       await initializeWithSampleData();
@@ -76,16 +80,23 @@ describe('SampleDataHelper', () => {
       // Assert
       expect(mockLocalRepository.findAll).toHaveBeenCalledOnce();
       expect(mockLocalRepository.seedWithSample).toHaveBeenCalledOnce();
-      expect(consoleLogSpy).toHaveBeenCalledWith('🎬 Initializing with sample movies...');
+      expect(consoleLogSpy).toHaveBeenCalledWith(
+        '🎬 Initializing with sample movies...'
+      );
     });
 
     it('should not initialize when repository already has movies', async () => {
       // Arrange
       const existingMovies = [
-        { id: '1', title: 'Existing Movie', director: 'Director', releaseYear: 2023 }
+        {
+          id: '1',
+          title: 'Existing Movie',
+          director: 'Director',
+          releaseYear: 2023,
+        },
       ];
       mockLocalRepository.findAll.mockResolvedValue(existingMovies);
-      
+
       // Act
       const { initializeWithSampleData } = await import('./SampleDataHelper');
       await initializeWithSampleData();
@@ -100,7 +111,7 @@ describe('SampleDataHelper', () => {
       // Arrange
       const testError = new Error('Repository error');
       mockLocalRepository.findAll.mockRejectedValue(testError);
-      
+
       // Act
       const { initializeWithSampleData } = await import('./SampleDataHelper');
       await initializeWithSampleData();
@@ -108,7 +119,10 @@ describe('SampleDataHelper', () => {
       // Assert
       expect(mockLocalRepository.findAll).toHaveBeenCalledOnce();
       expect(mockLocalRepository.seedWithSample).not.toHaveBeenCalled();
-      expect(consoleWarnSpy).toHaveBeenCalledWith('Failed to initialize with sample data:', testError);
+      expect(consoleWarnSpy).toHaveBeenCalledWith(
+        'Failed to initialize with sample data:',
+        testError
+      );
     });
 
     it('should handle seedWithSample errors gracefully', async () => {
@@ -118,7 +132,7 @@ describe('SampleDataHelper', () => {
       mockLocalRepository.seedWithSample.mockImplementation(() => {
         throw testError;
       });
-      
+
       // Act
       const { initializeWithSampleData } = await import('./SampleDataHelper');
       await initializeWithSampleData();
@@ -126,7 +140,10 @@ describe('SampleDataHelper', () => {
       // Assert
       expect(mockLocalRepository.findAll).toHaveBeenCalledOnce();
       expect(mockLocalRepository.seedWithSample).toHaveBeenCalledOnce();
-      expect(consoleWarnSpy).toHaveBeenCalledWith('Failed to initialize with sample data:', testError);
+      expect(consoleWarnSpy).toHaveBeenCalledWith(
+        'Failed to initialize with sample data:',
+        testError
+      );
     });
   });
 
@@ -139,7 +156,9 @@ describe('SampleDataHelper', () => {
       // Assert
       expect(mockLocalRepository.clear).toHaveBeenCalledOnce();
       expect(mockLocalRepository.seedWithSample).toHaveBeenCalledOnce();
-      expect(consoleLogSpy).toHaveBeenCalledWith('🔄 Repository reset to sample data');
+      expect(consoleLogSpy).toHaveBeenCalledWith(
+        '🔄 Repository reset to sample data'
+      );
     });
 
     it('should handle clear operation errors gracefully', async () => {
@@ -148,7 +167,7 @@ describe('SampleDataHelper', () => {
       mockLocalRepository.clear.mockImplementation(() => {
         throw testError;
       });
-      
+
       // Act
       const { resetToSampleData } = await import('./SampleDataHelper');
       await resetToSampleData();
@@ -156,7 +175,10 @@ describe('SampleDataHelper', () => {
       // Assert
       expect(mockLocalRepository.clear).toHaveBeenCalledOnce();
       expect(mockLocalRepository.seedWithSample).not.toHaveBeenCalled();
-      expect(consoleWarnSpy).toHaveBeenCalledWith('Failed to reset to sample data:', testError);
+      expect(consoleWarnSpy).toHaveBeenCalledWith(
+        'Failed to reset to sample data:',
+        testError
+      );
     });
 
     it('should handle seedWithSample operation errors gracefully', async () => {
@@ -165,7 +187,7 @@ describe('SampleDataHelper', () => {
       mockLocalRepository.seedWithSample.mockImplementation(() => {
         throw testError;
       });
-      
+
       // Act
       const { resetToSampleData } = await import('./SampleDataHelper');
       await resetToSampleData();
@@ -173,7 +195,10 @@ describe('SampleDataHelper', () => {
       // Assert
       expect(mockLocalRepository.clear).toHaveBeenCalledOnce();
       expect(mockLocalRepository.seedWithSample).toHaveBeenCalledOnce();
-      expect(consoleWarnSpy).toHaveBeenCalledWith('Failed to reset to sample data:', testError);
+      expect(consoleWarnSpy).toHaveBeenCalledWith(
+        'Failed to reset to sample data:',
+        testError
+      );
     });
 
     it('should execute operations in correct order', async () => {
@@ -185,7 +210,7 @@ describe('SampleDataHelper', () => {
       mockLocalRepository.seedWithSample.mockImplementation(() => {
         callOrder.push('seed');
       });
-      
+
       // Act
       const { resetToSampleData } = await import('./SampleDataHelper');
       await resetToSampleData();
@@ -204,18 +229,18 @@ describe('SampleDataHelper', () => {
       // Assert
       expect(movies).toBeDefined();
       expect(Array.isArray(movies)).toBe(true);
-      
+
       // Note: The exact length may vary due to mocking and test isolation
       // but we should have our mocked movies
       expect(movies.length).toBeGreaterThanOrEqual(2);
-      
+
       // Find our test movies in the returned data
       const testMovie1 = movies.find((m: any) => m.id === '1');
       const testMovie2 = movies.find((m: any) => m.id === '2');
-      
+
       expect(testMovie1).toBeDefined();
       expect(testMovie2).toBeDefined();
-      
+
       if (testMovie1) {
         expect(testMovie1).toMatchObject({
           id: '1',
@@ -224,7 +249,7 @@ describe('SampleDataHelper', () => {
           releaseYear: 2023,
           genre: 'Action',
           rating: 8.5,
-          favorite: false
+          favorite: false,
         });
       }
 
@@ -236,7 +261,7 @@ describe('SampleDataHelper', () => {
           releaseYear: 2024,
           genre: 'Drama',
           rating: 9.0,
-          favorite: true
+          favorite: true,
         });
       }
     });
@@ -257,16 +282,16 @@ describe('SampleDataHelper', () => {
       const { getSampleMovies } = await import('./SampleDataHelper');
       const movies = getSampleMovies();
       const originalLength = movies.length;
-      
+
       // Since getSampleMovies returns the direct reference to sampleMovies,
       // modifications would affect the original data in a real scenario
       // This test documents the current behavior
       expect(movies).toBeDefined();
       expect(originalLength).toBeGreaterThanOrEqual(2);
-      
+
       // This behavior is expected since the function returns the direct import
       expect(typeof getSampleMovies).toBe('function');
-      
+
       // Multiple calls return the same reference
       const movies2 = getSampleMovies();
       expect(movies).toBe(movies2);
@@ -277,16 +302,17 @@ describe('SampleDataHelper', () => {
     it('should handle complete workflow: initialize -> reset -> getSample', async () => {
       // Arrange
       mockLocalRepository.findAll.mockResolvedValue([]);
-      
+
       // Act
-      const { initializeWithSampleData, resetToSampleData, getSampleMovies } = await import('./SampleDataHelper');
-      
+      const { initializeWithSampleData, resetToSampleData, getSampleMovies } =
+        await import('./SampleDataHelper');
+
       // Initialize
       await initializeWithSampleData();
-      
+
       // Reset
       await resetToSampleData();
-      
+
       // Get sample data
       const movies = getSampleMovies();
 
@@ -301,17 +327,21 @@ describe('SampleDataHelper', () => {
 
     it('should handle repository creation failures', async () => {
       // Arrange
-      const { createLocalMovieRepository } = await import('@/core/infrastructure/repositories/LocalMovieRepository');
+      const { createLocalMovieRepository } = await import(
+        '@/core/infrastructure/repositories/LocalMovieRepository'
+      );
       vi.mocked(createLocalMovieRepository).mockImplementation(() => {
         throw new Error('Repository creation failed');
       });
-      
+
       // Act & Assert
-      const { initializeWithSampleData, resetToSampleData } = await import('./SampleDataHelper');
-      
+      const { initializeWithSampleData, resetToSampleData } = await import(
+        './SampleDataHelper'
+      );
+
       await expect(initializeWithSampleData()).resolves.not.toThrow();
       await expect(resetToSampleData()).resolves.not.toThrow();
-      
+
       expect(consoleWarnSpy).toHaveBeenCalledTimes(2);
     });
   });
