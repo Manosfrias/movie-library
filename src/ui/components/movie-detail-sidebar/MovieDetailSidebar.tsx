@@ -1,62 +1,32 @@
 'use client';
 import Link from 'next/link';
+import { useTexts } from '../../hooks/useTexts';
 import styles from './MovieDetailSidebar.module.css';
-
-interface MovieDetailSidebarProps {
-  currentMovieId: string;
-  previousMovieId?: string;
-  nextMovieId?: string;
-}
+import { MovieDetailSidebarProps } from './MovieDetailSidebar.types';
 
 export default function MovieDetailSidebar({
-  currentMovieId,
   previousMovieId,
   nextMovieId,
 }: MovieDetailSidebarProps) {
-  return (
-    <aside className={styles.sidebar}>
-      {/* Botón Home */}
-      <div className={styles.navigationSection}>
-        <h3 className={styles.sectionTitle}>Navigation</h3>
-        <Link href="/" className={styles.navButton}>
-          <span className={styles.icon}>🏠</span>
-          <span className={styles.navText}>Back to Home</span>
-        </Link>
-      </div>
+  const { getNavigationText } = useTexts();
 
-      {/* Navegación entre películas */}
+  return (
+    <>
       {(previousMovieId || nextMovieId) && (
         <div className={styles.navigationSection}>
-          <h3 className={styles.sectionTitle}>Browse Movies</h3>
-
           {previousMovieId && (
-            <Link href={`/${previousMovieId}`} className={styles.navButton}>
-              <span className={styles.icon}>⬅️</span>
-              <span className={styles.navText}>Previous Movie</span>
+            <Link href={`/${previousMovieId}`} className={styles.button}>
+              {getNavigationText('previous')}
             </Link>
           )}
 
           {nextMovieId && (
-            <Link href={`/${nextMovieId}`} className={styles.navButton}>
-              <span className={styles.icon}>➡️</span>
-              <span className={styles.navText}>Next Movie</span>
+            <Link href={`/${nextMovieId}`} className={styles.button}>
+              {getNavigationText('next')}
             </Link>
           )}
         </div>
       )}
-
-      {/* Acciones adicionales */}
-      <div className={styles.navigationSection}>
-        <h3 className={styles.sectionTitle}>Actions</h3>
-        <button className={styles.actionButton}>
-          <span className={styles.icon}>⭐</span>
-          <span className={styles.navText}>Add to Favorites</span>
-        </button>
-        <button className={styles.actionButton}>
-          <span className={styles.icon}>📋</span>
-          <span className={styles.navText}>Add to Watchlist</span>
-        </button>
-      </div>
-    </aside>
+    </>
   );
 }

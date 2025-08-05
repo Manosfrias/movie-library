@@ -1,5 +1,5 @@
 /* Importar design tokens */
-@import '../ui/styles/design-tokens.css';
+@import '../ui/views/layout/design-tokens.css';
 
 /* Reset básico */
 * {

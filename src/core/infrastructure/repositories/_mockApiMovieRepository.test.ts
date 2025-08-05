@@ -2,13 +2,10 @@ import type {
   HttpClient,
   HttpResponse,
 } from '@/core/infrastructure/http/HttpClient.types';
-import type {
-  ApiMovieRequest,
-  ApiMovieResponse,
-} from '@/core/infrastructure/mappers/ApiMovie.types';
+import type { ApiMovieRequest, ApiMovieResponse } from '@/core/models/apiMovie';
 import type { Movie } from '@/core/models/movie';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { createMockApiMovieRepository } from './MockApiMovieRepository';
+import { createMockApiMovieRepository } from './mockApiMovieRepository';
 
 describe('MockApiMovieRepository', () => {
   let mockHttpClient: HttpClient;

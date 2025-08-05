@@ -1,1 +1,0 @@
-export { createToggleFavoriteUseCase } from './ToggleFavorite';

@@ -69,7 +69,7 @@ describe('Movie Validation', () => {
     });
 
     it('should throw error for year too far in future', () => {
-      const nextYear = new Date().getFullYear() + 1; // Cambio: ahora cualquier año futuro debe fallar
+      const nextYear = new Date().getFullYear() + 1;
       expect(() => validateMovieReleaseYear(nextYear)).toThrow(
         'El año de lanzamiento debe estar entre'
       );

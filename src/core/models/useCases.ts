@@ -27,6 +27,10 @@ export interface ToggleFavoriteUseCase {
   execute(id: string): Promise<Movie | null>;
 }
 
+export interface GetMovieOfTheDayUseCase {
+  (): Promise<Movie | null>;
+}
+
 export interface MovieUseCases {
   getAllMovies: GetAllMoviesUseCase;
   getMovieById: GetMovieByIdUseCase;
@@ -34,4 +38,5 @@ export interface MovieUseCases {
   updateMovie: UpdateMovieUseCase;
   deleteMovie: DeleteMovieUseCase;
   toggleFavorite: ToggleFavoriteUseCase;
+  getMovieOfTheDay: GetMovieOfTheDayUseCase;
 }

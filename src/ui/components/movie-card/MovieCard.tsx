@@ -1,4 +1,5 @@
 'use client';
+import { useTexts } from '../../hooks/useTexts';
 import Badge from '../badge/Badge';
 import MovieDetails from '../movie-details/MovieDetails';
 import ViewDetails from '../view-details/ViewDetails';
@@ -10,6 +11,8 @@ export default function MovieCard({
   onSelect,
   onToggleFavorite,
 }: MovieCardProps) {
+  const { getGenreText } = useTexts();
+
   const handleFavoriteToggle = () => {
     if (onToggleFavorite) {
       onToggleFavorite(movie.id);
@@ -43,7 +46,11 @@ export default function MovieCard({
           rating={parseFloat(movie.rating.toFixed(1))}
         />
         <footer className={styles.genreWrapper}>
-          <span className={styles.genre}>{movie.genre}</span>
+          <span className={styles.genre}>
+            {getGenreText(
+              movie.genre as keyof typeof import('../../locales/es').TEXTS.genres
+            )}
+          </span>
         </footer>
       </article>
 

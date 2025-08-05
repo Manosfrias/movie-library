@@ -1,1 +1,0 @@
-export { createGetMovieByIdUseCase } from './GetMovieById';

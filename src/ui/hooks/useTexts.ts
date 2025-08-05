@@ -6,6 +6,11 @@ export function useTexts() {
     getHomeText: (key: keyof typeof TEXTS.home) => TEXTS.home[key],
     getMovieDetailText: (key: keyof typeof TEXTS.movieDetail) =>
       TEXTS.movieDetail[key],
+    getMovieDetailFieldText: (key: keyof typeof TEXTS.movieDetail.fields) =>
+      TEXTS.movieDetail.fields[key],
+    getMovieDetailFavoriteStatusText: (
+      key: keyof typeof TEXTS.movieDetail.favoriteStatus
+    ) => TEXTS.movieDetail.favoriteStatus[key],
     getSearchText: (key: keyof typeof TEXTS.search) => TEXTS.search[key],
     getSearchCriteria: (key: keyof typeof TEXTS.search.criteria) =>
       TEXTS.search.criteria[key],
@@ -38,6 +43,8 @@ export function useTexts() {
     getDeleteMovieActionsText: (key: keyof typeof TEXTS.deleteMovie.actions) =>
       TEXTS.deleteMovie.actions[key],
     getCommonText: (key: keyof typeof TEXTS.common) => TEXTS.common[key],
+    getNavigationText: (key: keyof typeof TEXTS.navigation) =>
+      TEXTS.navigation[key],
     getMetaText: (key: keyof typeof TEXTS.meta) => TEXTS.meta[key],
   };
 }
@@ -45,6 +52,11 @@ export function useTexts() {
 export const getText = {
   home: (key: keyof typeof TEXTS.home) => TEXTS.home[key],
   movieDetail: (key: keyof typeof TEXTS.movieDetail) => TEXTS.movieDetail[key],
+  movieDetailField: (key: keyof typeof TEXTS.movieDetail.fields) =>
+    TEXTS.movieDetail.fields[key],
+  movieDetailFavoriteStatus: (
+    key: keyof typeof TEXTS.movieDetail.favoriteStatus
+  ) => TEXTS.movieDetail.favoriteStatus[key],
   search: (key: keyof typeof TEXTS.search) => TEXTS.search[key],
   searchCriteria: (key: keyof typeof TEXTS.search.criteria) =>
     TEXTS.search.criteria[key],
@@ -74,5 +86,6 @@ export const getText = {
   deleteMovieActions: (key: keyof typeof TEXTS.deleteMovie.actions) =>
     TEXTS.deleteMovie.actions[key],
   common: (key: keyof typeof TEXTS.common) => TEXTS.common[key],
+  navigation: (key: keyof typeof TEXTS.navigation) => TEXTS.navigation[key],
   meta: (key: keyof typeof TEXTS.meta) => TEXTS.meta[key],
 };

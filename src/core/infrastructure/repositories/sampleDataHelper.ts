@@ -1,13 +1,11 @@
 import { sampleMovies } from '@/core/data/sampleMovies';
-import { createLocalMovieRepository } from '@/core/infrastructure/repositories/LocalMovieRepository';
+import { createLocalMovieRepository } from '@/core/infrastructure/repositories/localMovieRepository';
 
 export const initializeWithSampleData = async (): Promise<void> => {
   try {
     const localRepo = createLocalMovieRepository();
     const currentMovies = await localRepo.findAll();
 
-    // Si no hay películas (o solo hay las de sample por defecto),
-    // no hacer nada porque ya se cargan automáticamente
     if (currentMovies.length === 0) {
       console.log('🎬 Initializing with sample movies...');
       localRepo.seedWithSample();

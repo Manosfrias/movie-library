@@ -1,8 +1,8 @@
 import config from '@/config/env';
 import { apiConfig } from '@/core/infrastructure/http/ApiConfig';
 import { FetchHttpClient } from '@/core/infrastructure/http/HttpClient';
-import { createLocalMovieRepository } from '@/core/infrastructure/repositories/LocalMovieRepository';
-import { createMockApiMovieRepository } from '@/core/infrastructure/repositories/MockApiMovieRepository';
+import { createLocalMovieRepository } from '@/core/infrastructure/repositories/localMovieRepository';
+import { createMockApiMovieRepository } from '@/core/infrastructure/repositories/mockApiMovieRepository';
 import { MovieRepository } from '@/core/models/repository';
 
 export type RepositoryType = 'api' | 'local';

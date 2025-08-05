@@ -1,13 +1,13 @@
-import { Movie } from '@/core/models/movie';
-import { MovieRepository } from '@/core/models/repository';
 import { HttpClient } from '@/core/infrastructure/http/HttpClient.types';
 import {
-  toDomain,
-  toDomainList,
   toApi,
   toApiUpdate,
-} from '@/core/infrastructure/mappers/MovieMapper';
-import { ApiMovieResponse } from '@/core/infrastructure/mappers/ApiMovie.types';
+  toDomain,
+  toDomainList,
+} from '@/core/infrastructure/mappers/movieMapper';
+import { ApiMovieResponse } from '@/core/models/apiMovie';
+import { Movie } from '@/core/models/movie';
+import { MovieRepository } from '@/core/models/repository';
 
 export const createMockApiMovieRepository = (
   httpClient: HttpClient
