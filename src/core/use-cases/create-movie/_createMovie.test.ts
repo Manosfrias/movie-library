@@ -1,7 +1,7 @@
 import type { Movie } from '@/core/models/movie';
 import type { MovieRepository } from '@/core/models/repository';
 import { describe, expect, it, vi } from 'vitest';
-import { createCreateMovieUseCase } from './CreateMovie';
+import { createCreateMovieUseCase } from './createMovie';
 
 const mockMovie: Movie = {
   id: '1',

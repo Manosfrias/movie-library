@@ -1,7 +1,7 @@
 import type { Movie } from '@/core/models/movie';
 import type { MovieRepository } from '@/core/models/repository';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { createDeleteMovieUseCase } from './DeleteMovie';
+import { createDeleteMovieUseCase } from './deleteMovie';
 
 describe('DeleteMovieUseCase', () => {
   let mockRepository: MovieRepository;

@@ -1,6 +1,6 @@
 import type { MovieRepository } from '@/core/models/repository';
 import { describe, expect, it, vi } from 'vitest';
-import { createMovieUseCases } from './MovieUseCases';
+import { createMovieUseCases } from './movieUseCases';
 
 describe('MovieUseCases Integration', () => {
   const mockRepository: MovieRepository = {

@@ -5,7 +5,7 @@ import {
   toDomain,
   toDomainList,
 } from '@/core/infrastructure/mappers/movieMapper';
-import { ApiMovieResponse } from '@/core/models/apiMovie.types';
+import { ApiMovieResponse } from '@/core/models/apiMovie';
 import { Movie } from '@/core/models/movie';
 import { MovieRepository } from '@/core/models/repository';
 

@@ -1,7 +1,7 @@
 import type { Movie } from '@/core/models/movie';
 import type { MovieRepository } from '@/core/models/repository';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { createToggleFavoriteUseCase } from './ToggleFavorite';
+import { createToggleFavoriteUseCase } from './toggleFavorite';
 
 describe('ToggleFavoriteUseCase', () => {
   let mockRepository: MovieRepository;
