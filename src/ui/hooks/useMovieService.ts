@@ -1,4 +1,4 @@
-import { createMovieRepository } from '@/core/infrastructure/repositories/RepositoryFactory';
+import { createMovieRepository } from '@/core/infrastructure/repositories/repositoryFactory';
 import type { Movie } from '@/core/models/movie';
 import { createMovieUseCases } from '@/core/use-cases/MovieUseCases';
 import { useMemo } from 'react';

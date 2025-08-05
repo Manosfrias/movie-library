@@ -8,7 +8,7 @@ import type {
 } from '@/core/models/apiMovie.types';
 import type { Movie } from '@/core/models/movie';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { createMockApiMovieRepository } from './MockApiMovieRepository';
+import { createMockApiMovieRepository } from './mockApiMovieRepository';
 
 describe('MockApiMovieRepository', () => {
   let mockHttpClient: HttpClient;

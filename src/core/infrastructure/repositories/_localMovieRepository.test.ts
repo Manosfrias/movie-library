@@ -27,7 +27,7 @@ Object.defineProperty(globalThis, 'window', {
 });
 
 // Import after setting up mocks
-import { createLocalMovieRepository } from './LocalMovieRepository';
+import { createLocalMovieRepository } from './localMovieRepository';
 
 describe('LocalMovieRepository', () => {
   let repository: ReturnType<typeof createLocalMovieRepository>;

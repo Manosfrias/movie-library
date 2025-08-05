@@ -83,10 +83,10 @@ describe('RepositoryFactory', () => {
     };
 
     const { createLocalMovieRepository } = await import(
-      '@/core/infrastructure/repositories/LocalMovieRepository'
+      '@/core/infrastructure/repositories/localMovieRepository'
     );
     const { createMockApiMovieRepository } = await import(
-      '@/core/infrastructure/repositories/MockApiMovieRepository'
+      '@/core/infrastructure/repositories/mockApiMovieRepository'
     );
 
     vi.mocked(createLocalMovieRepository).mockReturnValue(mockLocalRepository);
@@ -101,7 +101,7 @@ describe('RepositoryFactory', () => {
   describe('createMovieRepository', () => {
     it('should return API repository by default in development', async () => {
       const { createMovieRepository, resetRepositories } = await import(
-        './RepositoryFactory'
+        './repositoryFactory'
       );
       resetRepositories();
 
@@ -112,7 +112,7 @@ describe('RepositoryFactory', () => {
 
     it('should return local repository when explicitly requested', async () => {
       const { createMovieRepository, resetRepositories } = await import(
-        './RepositoryFactory'
+        './repositoryFactory'
       );
       resetRepositories();
 
@@ -123,7 +123,7 @@ describe('RepositoryFactory', () => {
 
     it('should return API repository when explicitly requested', async () => {
       const { createMovieRepository, resetRepositories } = await import(
-        './RepositoryFactory'
+        './repositoryFactory'
       );
       resetRepositories();
 
@@ -137,7 +137,7 @@ describe('RepositoryFactory', () => {
 
       vi.resetModules();
       const { createMovieRepository, resetRepositories } = await import(
-        './RepositoryFactory'
+        './repositoryFactory'
       );
       resetRepositories();
 
@@ -159,7 +159,7 @@ describe('RepositoryFactory', () => {
 
       vi.resetModules();
       const { createMovieRepository, resetRepositories } = await import(
-        './RepositoryFactory'
+        './repositoryFactory'
       );
       resetRepositories();
 
@@ -170,7 +170,7 @@ describe('RepositoryFactory', () => {
 
     it('should return same instance on multiple calls (singleton pattern)', async () => {
       const { createMovieRepository, resetRepositories } = await import(
-        './RepositoryFactory'
+        './repositoryFactory'
       );
       resetRepositories();
 
@@ -183,7 +183,7 @@ describe('RepositoryFactory', () => {
 
     it('should handle different repository types independently', async () => {
       const { createMovieRepository, resetRepositories } = await import(
-        './RepositoryFactory'
+        './repositoryFactory'
       );
       resetRepositories();
 
@@ -199,7 +199,7 @@ describe('RepositoryFactory', () => {
   describe('setMovieRepository', () => {
     it('should set custom API repository', async () => {
       const { createMovieRepository, setMovieRepository, resetRepositories } =
-        await import('./RepositoryFactory');
+        await import('./repositoryFactory');
       resetRepositories();
 
       const customRepository: MovieRepository = {
@@ -218,7 +218,7 @@ describe('RepositoryFactory', () => {
 
     it('should set custom local repository', async () => {
       const { createMovieRepository, setMovieRepository, resetRepositories } =
-        await import('./RepositoryFactory');
+        await import('./repositoryFactory');
       resetRepositories();
 
       const customRepository: MovieRepository = {
@@ -239,8 +239,8 @@ describe('RepositoryFactory', () => {
   describe('resetRepositories', () => {
     it('should reset all cached repositories', async () => {
       const { createMovieRepository, resetRepositories, setMovieRepository } =
-        await import('./RepositoryFactory');
-      
+        await import('./repositoryFactory');
+
       resetRepositories();
 
       const apiRepo2 = createMovieRepository('api');
@@ -252,7 +252,7 @@ describe('RepositoryFactory', () => {
 
     it('should clear custom repositories', async () => {
       const { createMovieRepository, resetRepositories, setMovieRepository } =
-        await import('./RepositoryFactory');
+        await import('./repositoryFactory');
 
       const customRepository: MovieRepository = {
         findAll: vi.fn(),
@@ -285,7 +285,7 @@ describe('RepositoryFactory', () => {
 
       vi.resetModules();
       const { createMovieRepository, resetRepositories } = await import(
-        './RepositoryFactory'
+        './repositoryFactory'
       );
       resetRepositories();
 
@@ -299,7 +299,7 @@ describe('RepositoryFactory', () => {
 
       vi.resetModules();
       const { createMovieRepository, resetRepositories } = await import(
-        './RepositoryFactory'
+        './repositoryFactory'
       );
       resetRepositories();
 
@@ -317,7 +317,7 @@ describe('RepositoryFactory', () => {
         '@/core/infrastructure/http/HttpClient'
       );
       const { createMovieRepository, resetRepositories } = await import(
-        './RepositoryFactory'
+        './repositoryFactory'
       );
       resetRepositories();
 
@@ -335,7 +335,7 @@ describe('RepositoryFactory', () => {
         '@/core/infrastructure/http/ApiConfig'
       );
       const { createMovieRepository, resetRepositories } = await import(
-        './RepositoryFactory'
+        './repositoryFactory'
       );
       resetRepositories();
 
@@ -348,7 +348,7 @@ describe('RepositoryFactory', () => {
   describe('Error handling', () => {
     it('should fallback to API repository for unknown types', async () => {
       const { createMovieRepository, resetRepositories } = await import(
-        './RepositoryFactory'
+        './repositoryFactory'
       );
       resetRepositories();
 
@@ -360,7 +360,7 @@ describe('RepositoryFactory', () => {
     it('should handle missing dependencies gracefully', async () => {
       process.env.NEXT_PUBLIC_API_URL = '';
 
-      const { createMovieRepository } = await import('./RepositoryFactory');
+      const { createMovieRepository } = await import('./repositoryFactory');
       const repository = createMovieRepository('api');
 
       expect(repository).toBeDefined();

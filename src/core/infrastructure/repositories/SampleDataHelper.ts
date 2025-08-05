@@ -1,5 +1,5 @@
 import { sampleMovies } from '@/core/data/sampleMovies';
-import { createLocalMovieRepository } from '@/core/infrastructure/repositories/LocalMovieRepository';
+import { createLocalMovieRepository } from '@/core/infrastructure/repositories/localMovieRepository';
 
 export const initializeWithSampleData = async (): Promise<void> => {
   try {
