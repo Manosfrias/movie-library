@@ -49,7 +49,7 @@ export const validateMovieGenre = (genre: string): void => {
 export const validateMovieReleaseYear = (releaseYear: number): void => {
   const currentYear = new Date().getFullYear();
   const minYear = 1800;
-  const maxYear = currentYear; // Cambio: solo hasta el año actual
+  const maxYear = currentYear;
 
   if (releaseYear < minYear || releaseYear > maxYear) {
     throw createMovieValidationError(

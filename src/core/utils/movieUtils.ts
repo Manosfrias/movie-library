@@ -1,6 +1,5 @@
 import { Movie } from '../models/movie';
 
-// Formatting utilities
 export const formatRating = (rating: number, decimals: number = 1): string => {
   return rating.toFixed(decimals);
 };
@@ -21,7 +20,6 @@ export const formatGenre = (genre: string): string => {
   return genre.trim();
 };
 
-// Movie data utilities
 export const getMovieDisplayName = (movie: Movie): string => {
   return `${movie.title} (${movie.releaseYear})`;
 };
@@ -47,7 +45,6 @@ export const isValidYear = (year: number): boolean => {
   return year >= 1800 && year <= currentYear;
 };
 
-// Movie statistics
 export const calculateAverageRating = (movies: Movie[]): number => {
   if (movies.length === 0) return 0;
 
@@ -89,7 +86,6 @@ export const getMoviesByDecade = (movies: Movie[]): Record<string, Movie[]> => {
   );
 };
 
-// Data validation utilities
 export const isValidMovieData = (data: Partial<Movie>): boolean => {
   return !!(
     data.title &&
@@ -115,7 +111,6 @@ export const sanitizeMovieData = (data: Partial<Movie>): Partial<Movie> => {
   };
 };
 
-// Search utilities
 export const highlightText = (text: string, query: string): string => {
   if (!query.trim()) return text;
 
@@ -130,7 +125,6 @@ export const createSearchIndex = (movies: Movie[]): Map<string, string[]> => {
     const words = getMovieSearchableText(movie).split(/\s+/);
     words.forEach((word) => {
       if (word.length > 2) {
-        // Only index words longer than 2 characters
         if (!index.has(word)) {
           index.set(word, []);
         }
@@ -142,7 +136,6 @@ export const createSearchIndex = (movies: Movie[]): Map<string, string[]> => {
   return index;
 };
 
-// Movie comparison utilities
 export const compareMovies = (
   movieA: Movie,
   movieB: Movie,
