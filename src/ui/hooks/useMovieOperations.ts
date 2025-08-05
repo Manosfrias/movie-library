@@ -1,10 +1,6 @@
 import { useCallback } from 'react';
 import { Movie } from '../../core/models/movie';
-import {
-  addNewMovie,
-  removeMovie,
-  toggleMovieFavorite,
-} from '../context/movieOperations';
+import { addNewMovie, toggleMovieFavorite } from '../context/movieOperations';
 import { useMovieService } from '../hooks/useMovieService';
 
 interface UseMovieOperationsProps {
@@ -90,7 +86,10 @@ export const useMovieOperations = ({
       setLoading(true);
       try {
         await movieService.deleteMovie(movieId);
-        setMovies((prevMovies) => removeMovie(prevMovies, movieId));
+        // Recargar todas las películas para obtener el estado actualizado
+        // (incluye restauración automática de datos de muestra si es necesario)
+        const updatedMovies = await movieService.getAllMovies();
+        setMovies(updatedMovies);
       } catch {
         throw new Error('Failed to delete movie');
       } finally {

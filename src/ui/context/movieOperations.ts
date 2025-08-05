@@ -23,3 +23,13 @@ export const addNewMovie = (
 export const removeMovie = (movies: Movie[], movieId: string): Movie[] => {
   return movies.filter((movie) => movie.id !== movieId);
 };
+
+export const updateMovie = (
+  movies: Movie[],
+  movieId: string,
+  updatedData: Partial<Omit<Movie, 'id'>>
+): Movie[] => {
+  return movies.map((movie) =>
+    movie.id === movieId ? { ...movie, ...updatedData } : movie
+  );
+};

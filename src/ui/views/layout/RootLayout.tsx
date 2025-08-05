@@ -1,6 +1,6 @@
-import React from 'react';
-import { Inter } from 'next/font/google';
 import { MoviesProvider } from '@/ui/context/MoviesContext';
+import { Inter } from 'next/font/google';
+import React from 'react';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });

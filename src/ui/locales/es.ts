@@ -101,6 +101,28 @@ export const TEXTS = {
     },
   },
 
+  editMovie: {
+    title: 'Editar Película',
+    actions: {
+      edit: 'Editar',
+      cancel: 'Cancelar',
+      save: 'Guardar cambios',
+      saving: 'Guardando...',
+    },
+  },
+
+  deleteMovie: {
+    title: 'Eliminar Película',
+    confirmMessage: '¿Estás seguro de que quieres eliminar esta película?',
+    confirmDescription: 'Esta acción no se puede deshacer.',
+    actions: {
+      delete: 'Eliminar',
+      cancel: 'Cancelar',
+      confirm: 'Sí, eliminar',
+      deleting: 'Eliminando...',
+    },
+  },
+
   meta: {
     title: 'Movie Library',
     description:
@@ -116,5 +138,7 @@ export type SearchTextKeys = keyof TextKeys['search'];
 export type OrderTextKeys = keyof TextKeys['order'];
 export type FilterTextKeys = keyof TextKeys['filter'];
 export type AddMovieTextKeys = keyof TextKeys['addMovie'];
+export type EditMovieTextKeys = keyof TextKeys['editMovie'];
+export type DeleteMovieTextKeys = keyof TextKeys['deleteMovie'];
 export type CommonTextKeys = keyof TextKeys['common'];
 export type MetaTextKeys = keyof TextKeys['meta'];
