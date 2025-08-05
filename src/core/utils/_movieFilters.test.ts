@@ -9,7 +9,7 @@ import {
   getUniqueGenres,
   getYearRange,
   sortMovies,
-  type FilterCriteria
+  type FilterCriteria,
 } from './movieFilters';
 
 describe('movieFilters', () => {
@@ -62,12 +62,18 @@ describe('movieFilters', () => {
     it('should return only favorite movies when showOnlyFavorites is true', () => {
       const result = filterByFavorites(sampleMovies, true);
       expect(result).toHaveLength(2);
-      expect(result.every(movie => movie.favorite)).toBe(true);
-      expect(result.map(m => m.title)).toEqual(['The Matrix', 'The Dark Knight']);
+      expect(result.every((movie) => movie.favorite)).toBe(true);
+      expect(result.map((m) => m.title)).toEqual([
+        'The Matrix',
+        'The Dark Knight',
+      ]);
     });
 
     it('should return empty array when no favorites and showOnlyFavorites is true', () => {
-      const moviesWithoutFavorites = sampleMovies.map(m => ({ ...m, favorite: false }));
+      const moviesWithoutFavorites = sampleMovies.map((m) => ({
+        ...m,
+        favorite: false,
+      }));
       const result = filterByFavorites(moviesWithoutFavorites, true);
       expect(result).toEqual([]);
     });
@@ -104,7 +110,10 @@ describe('movieFilters', () => {
     it('should filter by director correctly', () => {
       const result = filterBySearch(sampleMovies, 'nolan', 'byDirector');
       expect(result).toHaveLength(2);
-      expect(result.map(m => m.title)).toEqual(['Inception', 'The Dark Knight']);
+      expect(result.map((m) => m.title)).toEqual([
+        'Inception',
+        'The Dark Knight',
+      ]);
     });
 
     it('should filter by release year correctly', () => {
@@ -122,7 +131,10 @@ describe('movieFilters', () => {
     it('should filter by default criteria (title or director)', () => {
       const result = filterBySearch(sampleMovies, 'nolan', 'all');
       expect(result).toHaveLength(2);
-      expect(result.map(m => m.title)).toEqual(['Inception', 'The Dark Knight']);
+      expect(result.map((m) => m.title)).toEqual([
+        'Inception',
+        'The Dark Knight',
+      ]);
     });
 
     it('should search in title when using default criteria', () => {
@@ -179,30 +191,35 @@ describe('movieFilters', () => {
 
     it('should sort by title alphabetically', () => {
       const result = sortMovies(sampleMovies, 'Por Título');
-      const titles = result.map(m => m.title);
-      expect(titles).toEqual(['Inception', 'Pulp Fiction', 'The Dark Knight', 'The Matrix']);
+      const titles = result.map((m) => m.title);
+      expect(titles).toEqual([
+        'Inception',
+        'Pulp Fiction',
+        'The Dark Knight',
+        'The Matrix',
+      ]);
     });
 
     it('should sort by director alphabetically', () => {
       const result = sortMovies(sampleMovies, 'Por Director');
-      const directors = result.map(m => m.director);
+      const directors = result.map((m) => m.director);
       expect(directors).toEqual([
         'Christopher Nolan',
-        'Christopher Nolan', 
+        'Christopher Nolan',
         'Quentin Tarantino',
-        'The Wachowskis'
+        'The Wachowskis',
       ]);
     });
 
     it('should sort by release year (newest first)', () => {
       const result = sortMovies(sampleMovies, 'Por Fecha de Estreno');
-      const years = result.map(m => m.releaseYear);
+      const years = result.map((m) => m.releaseYear);
       expect(years).toEqual([2010, 2008, 1999, 1994]);
     });
 
     it('should sort by rating (highest first)', () => {
       const result = sortMovies(sampleMovies, 'Por Calificación');
-      const ratings = result.map(m => m.rating);
+      const ratings = result.map((m) => m.rating);
       expect(ratings).toEqual([9.0, 8.9, 8.8, 8.7]);
     });
 
@@ -236,14 +253,20 @@ describe('movieFilters', () => {
       const criteria = { ...filterCriteria, showOnlyFavorites: true };
       const result = applyAllFilters(sampleMovies, criteria);
       expect(result).toHaveLength(2);
-      expect(result.every(movie => movie.favorite)).toBe(true);
+      expect(result.every((movie) => movie.favorite)).toBe(true);
     });
 
     it('should apply search filter only', () => {
-      const criteria = { ...filterCriteria, searchQuery: 'nolan', searchCriteria: 'byDirector' as const };
+      const criteria = {
+        ...filterCriteria,
+        searchQuery: 'nolan',
+        searchCriteria: 'byDirector' as const,
+      };
       const result = applyAllFilters(sampleMovies, criteria);
       expect(result).toHaveLength(2);
-      expect(result.every(movie => movie.director === 'Christopher Nolan')).toBe(true);
+      expect(
+        result.every((movie) => movie.director === 'Christopher Nolan')
+      ).toBe(true);
     });
 
     it('should apply genre filter only', () => {
@@ -256,7 +279,12 @@ describe('movieFilters', () => {
     it('should apply sort only', () => {
       const criteria = { ...filterCriteria, sortBy: 'Por Título' as const };
       const result = applyAllFilters(sampleMovies, criteria);
-      expect(result.map(m => m.title)).toEqual(['Inception', 'Pulp Fiction', 'The Dark Knight', 'The Matrix']);
+      expect(result.map((m) => m.title)).toEqual([
+        'Inception',
+        'Pulp Fiction',
+        'The Dark Knight',
+        'The Matrix',
+      ]);
     });
 
     it('should apply multiple filters in combination', () => {
@@ -271,7 +299,7 @@ describe('movieFilters', () => {
       expect(result).toHaveLength(2);
       expect(result[0].title).toBe('The Dark Knight'); // Higher rating first
       expect(result[1].title).toBe('The Matrix');
-      expect(result.every(movie => movie.favorite)).toBe(true);
+      expect(result.every((movie) => movie.favorite)).toBe(true);
     });
 
     it('should return empty array when filters exclude all movies', () => {
@@ -295,7 +323,7 @@ describe('movieFilters', () => {
     it('should handle movies with duplicate genres', () => {
       const moviesWithDuplicates = [
         ...sampleMovies,
-        { ...sampleMovies[0], id: '5', title: 'Another Sci-Fi' }
+        { ...sampleMovies[0], id: '5', title: 'Another Sci-Fi' },
       ];
       const result = getUniqueGenres(moviesWithDuplicates);
       expect(result).toEqual(['Action', 'Crime', 'Sci-Fi', 'Thriller']);

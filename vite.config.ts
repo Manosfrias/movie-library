@@ -1,7 +1,7 @@
 /// <reference types="vitest" />
-import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
+import { defineConfig } from 'vite';
 
 export default defineConfig({
   plugins: [react()],
@@ -19,7 +19,11 @@ export default defineConfig({
     setupFiles: ['./__vitest__/setup.ts'],
     watch: false, // Por defecto no ejecutar en modo watch
     // Patrón para encontrar archivos de test junto a los componentes
-    include: ['**/_*.test.{ts,tsx}', '__vitest__/**/*.test.{ts,tsx}'],
+    include: [
+      '**/_*.test.{ts,tsx}',
+      '**/*.test.{ts,tsx}',
+      '__vitest__/**/*.test.{ts,tsx}',
+    ],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'json-summary', 'html'],
@@ -44,6 +48,7 @@ export default defineConfig({
         '__cypress__/**',
         '.next/**',
         '**/_*.test.{ts,tsx}', // Excluir los archivos de test del coverage
+        '**/*.test.{ts,tsx}', // Excluir todos los archivos de test del coverage
       ],
     },
   },

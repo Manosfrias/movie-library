@@ -15,7 +15,7 @@ describe('MovieMapper', () => {
         rating: 8.8,
         favorite: true,
         createdAt: '2023-01-01T00:00:00Z',
-        updatedAt: '2023-01-02T00:00:00Z'
+        updatedAt: '2023-01-02T00:00:00Z',
       };
 
       const result = toDomain(apiMovie);
@@ -27,7 +27,7 @@ describe('MovieMapper', () => {
         genre: 'Sci-Fi',
         director: 'Christopher Nolan',
         rating: 8.8,
-        favorite: true
+        favorite: true,
       });
     });
 
@@ -38,7 +38,7 @@ describe('MovieMapper', () => {
         releaseYear: 1999,
         genre: 'Sci-Fi',
         director: 'The Wachowskis',
-        rating: 8.7
+        rating: 8.7,
       };
 
       const result = toDomain(apiMovie);
@@ -54,7 +54,7 @@ describe('MovieMapper', () => {
         genre: 'Sci-Fi',
         director: 'Ridley Scott',
         rating: 8.1,
-        favorite: false
+        favorite: false,
       };
 
       const result = toDomain(apiMovie);
@@ -70,7 +70,7 @@ describe('MovieMapper', () => {
         genre: 'Drama',
         director: 'Test Director',
         rating: 7.5,
-        favorite: true
+        favorite: true,
       };
 
       const result = toDomain(apiMovie);
@@ -94,7 +94,7 @@ describe('MovieMapper', () => {
         rating: 5.0,
         favorite: true,
         createdAt: '2023-01-01T00:00:00Z',
-        updatedAt: '2023-01-02T00:00:00Z'
+        updatedAt: '2023-01-02T00:00:00Z',
       };
 
       const result = toDomain(apiMovie);
@@ -112,7 +112,7 @@ describe('MovieMapper', () => {
         genre: 'Sci-Fi',
         director: 'Christopher Nolan',
         rating: 8.8,
-        favorite: true
+        favorite: true,
       };
 
       const result = toApi(movie);
@@ -123,7 +123,7 @@ describe('MovieMapper', () => {
         genre: 'Sci-Fi',
         director: 'Christopher Nolan',
         rating: 8.8,
-        favorite: true
+        favorite: true,
       });
     });
 
@@ -134,7 +134,7 @@ describe('MovieMapper', () => {
         genre: 'Sci-Fi',
         director: 'The Wachowskis',
         rating: 8.7,
-        favorite: false
+        favorite: false,
       };
 
       const result = toApi(movie);
@@ -149,7 +149,7 @@ describe('MovieMapper', () => {
         genre: 'Drama',
         director: 'Test Director',
         rating: 7.5,
-        favorite: true
+        favorite: true,
       };
 
       const result = toApi(movie);
@@ -164,7 +164,7 @@ describe('MovieMapper', () => {
         genre: 'Action',
         director: 'Action Director',
         rating: 9.0,
-        favorite: true
+        favorite: true,
       };
 
       const result = toApi(movie);
@@ -187,7 +187,7 @@ describe('MovieMapper', () => {
         genre: 'Sci-Fi',
         director: 'Christopher Nolan',
         rating: 9.0,
-        favorite: false
+        favorite: false,
       };
 
       const result = toApiUpdate(movie);
@@ -198,7 +198,7 @@ describe('MovieMapper', () => {
         genre: 'Sci-Fi',
         director: 'Christopher Nolan',
         rating: 9.0,
-        favorite: false
+        favorite: false,
       });
     });
 
@@ -210,7 +210,7 @@ describe('MovieMapper', () => {
         genre: 'Test',
         director: 'Test Director',
         rating: 8.0,
-        favorite: true
+        favorite: true,
       };
 
       const result = toApiUpdate(movie);
@@ -226,7 +226,7 @@ describe('MovieMapper', () => {
         genre: 'Comedy',
         director: 'Comedy Director',
         rating: 7.0,
-        favorite: true
+        favorite: true,
       };
 
       const result = toApiUpdate(movie);
@@ -245,7 +245,7 @@ describe('MovieMapper', () => {
           genre: 'Action',
           director: 'Director 1',
           rating: 8.0,
-          favorite: true
+          favorite: true,
         },
         {
           id: 'api-2',
@@ -254,8 +254,8 @@ describe('MovieMapper', () => {
           genre: 'Drama',
           director: 'Director 2',
           rating: 7.5,
-          favorite: false
-        }
+          favorite: false,
+        },
       ];
 
       const result = toDomainList(apiMovies);
@@ -268,7 +268,7 @@ describe('MovieMapper', () => {
         genre: 'Action',
         director: 'Director 1',
         rating: 8.0,
-        favorite: true
+        favorite: true,
       });
       expect(result[1]).toEqual({
         id: 'api-2',
@@ -277,7 +277,7 @@ describe('MovieMapper', () => {
         genre: 'Drama',
         director: 'Director 2',
         rating: 7.5,
-        favorite: false
+        favorite: false,
       });
     });
 
@@ -298,8 +298,8 @@ describe('MovieMapper', () => {
           releaseYear: 2019,
           genre: 'Horror',
           director: 'Horror Director',
-          rating: 6.5
-        }
+          rating: 6.5,
+        },
       ];
 
       const result = toDomainList(apiMovies);
@@ -309,15 +309,18 @@ describe('MovieMapper', () => {
     });
 
     it('should handle large arrays efficiently', () => {
-      const apiMovies: ApiMovieResponse[] = Array.from({ length: 100 }, (_, i) => ({
-        id: `api-${i}`,
-        title: `Movie ${i}`,
-        releaseYear: 2000 + i,
-        genre: `Genre ${i % 5}`,
-        director: `Director ${i}`,
-        rating: Math.round((Math.random() * 10) * 10) / 10,
-        favorite: i % 2 === 0
-      }));
+      const apiMovies: ApiMovieResponse[] = Array.from(
+        { length: 100 },
+        (_, i) => ({
+          id: `api-${i}`,
+          title: `Movie ${i}`,
+          releaseYear: 2000 + i,
+          genre: `Genre ${i % 5}`,
+          director: `Director ${i}`,
+          rating: Math.round(Math.random() * 10 * 10) / 10,
+          favorite: i % 2 === 0,
+        })
+      );
 
       const result = toDomainList(apiMovies);
 
@@ -338,12 +341,12 @@ describe('MovieMapper', () => {
         rating: 8.5,
         favorite: true,
         createdAt: '2023-01-01T00:00:00Z',
-        updatedAt: '2023-01-02T00:00:00Z'
+        updatedAt: '2023-01-02T00:00:00Z',
       };
 
       // API -> Domain
       const domainMovie = toDomain(originalApiMovie);
-      
+
       // Domain -> API (for update)
       const backToApi = toApiUpdate(domainMovie);
 
@@ -363,7 +366,7 @@ describe('MovieMapper', () => {
         releaseYear: 2020,
         genre: 'Documentary',
         director: 'Doc Director',
-        rating: 7.0
+        rating: 7.0,
         // no favorite property
       };
 
@@ -383,7 +386,7 @@ describe('MovieMapper', () => {
         genre: 'Sci-Fi/Fantasy',
         director: "O'Connor, María José",
         rating: 8.0,
-        favorite: true
+        favorite: true,
       };
 
       const domainMovie = toDomain(apiMovie);
@@ -404,7 +407,7 @@ describe('MovieMapper', () => {
         genre: 'Historical',
         director: 'Louis Le Prince',
         rating: 0.0,
-        favorite: false
+        favorite: false,
       };
 
       const domainMovie = toDomain(apiMovie);
@@ -421,7 +424,7 @@ describe('MovieMapper', () => {
         genre: 'Future Sci-Fi',
         director: 'AI Director',
         rating: 10.0,
-        favorite: true
+        favorite: true,
       };
 
       const domainMovie = toDomain(apiMovie);

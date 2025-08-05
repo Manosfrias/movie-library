@@ -70,56 +70,67 @@ describe('GetMovieByIdUseCase', () => {
 
   describe('validation errors', () => {
     it('should throw error when movie ID is empty', async () => {
-      await expect(getMovieByIdUseCase.execute(''))
-        .rejects.toThrow('Movie ID is required');
-      
+      await expect(getMovieByIdUseCase.execute('')).rejects.toThrow(
+        'Movie ID is required'
+      );
+
       expect(mockRepository.findById).not.toHaveBeenCalled();
     });
 
     it('should throw error when movie ID is only whitespace', async () => {
-      await expect(getMovieByIdUseCase.execute('   '))
-        .rejects.toThrow('Movie ID is required');
-      
+      await expect(getMovieByIdUseCase.execute('   ')).rejects.toThrow(
+        'Movie ID is required'
+      );
+
       expect(mockRepository.findById).not.toHaveBeenCalled();
     });
 
     it('should throw error when movie ID is null', async () => {
-      await expect(getMovieByIdUseCase.execute(null as any))
-        .rejects.toThrow('Movie ID is required');
-      
+      await expect(getMovieByIdUseCase.execute(null as any)).rejects.toThrow(
+        'Movie ID is required'
+      );
+
       expect(mockRepository.findById).not.toHaveBeenCalled();
     });
 
     it('should throw error when movie ID is undefined', async () => {
-      await expect(getMovieByIdUseCase.execute(undefined as any))
-        .rejects.toThrow('Movie ID is required');
-      
+      await expect(
+        getMovieByIdUseCase.execute(undefined as any)
+      ).rejects.toThrow('Movie ID is required');
+
       expect(mockRepository.findById).not.toHaveBeenCalled();
     });
   });
 
   describe('error handling', () => {
     it('should throw error when repository fails', async () => {
-      vi.mocked(mockRepository.findById).mockRejectedValue(new Error('Database connection failed'));
+      vi.mocked(mockRepository.findById).mockRejectedValue(
+        new Error('Database connection failed')
+      );
 
-      await expect(getMovieByIdUseCase.execute('1'))
-        .rejects.toThrow('Failed to retrieve movie with ID: 1');
-      
+      await expect(getMovieByIdUseCase.execute('1')).rejects.toThrow(
+        'Failed to retrieve movie with ID: 1'
+      );
+
       expect(mockRepository.findById).toHaveBeenCalledWith('1');
     });
 
     it('should throw error when repository throws custom error', async () => {
-      vi.mocked(mockRepository.findById).mockRejectedValue(new Error('Movie not accessible'));
+      vi.mocked(mockRepository.findById).mockRejectedValue(
+        new Error('Movie not accessible')
+      );
 
-      await expect(getMovieByIdUseCase.execute('restricted'))
-        .rejects.toThrow('Failed to retrieve movie with ID: restricted');
+      await expect(getMovieByIdUseCase.execute('restricted')).rejects.toThrow(
+        'Failed to retrieve movie with ID: restricted'
+      );
     });
 
     it('should handle repository throwing non-Error objects', async () => {
       vi.mocked(mockRepository.findById).mockRejectedValue('String error');
 
-      await expect(getMovieByIdUseCase.execute('1'))
-        .rejects.toThrow('Failed to retrieve movie with ID: 1');
+      await expect(getMovieByIdUseCase.execute('1')).rejects.toThrow(
+        'Failed to retrieve movie with ID: 1'
+      );
     });
   });
 

@@ -29,7 +29,7 @@ export const toStorage = (movie: Movie): StorageMovieData => ({
   rating: movie.rating,
   favorite: movie.favorite ?? false,
   storedAt: new Date().toISOString(),
-  lastModified: new Date().toISOString()
+  lastModified: new Date().toISOString(),
 });
 
 /**
@@ -42,7 +42,7 @@ export const fromStorage = (storageData: StorageMovieData): Movie => ({
   genre: storageData.genre,
   director: storageData.director,
   rating: storageData.rating,
-  favorite: storageData.favorite ?? false
+  favorite: storageData.favorite ?? false,
 });
 
 /**
@@ -80,7 +80,7 @@ export const deserializeFromStorage = (jsonString: string): Movie[] => {
     }
 
     const parsed = JSON.parse(jsonString);
-    
+
     // Handle legacy format (direct Movie array) or new format (StorageMovieData array)
     if (Array.isArray(parsed)) {
       // Check if it's legacy format (Movie[]) or new format (StorageMovieData[])
@@ -89,7 +89,7 @@ export const deserializeFromStorage = (jsonString: string): Movie[] => {
       }
 
       const firstItem = parsed[0];
-      
+
       // If it has storage-specific properties, it's new format
       if (firstItem.storedAt || firstItem.lastModified) {
         return fromStorageList(parsed as StorageMovieData[]);
@@ -102,7 +102,7 @@ export const deserializeFromStorage = (jsonString: string): Movie[] => {
           genre: item.genre,
           director: item.director,
           rating: item.rating,
-          favorite: item.favorite ?? false
+          favorite: item.favorite ?? false,
         }));
       }
     }
@@ -134,7 +134,9 @@ export const validateStorageData = (data: any): data is StorageMovieData => {
 /**
  * Validate array of storage data
  */
-export const validateStorageDataList = (dataList: any[]): dataList is StorageMovieData[] => {
+export const validateStorageDataList = (
+  dataList: any[]
+): dataList is StorageMovieData[] => {
   return Array.isArray(dataList) && dataList.every(validateStorageData);
 };
 

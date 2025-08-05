@@ -32,8 +32,10 @@ export const getMovieSearchableText = (movie: Movie): string => {
     movie.director,
     movie.genre,
     movie.releaseYear.toString(),
-    movie.rating.toString()
-  ].join(' ').toLowerCase();
+    movie.rating.toString(),
+  ]
+    .join(' ')
+    .toLowerCase();
 };
 
 export const isValidRating = (rating: number): boolean => {
@@ -48,36 +50,43 @@ export const isValidYear = (year: number): boolean => {
 // Movie statistics
 export const calculateAverageRating = (movies: Movie[]): number => {
   if (movies.length === 0) return 0;
-  
+
   const sum = movies.reduce((acc, movie) => acc + movie.rating, 0);
   return Number((sum / movies.length).toFixed(2));
 };
 
-export const getTopRatedMovies = (movies: Movie[], count: number = 5): Movie[] => {
-  return [...movies]
-    .sort((a, b) => b.rating - a.rating)
-    .slice(0, count);
+export const getTopRatedMovies = (
+  movies: Movie[],
+  count: number = 5
+): Movie[] => {
+  return [...movies].sort((a, b) => b.rating - a.rating).slice(0, count);
 };
 
-export const getRecentMovies = (movies: Movie[], count: number = 5): Movie[] => {
+export const getRecentMovies = (
+  movies: Movie[],
+  count: number = 5
+): Movie[] => {
   return [...movies]
     .sort((a, b) => b.releaseYear - a.releaseYear)
     .slice(0, count);
 };
 
 export const getFavoriteMovies = (movies: Movie[]): Movie[] => {
-  return movies.filter(movie => movie.favorite);
+  return movies.filter((movie) => movie.favorite);
 };
 
 export const getMoviesByDecade = (movies: Movie[]): Record<string, Movie[]> => {
-  return movies.reduce((acc, movie) => {
-    const decade = `${Math.floor(movie.releaseYear / 10) * 10}s`;
-    if (!acc[decade]) {
-      acc[decade] = [];
-    }
-    acc[decade].push(movie);
-    return acc;
-  }, {} as Record<string, Movie[]>);
+  return movies.reduce(
+    (acc, movie) => {
+      const decade = `${Math.floor(movie.releaseYear / 10) * 10}s`;
+      if (!acc[decade]) {
+        acc[decade] = [];
+      }
+      acc[decade].push(movie);
+      return acc;
+    },
+    {} as Record<string, Movie[]>
+  );
 };
 
 // Data validation utilities
@@ -99,25 +108,29 @@ export const sanitizeMovieData = (data: Partial<Movie>): Partial<Movie> => {
     title: data.title ? formatTitle(data.title) : data.title,
     director: data.director ? formatDirector(data.director) : data.director,
     genre: data.genre ? formatGenre(data.genre) : data.genre,
-    rating: data.rating !== undefined ? Number(formatRating(data.rating, 1)) : data.rating,
+    rating:
+      data.rating !== undefined
+        ? Number(formatRating(data.rating, 1))
+        : data.rating,
   };
 };
 
 // Search utilities
 export const highlightText = (text: string, query: string): string => {
   if (!query.trim()) return text;
-  
+
   const regex = new RegExp(`(${query})`, 'gi');
   return text.replace(regex, '<mark>$1</mark>');
 };
 
 export const createSearchIndex = (movies: Movie[]): Map<string, string[]> => {
   const index = new Map<string, string[]>();
-  
-  movies.forEach(movie => {
+
+  movies.forEach((movie) => {
     const words = getMovieSearchableText(movie).split(/\s+/);
-    words.forEach(word => {
-      if (word.length > 2) { // Only index words longer than 2 characters
+    words.forEach((word) => {
+      if (word.length > 2) {
+        // Only index words longer than 2 characters
         if (!index.has(word)) {
           index.set(word, []);
         }
@@ -125,27 +138,31 @@ export const createSearchIndex = (movies: Movie[]): Map<string, string[]> => {
       }
     });
   });
-  
+
   return index;
 };
 
 // Movie comparison utilities
-export const compareMovies = (movieA: Movie, movieB: Movie, field: keyof Movie): number => {
+export const compareMovies = (
+  movieA: Movie,
+  movieB: Movie,
+  field: keyof Movie
+): number => {
   const valueA = movieA[field];
   const valueB = movieB[field];
-  
+
   if (typeof valueA === 'string' && typeof valueB === 'string') {
     return valueA.localeCompare(valueB);
   }
-  
+
   if (typeof valueA === 'number' && typeof valueB === 'number') {
     return valueA - valueB;
   }
-  
+
   if (typeof valueA === 'boolean' && typeof valueB === 'boolean') {
     return valueA === valueB ? 0 : valueA ? 1 : -1;
   }
-  
+
   return 0;
 };
 

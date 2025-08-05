@@ -3,9 +3,19 @@ import { Movie } from '../models/movie';
 export interface FilterCriteria {
   showOnlyFavorites: boolean;
   searchQuery: string;
-  searchCriteria: 'byTitle' | 'byDirector' | 'byReleaseDate' | 'byRating' | 'all';
+  searchCriteria:
+    | 'byTitle'
+    | 'byDirector'
+    | 'byReleaseDate'
+    | 'byRating'
+    | 'all';
   selectedGenre: string;
-  sortBy: 'Por Título' | 'Por Director' | 'Por Fecha de Estreno' | 'Por Calificación' | '';
+  sortBy:
+    | 'Por Título'
+    | 'Por Director'
+    | 'Por Fecha de Estreno'
+    | 'Por Calificación'
+    | '';
 }
 
 export const filterByFavorites = (
@@ -80,7 +90,11 @@ export const applyAllFilters = (
   let filtered = [...movies];
 
   filtered = filterByFavorites(filtered, criteria.showOnlyFavorites);
-  filtered = filterBySearch(filtered, criteria.searchQuery, criteria.searchCriteria);
+  filtered = filterBySearch(
+    filtered,
+    criteria.searchQuery,
+    criteria.searchCriteria
+  );
   filtered = filterByGenre(filtered, criteria.selectedGenre);
   filtered = sortMovies(filtered, criteria.sortBy);
 
@@ -89,26 +103,29 @@ export const applyAllFilters = (
 
 // Utility functions for getting unique values
 export const getUniqueGenres = (movies: Movie[]): string[] => {
-  const genres = movies.map(movie => movie.genre);
+  const genres = movies.map((movie) => movie.genre);
   return Array.from(new Set(genres)).sort();
 };
 
 export const getYearRange = (movies: Movie[]): { min: number; max: number } => {
-  if (movies.length === 0) return { min: new Date().getFullYear(), max: new Date().getFullYear() };
-  
-  const years = movies.map(movie => movie.releaseYear);
+  if (movies.length === 0)
+    return { min: new Date().getFullYear(), max: new Date().getFullYear() };
+
+  const years = movies.map((movie) => movie.releaseYear);
   return {
     min: Math.min(...years),
-    max: Math.max(...years)
+    max: Math.max(...years),
   };
 };
 
-export const getRatingRange = (movies: Movie[]): { min: number; max: number } => {
+export const getRatingRange = (
+  movies: Movie[]
+): { min: number; max: number } => {
   if (movies.length === 0) return { min: 0, max: 10 };
-  
-  const ratings = movies.map(movie => movie.rating);
+
+  const ratings = movies.map((movie) => movie.rating);
   return {
     min: Math.min(...ratings),
-    max: Math.max(...ratings)
+    max: Math.max(...ratings),
   };
 };

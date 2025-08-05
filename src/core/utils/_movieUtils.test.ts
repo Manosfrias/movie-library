@@ -83,7 +83,9 @@ describe('movieUtils', () => {
 
     describe('formatDirector', () => {
       it('should trim whitespace from director', () => {
-        expect(formatDirector('  Christopher Nolan  ')).toBe('Christopher Nolan');
+        expect(formatDirector('  Christopher Nolan  ')).toBe(
+          'Christopher Nolan'
+        );
         expect(formatDirector('The Wachowskis')).toBe('The Wachowskis');
       });
     });
@@ -187,11 +189,14 @@ describe('movieUtils', () => {
       it('should return only favorite movies', () => {
         const result = getFavoriteMovies(sampleMovies);
         expect(result).toHaveLength(2);
-        expect(result.every(movie => movie.favorite)).toBe(true);
+        expect(result.every((movie) => movie.favorite)).toBe(true);
       });
 
       it('should return empty array when no favorites', () => {
-        const moviesWithoutFavorites = sampleMovies.map(m => ({ ...m, favorite: false }));
+        const moviesWithoutFavorites = sampleMovies.map((m) => ({
+          ...m,
+          favorite: false,
+        }));
         const result = getFavoriteMovies(moviesWithoutFavorites);
         expect(result).toEqual([]);
       });
@@ -230,7 +235,9 @@ describe('movieUtils', () => {
       it('should return false for missing required fields', () => {
         expect(isValidMovieData({})).toBe(false);
         expect(isValidMovieData({ title: 'Test' })).toBe(false);
-        expect(isValidMovieData({ title: 'Test', director: 'Test' })).toBe(false);
+        expect(isValidMovieData({ title: 'Test', director: 'Test' })).toBe(
+          false
+        );
       });
 
       it('should return false for invalid year or rating', () => {
@@ -325,12 +332,20 @@ describe('movieUtils', () => {
       });
 
       it('should compare number fields', () => {
-        const result = compareMovies(sampleMovies[0], sampleMovies[1], 'rating');
+        const result = compareMovies(
+          sampleMovies[0],
+          sampleMovies[1],
+          'rating'
+        );
         expect(result).toBeLessThan(0); // 8.7 < 8.8
       });
 
       it('should compare boolean fields', () => {
-        const result = compareMovies(sampleMovies[0], sampleMovies[1], 'favorite');
+        const result = compareMovies(
+          sampleMovies[0],
+          sampleMovies[1],
+          'favorite'
+        );
         expect(result).toBeGreaterThan(0); // true > false
       });
     });

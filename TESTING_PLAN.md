@@ -1,21 +1,25 @@
 # Testing Plan - Movie Library
 
 ## 🎯 Objetivo General
+
 Crear una suite de testing completa que garantice la calidad, funcionamiento y prevención de regresiones del sistema, cubriendo desde unidades individuales hasta flujos completos de usuario.
 
 ## 🗺️ Fases de Implementación
 
 ### 📦 FASE 1: TESTING UNITARIO (CORE) ✅ COMPLETADO
+
 **Objetivo:** Verificar que las funciones individuales del dominio funcionen correctamente
 **Total: 122 tests pasando**
 
 #### 1.1 Models & Types ✅ Validado
-- ✅ `Movie` model validation 
+
+- ✅ `Movie` model validation
 - ✅ `MovieValidationError` types
 - ✅ `MovieFilters` types
 - ✅ `SortOptions` enums
 
 #### 1.2 Use Cases ✅ COMPLETADO (60/60 tests)
+
 - ✅ `CreateMovieUseCase` ✅ Ya existe (4/4 tests)
 - ✅ `UpdateMovieUseCase` ✅ COMPLETADO (15/15 tests)
 - ✅ `DeleteMovieUseCase` ✅ COMPLETADO (12/12 tests)
@@ -24,24 +28,30 @@ Crear una suite de testing completa que garantice la calidad, funcionamiento y p
 - ✅ `ToggleFavoriteUseCase` ✅ COMPLETADO (13/13 tests)
 
 #### 1.3 Utils & Validation ✅ COMPLETADO (62/62 tests)
+
 - ✅ `movieValidation.ts` ✅ Ya existe (19/19 tests)
 - ✅ `movieFilters.ts` ✅ COMPLETADO (43/43 tests)
 - ✅ `movieUtils.ts` ✅ COMPLETADO (41/41 tests)
 
 ### ✅ FASE 1: CORE LAYER COMPLETAMENTE TERMINADA
+
 **Total: 225 tests pasando** 🏆
+
 - Use Cases: 63 tests (60 + 3 integración)
-- Utils & Validation: 103 tests  
+- Utils & Validation: 103 tests
 - Mappers: 59 tests
 
 #### 1.4 Mappers ✅ COMPLETADO (59/59 tests)
+
 - ✅ `MovieMapper.test.ts` ✅ COMPLETADO (21/21 tests) - API ↔ Domain transformations
 - ✅ `StorageMapper.test.ts` ✅ COMPLETADO (38/38 tests) - Storage ↔ Domain transformations
 
 #### 1.5 Integration ✅ COMPLETADO (3/3 tests)
+
 - ✅ `_MovieUseCases.test.ts` ✅ COMPLETADO (3/3 tests) - Verificación de integración completa
 
 ### ✅ ToggleFavoriteUseCase INTEGRADO EN LA APLICACIÓN
+
 - ✅ Agregado a `MovieUseCases.ts`
 - ✅ Implementado en `useMovieService.ts`
 - ✅ Eliminada lógica duplicada
@@ -50,9 +60,11 @@ Crear una suite de testing completa que garantice la calidad, funcionamiento y p
 ### ⏭️ SIGUIENTE: FASE 2 - Repository Testing
 
 ### 📦 FASE 2: TESTING DE REPOSITORIOS CON MOCKS
+
 **Objetivo:** Verificar la capa de infraestructura aisladamente
 
 #### 2.1 Repository Tests
+
 ```typescript
 // src/core/infrastructure/repositories/_LocalMovieRepository.test.ts
 - ✅ Save movie to localStorage
@@ -65,6 +77,7 @@ Crear una suite de testing completa que garantice la calidad, funcionamiento y p
 ```
 
 #### 2.2 Service Layer Tests
+
 ```typescript
 // src/ui/services/_movieService.test.ts
 - 🆕 Service calls correct repository methods
@@ -73,9 +86,11 @@ Crear una suite de testing completa que garantice la calidad, funcionamiento y p
 ```
 
 ### 📦 FASE 3: TESTING DE INTEGRACIÓN (UI)
+
 **Objetivo:** Verificar que los componentes UI funcionen correctamente con datos reales
 
 #### 3.1 Context & Providers
+
 ```typescript
 // src/ui/context/_MoviesContext.test.tsx
 - 🆕 Initial load of movies
@@ -89,6 +104,7 @@ Crear una suite de testing completa que garantice la calidad, funcionamiento y p
 ```
 
 #### 3.2 Custom Hooks
+
 ```typescript
 // src/ui/hooks/_useMovieForm.test.tsx
 - 🆕 Form validation works
@@ -103,6 +119,7 @@ Crear una suite de testing completa que garantice la calidad, funcionamiento y p
 ```
 
 #### 3.3 Components Integración
+
 ```typescript
 // src/ui/components/movie-card/_MovieCard.test.tsx ✅ Ya existe (6/6 tests)
 - ✅ Renders correctly
@@ -127,9 +144,11 @@ Crear una suite de testing completa que garantice la calidad, funcionamiento y p
 ```
 
 ### 📦 FASE 4: TESTING END-TO-END (CYPRESS)
+
 **Objetivo:** Verificar flujos completos de usuario (Happy Paths)
 
 #### 4.1 Filtrado de Películas
+
 ```typescript
 // cypress/e2e/movie-filtering.cy.ts
 describe('Movie Filtering', () => {
@@ -143,6 +162,7 @@ describe('Movie Filtering', () => {
 ```
 
 #### 4.2 CRUD de Películas (Dummy Movie)
+
 ```typescript
 // cypress/e2e/movie-crud.cy.ts
 describe('Movie CRUD Operations', () => {
@@ -157,6 +177,7 @@ describe('Movie CRUD Operations', () => {
 ```
 
 #### 4.3 Navegación y UX
+
 ```typescript
 // cypress/e2e/navigation.cy.ts
 describe('Navigation & UX', () => {
@@ -171,16 +192,19 @@ describe('Navigation & UX', () => {
 ## 🎯 Criterios de Éxito
 
 ### 📊 Coverage Goals
+
 - **Unit Tests**: > 90% coverage en core/
 - **Integration Tests**: > 85% coverage en ui/
 - **E2E Tests**: 100% happy paths cubiertos
 
 ### 🔧 Herramientas
+
 - **Unit/Integration**: Vitest + Testing Library
 - **E2E**: Cypress
 - **Coverage**: c8/vitest coverage
 
 ### 📈 Métricas
+
 - Tests ejecutándose en < 30 segundos
 - E2E tests ejecutándose en < 2 minutos
 - 0 flaky tests

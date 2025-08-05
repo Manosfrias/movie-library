@@ -138,11 +138,13 @@ describe('MovieCard', () => {
 
   it('calls onToggleFavorite when favorite badge is clicked', () => {
     const handleToggleFavorite = vi.fn();
-    render(<MovieCard movie={mockMovie} onToggleFavorite={handleToggleFavorite} />);
+    render(
+      <MovieCard movie={mockMovie} onToggleFavorite={handleToggleFavorite} />
+    );
 
     const badge = screen.getByText('Favorito');
     fireEvent.click(badge);
-    
+
     expect(handleToggleFavorite).toHaveBeenCalledWith(mockMovie.id);
   });
 
@@ -150,7 +152,7 @@ describe('MovieCard', () => {
     render(<MovieCard movie={mockMovie} />);
 
     const badge = screen.getByText('Favorito');
-    
+
     expect(() => {
       fireEvent.click(badge);
     }).not.toThrow();

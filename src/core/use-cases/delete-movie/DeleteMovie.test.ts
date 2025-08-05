@@ -53,29 +53,33 @@ describe('DeleteMovieUseCase', () => {
 
   describe('validation errors', () => {
     it('should throw error when movie ID is empty', async () => {
-      await expect(deleteMovieUseCase.execute(''))
-        .rejects.toThrow('Movie ID is required');
-      
+      await expect(deleteMovieUseCase.execute('')).rejects.toThrow(
+        'Movie ID is required'
+      );
+
       expect(mockRepository.findById).not.toHaveBeenCalled();
       expect(mockRepository.delete).not.toHaveBeenCalled();
     });
 
     it('should throw error when movie ID is only whitespace', async () => {
-      await expect(deleteMovieUseCase.execute('   '))
-        .rejects.toThrow('Movie ID is required');
-      
+      await expect(deleteMovieUseCase.execute('   ')).rejects.toThrow(
+        'Movie ID is required'
+      );
+
       expect(mockRepository.findById).not.toHaveBeenCalled();
       expect(mockRepository.delete).not.toHaveBeenCalled();
     });
 
     it('should throw error when movie ID is null', async () => {
-      await expect(deleteMovieUseCase.execute(null as any))
-        .rejects.toThrow('Movie ID is required');
+      await expect(deleteMovieUseCase.execute(null as any)).rejects.toThrow(
+        'Movie ID is required'
+      );
     });
 
     it('should throw error when movie ID is undefined', async () => {
-      await expect(deleteMovieUseCase.execute(undefined as any))
-        .rejects.toThrow('Movie ID is required');
+      await expect(
+        deleteMovieUseCase.execute(undefined as any)
+      ).rejects.toThrow('Movie ID is required');
     });
   });
 
@@ -83,29 +87,36 @@ describe('DeleteMovieUseCase', () => {
     it('should throw error when movie not found', async () => {
       vi.mocked(mockRepository.findById).mockResolvedValue(null);
 
-      await expect(deleteMovieUseCase.execute('nonexistent'))
-        .rejects.toThrow('Movie with ID nonexistent not found');
-      
+      await expect(deleteMovieUseCase.execute('nonexistent')).rejects.toThrow(
+        'Movie with ID nonexistent not found'
+      );
+
       expect(mockRepository.findById).toHaveBeenCalledWith('nonexistent');
       expect(mockRepository.delete).not.toHaveBeenCalled();
     });
 
     it('should throw error when repository findById fails', async () => {
-      vi.mocked(mockRepository.findById).mockRejectedValue(new Error('Database error'));
+      vi.mocked(mockRepository.findById).mockRejectedValue(
+        new Error('Database error')
+      );
 
-      await expect(deleteMovieUseCase.execute('1'))
-        .rejects.toThrow('Database error');
-      
+      await expect(deleteMovieUseCase.execute('1')).rejects.toThrow(
+        'Database error'
+      );
+
       expect(mockRepository.delete).not.toHaveBeenCalled();
     });
 
     it('should throw error when repository delete fails', async () => {
       vi.mocked(mockRepository.findById).mockResolvedValue(existingMovie);
-      vi.mocked(mockRepository.delete).mockRejectedValue(new Error('Delete failed'));
+      vi.mocked(mockRepository.delete).mockRejectedValue(
+        new Error('Delete failed')
+      );
 
-      await expect(deleteMovieUseCase.execute('1'))
-        .rejects.toThrow('Failed to delete movie with ID: 1');
-      
+      await expect(deleteMovieUseCase.execute('1')).rejects.toThrow(
+        'Failed to delete movie with ID: 1'
+      );
+
       expect(mockRepository.findById).toHaveBeenCalledWith('1');
       expect(mockRepository.delete).toHaveBeenCalledWith('1');
     });

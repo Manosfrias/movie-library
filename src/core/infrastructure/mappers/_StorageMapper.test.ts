@@ -10,7 +10,7 @@ import {
   toStorage,
   toStorageList,
   validateStorageData,
-  validateStorageDataList
+  validateStorageDataList,
 } from './StorageMapper';
 
 describe('StorageMapper', () => {
@@ -21,7 +21,7 @@ describe('StorageMapper', () => {
     genre: 'Drama',
     director: 'Test Director',
     rating: 8.5,
-    favorite: true
+    favorite: true,
   };
 
   beforeEach(() => {
@@ -46,14 +46,14 @@ describe('StorageMapper', () => {
         rating: 8.5,
         favorite: true,
         storedAt: '2023-12-01T12:00:00.000Z',
-        lastModified: '2023-12-01T12:00:00.000Z'
+        lastModified: '2023-12-01T12:00:00.000Z',
       });
     });
 
     it('should handle movie with favorite as false', () => {
       const movieWithoutFavorite: Movie = {
         ...mockMovie,
-        favorite: false
+        favorite: false,
       };
 
       const result = toStorage(movieWithoutFavorite);
@@ -64,7 +64,7 @@ describe('StorageMapper', () => {
     it('should handle movie with undefined favorite property', () => {
       const movieWithUndefinedFavorite = {
         ...mockMovie,
-        favorite: undefined
+        favorite: undefined,
       } as any;
 
       const result = toStorage(movieWithUndefinedFavorite);
@@ -101,7 +101,7 @@ describe('StorageMapper', () => {
       rating: 7.8,
       favorite: true,
       storedAt: '2023-01-01T00:00:00Z',
-      lastModified: '2023-01-02T00:00:00Z'
+      lastModified: '2023-01-02T00:00:00Z',
     };
 
     it('should transform StorageMovieData to Movie domain model', () => {
@@ -114,7 +114,7 @@ describe('StorageMapper', () => {
         genre: 'Action',
         director: 'Storage Director',
         rating: 7.8,
-        favorite: true
+        favorite: true,
       });
     });
 
@@ -128,7 +128,7 @@ describe('StorageMapper', () => {
     it('should handle storage data without favorite property', () => {
       const storageDataWithoutFavorite = {
         ...mockStorageData,
-        favorite: undefined
+        favorite: undefined,
       } as any;
 
       const result = fromStorage(storageDataWithoutFavorite);
@@ -139,7 +139,7 @@ describe('StorageMapper', () => {
     it('should handle storage data with favorite as false', () => {
       const storageDataWithFalseFavorite = {
         ...mockStorageData,
-        favorite: false
+        favorite: false,
       };
 
       const result = fromStorage(storageDataWithFalseFavorite);
@@ -159,8 +159,8 @@ describe('StorageMapper', () => {
           genre: 'Comedy',
           director: 'Comedy Director',
           rating: 6.5,
-          favorite: false
-        }
+          favorite: false,
+        },
       ];
 
       const result = toStorageList(movies);
@@ -191,7 +191,7 @@ describe('StorageMapper', () => {
           director: 'Director 1',
           rating: 8.0,
           favorite: true,
-          storedAt: '2023-01-01T00:00:00Z'
+          storedAt: '2023-01-01T00:00:00Z',
         },
         {
           id: 'storage-2',
@@ -201,8 +201,8 @@ describe('StorageMapper', () => {
           director: 'Director 2',
           rating: 7.5,
           favorite: false,
-          storedAt: '2023-01-02T00:00:00Z'
-        }
+          storedAt: '2023-01-02T00:00:00Z',
+        },
       ];
 
       const result = fromStorageList(storageDataList);
@@ -215,7 +215,7 @@ describe('StorageMapper', () => {
         genre: 'Drama',
         director: 'Director 1',
         rating: 8.0,
-        favorite: true
+        favorite: true,
       });
       expect(result[1]).toEqual({
         id: 'storage-2',
@@ -224,7 +224,7 @@ describe('StorageMapper', () => {
         genre: 'Action',
         director: 'Director 2',
         rating: 7.5,
-        favorite: false
+        favorite: false,
       });
     });
 
@@ -263,7 +263,9 @@ describe('StorageMapper', () => {
         throw new Error('Mock serialization error');
       });
 
-      expect(() => serializeForStorage([mockMovie])).toThrow('Storage serialization failed');
+      expect(() => serializeForStorage([mockMovie])).toThrow(
+        'Storage serialization failed'
+      );
 
       // Restore original implementation
       JSON.stringify = originalStringify;
@@ -282,8 +284,8 @@ describe('StorageMapper', () => {
           rating: 9.0,
           favorite: true,
           storedAt: '2023-01-01T00:00:00Z',
-          lastModified: '2023-01-01T00:00:00Z'
-        }
+          lastModified: '2023-01-01T00:00:00Z',
+        },
       ];
 
       const jsonString = JSON.stringify(storageData);
@@ -297,7 +299,7 @@ describe('StorageMapper', () => {
         genre: 'Sci-Fi',
         director: 'Sci-Fi Director',
         rating: 9.0,
-        favorite: true
+        favorite: true,
       });
     });
 
@@ -310,8 +312,8 @@ describe('StorageMapper', () => {
           genre: 'Drama',
           director: 'Drama Director',
           rating: 7.0,
-          favorite: false
-        }
+          favorite: false,
+        },
       ];
 
       const jsonString = JSON.stringify(legacyData);
@@ -340,8 +342,8 @@ describe('StorageMapper', () => {
           releaseYear: 2019,
           genre: 'Horror',
           director: 'Horror Director',
-          rating: 6.0
-        }
+          rating: 6.0,
+        },
       ];
 
       const jsonString = JSON.stringify(legacyDataWithoutFavorite);
@@ -351,11 +353,15 @@ describe('StorageMapper', () => {
     });
 
     it('should throw error for invalid JSON', () => {
-      expect(() => deserializeFromStorage('invalid json')).toThrow('Storage deserialization failed');
+      expect(() => deserializeFromStorage('invalid json')).toThrow(
+        'Storage deserialization failed'
+      );
     });
 
     it('should throw error for non-array JSON', () => {
-      expect(() => deserializeFromStorage('{"not": "array"}')).toThrow('Storage deserialization failed');
+      expect(() => deserializeFromStorage('{"not": "array"}')).toThrow(
+        'Storage deserialization failed'
+      );
     });
 
     it('should handle mixed valid/invalid data gracefully', () => {
@@ -368,8 +374,8 @@ describe('StorageMapper', () => {
           genre: 'Action',
           director: 'Action Director',
           rating: 8.0,
-          favorite: true
-        }
+          favorite: true,
+        },
       ]);
 
       const result = deserializeFromStorage(mixedData);
@@ -388,7 +394,7 @@ describe('StorageMapper', () => {
         director: 'Valid Director',
         rating: 8.0,
         favorite: true,
-        storedAt: '2023-01-01T00:00:00Z'
+        storedAt: '2023-01-01T00:00:00Z',
       };
 
       expect(validateStorageData(validData)).toBe(true);
@@ -401,7 +407,7 @@ describe('StorageMapper', () => {
         genre: 'Genre',
         director: 'Director',
         rating: 8.0,
-        favorite: true
+        favorite: true,
       };
 
       expect(validateStorageData(invalidData)).toBe(false);
@@ -415,7 +421,7 @@ describe('StorageMapper', () => {
         genre: 'Genre',
         director: 'Director',
         rating: 8.0,
-        favorite: true
+        favorite: true,
       };
 
       expect(validateStorageData(invalidData)).toBe(false);
@@ -443,7 +449,7 @@ describe('StorageMapper', () => {
           genre: 'Action',
           director: 'Director 1',
           rating: 8.0,
-          favorite: true
+          favorite: true,
         },
         {
           id: 'valid-2',
@@ -452,8 +458,8 @@ describe('StorageMapper', () => {
           genre: 'Drama',
           director: 'Director 2',
           rating: 7.5,
-          favorite: false
-        }
+          favorite: false,
+        },
       ];
 
       expect(validateStorageDataList(validDataList)).toBe(true);
@@ -468,7 +474,7 @@ describe('StorageMapper', () => {
           genre: 'Action',
           director: 'Director 1',
           rating: 8.0,
-          favorite: true
+          favorite: true,
         },
         {
           id: 'invalid-2',
@@ -477,8 +483,8 @@ describe('StorageMapper', () => {
           genre: 'Drama',
           director: 'Director 2',
           rating: 7.5,
-          favorite: false
-        }
+          favorite: false,
+        },
       ];
 
       expect(validateStorageDataList(invalidDataList)).toBe(false);
@@ -504,7 +510,7 @@ describe('StorageMapper', () => {
           genre: 'Action',
           director: 'Director',
           rating: 8.0,
-          favorite: true
+          favorite: true,
         },
         {
           id: 'invalid-1',
@@ -513,7 +519,7 @@ describe('StorageMapper', () => {
           genre: 'Drama',
           director: 'Director',
           rating: 7.0,
-          favorite: false
+          favorite: false,
         },
         {
           id: 'valid-2',
@@ -522,8 +528,8 @@ describe('StorageMapper', () => {
           genre: 'Comedy',
           director: 'Comedy Director',
           rating: 6.5,
-          favorite: true
-        }
+          favorite: true,
+        },
       ];
 
       const result = cleanStorageData(mixedData);
@@ -538,7 +544,7 @@ describe('StorageMapper', () => {
         { invalid: 'data' },
         { another: 'invalid' },
         null,
-        undefined
+        undefined,
       ];
 
       const result = cleanStorageData(invalidData);
@@ -562,12 +568,12 @@ describe('StorageMapper', () => {
         genre: 'Adventure',
         director: 'Adventure Director',
         rating: 8.7,
-        favorite: true
+        favorite: true,
       };
 
       // Movie -> Storage
       const storageData = toStorage(originalMovie);
-      
+
       // Storage -> Movie
       const backToMovie = fromStorage(storageData);
 
@@ -590,7 +596,7 @@ describe('StorageMapper', () => {
           genre: 'Drama',
           director: 'Drama Director',
           rating: 8.5,
-          favorite: true
+          favorite: true,
         },
         {
           id: 'serialize-2',
@@ -599,13 +605,13 @@ describe('StorageMapper', () => {
           genre: 'Action',
           director: 'Action Director',
           rating: 7.8,
-          favorite: false
-        }
+          favorite: false,
+        },
       ];
 
       // Serialize
       const serialized = serializeForStorage(originalMovies);
-      
+
       // Deserialize
       const deserialized = deserializeFromStorage(serialized);
 
