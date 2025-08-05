@@ -18,7 +18,11 @@ export const createMovieValidationError = (
 
 export const validateMovieTitle = (title: string): void => {
   if (!title || title.trim() === '') {
-    throw createMovieValidationError('title', title, 'El título de la película es requerido');
+    throw createMovieValidationError(
+      'title',
+      title,
+      'El título de la película es requerido'
+    );
   }
 };
 
@@ -34,7 +38,11 @@ export const validateMovieDirector = (director: string): void => {
 
 export const validateMovieGenre = (genre: string): void => {
   if (!genre || genre.trim() === '') {
-    throw createMovieValidationError('genre', genre, 'El género de la película es requerido');
+    throw createMovieValidationError(
+      'genre',
+      genre,
+      'El género de la película es requerido'
+    );
   }
 };
 

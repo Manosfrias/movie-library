@@ -5,16 +5,14 @@ import { AddMovieForm } from '../add-movie-form/AddMovieForm';
 import styles from './AddMovieModal.module.css';
 import { AddMovieModalProps } from './AddMovieModal.types';
 
-export const AddMovieModal = ({ isOpen, onClose, onSuccess }: AddMovieModalProps) => {
+export const AddMovieModal = ({
+  isOpen,
+  onClose,
+  onSuccess,
+}: AddMovieModalProps) => {
   const { texts } = useTexts();
-  const {
-    formData,
-    errors,
-    isSubmitting,
-    updateField,
-    submitForm,
-    resetForm,
-  } = useMovieForm();
+  const { formData, errors, isSubmitting, updateField, submitForm, resetForm } =
+    useMovieForm();
 
   const handleSubmit = async () => {
     const newMovie = await submitForm();
@@ -70,7 +68,7 @@ export const AddMovieModal = ({ isOpen, onClose, onSuccess }: AddMovieModalProps
             ×
           </button>
         </div>
-        
+
         <AddMovieForm
           formData={formData}
           errors={errors}

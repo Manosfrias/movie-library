@@ -22,12 +22,9 @@ export const AddNewMovie = ({ className, onSuccess }: AddNewMovieProps) => {
 
   return (
     <>
-      <FloatingAddButton 
-        onClick={handleOpenModal}
-        className={className}
-      />
-      
-      <AddMovieModal 
+      <FloatingAddButton onClick={handleOpenModal} className={className} />
+
+      <AddMovieModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onSuccess={handleSuccess}

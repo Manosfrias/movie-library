@@ -74,7 +74,11 @@
 }
 
 .submitButton {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  background: linear-gradient(
+    135deg,
+    var(--color-primary),
+    var(--color-secondary)
+  );
   color: var(--color-bg);
   border: none;
   padding: var(--spacing-3) var(--spacing-6);
@@ -118,7 +122,7 @@
   cursor: pointer;
 }
 
-.checkboxLabel input[type="checkbox"] {
+.checkboxLabel input[type='checkbox'] {
   margin-right: var(--spacing-2);
   cursor: pointer;
 }
@@ -127,7 +131,7 @@
   .formActions {
     flex-direction: column;
   }
-  
+
   .submitButton,
   .cancelButton {
     width: 100%;

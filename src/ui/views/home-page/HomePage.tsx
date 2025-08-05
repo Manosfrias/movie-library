@@ -24,7 +24,7 @@ export default function HomePage() {
         <MovieOfTheDay />
         <MoviesList />
       </section>
-      
+
       <AddNewMovie />
     </main>
   );

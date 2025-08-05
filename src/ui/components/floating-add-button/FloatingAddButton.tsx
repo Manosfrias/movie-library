@@ -1,10 +1,10 @@
 import styles from './FloatingAddButton.module.css';
 import { FloatingAddButtonProps } from './FloatingAddButton.types';
 
-export const FloatingAddButton = ({ 
+export const FloatingAddButton = ({
   onClick,
-  className = '', 
-  'aria-label': ariaLabel = 'Añadir nueva película'
+  className = '',
+  'aria-label': ariaLabel = 'Añadir nueva película',
 }: FloatingAddButtonProps) => (
   <button
     type="button"

@@ -16,7 +16,9 @@ describe('Movie Validation', () => {
     });
 
     it('should throw error for empty title', () => {
-      expect(() => validateMovieTitle('')).toThrow('El título de la película es requerido');
+      expect(() => validateMovieTitle('')).toThrow(
+        'El título de la película es requerido'
+      );
     });
 
     it('should throw error for whitespace-only title', () => {
@@ -44,7 +46,9 @@ describe('Movie Validation', () => {
     });
 
     it('should throw error for empty genre', () => {
-      expect(() => validateMovieGenre('')).toThrow('El género de la película es requerido');
+      expect(() => validateMovieGenre('')).toThrow(
+        'El género de la película es requerido'
+      );
     });
   });
 
