@@ -1,4 +1,4 @@
-import { MovieDetailPageProps } from './movieDetailPage.type';
+import { MovieDetailPageProps } from './MovieDetailPage.type';
 import styles from './MovieDetailPageNotFound.module.css';
 
 export default function MovieDetailPageNotFound({

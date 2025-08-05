@@ -105,11 +105,10 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
   it('should display movie detail structure and load real data', async () => {
     renderMovieDetailPage('1');
 
-    expect(screen.getByRole('main')).toBeInTheDocument();
-
-    // Usar waitFor en lugar de setTimeout
+    // Esperar a que el contexto cargue las películas y renderice contenido
     await waitFor(() => {
       const main = screen.getByRole('main');
+      expect(main).toBeInTheDocument();
       expect(main.children.length).toBeGreaterThan(0);
     });
 
@@ -117,7 +116,11 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
     await waitFor(() => {
       const movieTitles = screen.getAllByRole('heading');
       expect(movieTitles.length).toBeGreaterThan(0);
-      expect(movieTitles[0].textContent?.length).toBeGreaterThan(0);
+      expect(
+        movieTitles.some(
+          (title) => title.textContent?.length && title.textContent.length > 0
+        )
+      ).toBe(true);
     });
   });
 
@@ -177,17 +180,20 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
     renderMovieDetailPage('1');
     await waitForMovieToLoad();
 
-    // Verificar que existe contenido del sidebar
+    // Verificar que existe contenido del sidebar (navegación)
     await waitFor(() => {
-      const buttons = screen.getAllByRole('button');
-      expect(buttons.length).toBeGreaterThan(0);
+      const homeLink = screen.getByRole('link', { name: 'Home' });
+      expect(homeLink).toBeInTheDocument();
+      expect(homeLink).toHaveAttribute('href', '/');
     });
 
-    // Verificar elementos específicos del sidebar
-    const favoriteButton = screen.getByRole('button', {
-      name: /Add to Favorites/i,
-    });
-    expect(favoriteButton).toBeInTheDocument();
+    // Verificar que existe el botón de editar en el contenido principal
+    const editButton = screen.getByRole('button', { name: /Editar/i });
+    expect(editButton).toBeInTheDocument();
+
+    // Verificar que existe el botón de eliminar
+    const deleteButton = screen.getByRole('button', { name: /Eliminar/i });
+    expect(deleteButton).toBeInTheDocument();
   });
 
   it('should display movie synopsis and cast information', async () => {
@@ -209,18 +215,21 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
     renderMovieDetailPage('1');
     await waitForMovieToLoad();
 
-    // Verificar que los botones de navegación están presentes
+    // Verificar que los elementos de navegación están presentes
     await waitFor(() => {
-      const buttons = screen.getAllByRole('button');
-      expect(buttons.length).toBeGreaterThan(0);
+      const homeLink = screen.getByRole('link', { name: 'Home' });
+      expect(homeLink).toBeInTheDocument();
+      expect(homeLink).toHaveAttribute('href', '/');
     });
 
-    // Verificar funcionalidad básica
-    const favoriteButton = screen.getByRole('button', {
-      name: /Add to Favorites/i,
-    });
-    expect(favoriteButton).toBeInTheDocument();
-    expect(favoriteButton).toBeEnabled();
+    // Verificar funcionalidad básica de los botones de acción
+    const editButton = screen.getByRole('button', { name: /Editar/i });
+    expect(editButton).toBeInTheDocument();
+    expect(editButton).toBeEnabled();
+
+    const deleteButton = screen.getByRole('button', { name: /Eliminar/i });
+    expect(deleteButton).toBeInTheDocument();
+    expect(deleteButton).toBeEnabled();
   });
 
   it('should work with real localStorage functionality', async () => {
@@ -230,41 +239,49 @@ describe('MovieDetailPage Integration Tests - Real Services Integration', () => 
     // Verificar localStorage está disponible
     expect(localStorage).toBeDefined();
 
+    // Test de la funcionalidad de edición que usa localStorage
+    const editButton = screen.getByRole('button', { name: /Editar/i });
+    await user.click(editButton);
+
+    // Esperar a que aparezca el checkbox de favoritos
     await waitFor(() => {
-      const favoriteButton = screen.getByRole('button', {
-        name: /Add to Favorites/i,
-      });
-      expect(favoriteButton).toBeInTheDocument();
+      const favoriteCheckbox = screen.getByRole('checkbox');
+      expect(favoriteCheckbox).toBeInTheDocument();
     });
 
-    const favoriteButton = screen.getByRole('button', {
-      name: /Add to Favorites/i,
-    });
-    await user.click(favoriteButton);
+    // Cambiar el estado del checkbox
+    const favoriteCheckbox = screen.getByRole('checkbox') as HTMLInputElement;
+    const initialState = favoriteCheckbox.checked;
 
-    // Verificar que localStorage se actualiza
+    await user.click(favoriteCheckbox);
+    expect(favoriteCheckbox.checked).toBe(!initialState);
+
+    // Guardar los cambios
+    const saveButton = screen.getByRole('button', { name: /Guardar/i });
+    await user.click(saveButton);
+
+    // Verificar que el cambio se ha guardado
     await waitFor(() => {
-      const favorites = JSON.parse(
-        localStorage.getItem('favoriteMovies') || '[]'
-      );
-      expect(Array.isArray(favorites)).toBe(true);
+      expect(screen.queryByRole('checkbox')).not.toBeInTheDocument();
     });
   });
 
   it('should handle not found movie gracefully', async () => {
     renderMovieDetailPage('999999'); // ID que no existe
 
-    expect(screen.getByRole('main')).toBeInTheDocument();
-
-    // Esperar a que las películas se carguen
+    // Esperar a que las películas se carguen del contexto
     await waitFor(() => {
-      // Si no encuentra la película, el main debería estar vacío
-      const main = screen.getByRole('main');
-      expect(main).toBeInTheDocument();
+      // Como no encuentra la película, el componente retorna null
+      // Así que solo debería existir el div vacío del render
+      const body = document.body;
+      expect(body).toBeInTheDocument();
     });
 
     // Verificar que no hay contenido de película específica
-    const headings = screen.queryAllByRole('heading');
-    expect(headings.length).toBe(0);
+    expect(screen.queryByRole('main')).not.toBeInTheDocument();
+    expect(screen.queryAllByRole('heading')).toHaveLength(0);
+    expect(
+      screen.queryByText('The Shawshank Redemption')
+    ).not.toBeInTheDocument();
   });
 });

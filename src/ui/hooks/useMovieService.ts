@@ -1,11 +1,12 @@
 import { createMovieRepository } from '@/core/infrastructure/repositories/repositoryFactory';
 import type { Movie } from '@/core/models/movie';
-import { createMovieUseCases } from '@/core/use-cases/MovieUseCases';
+import { createMovieUseCases } from '@/core/use-cases/movieUseCases';
 import { useMemo } from 'react';
 
 export interface MovieService {
   getAllMovies(): Promise<Movie[]>;
   getMovieById(id: string): Promise<Movie | null>;
+  getMovieOfTheDay(): Promise<Movie | null>;
   createMovie(movieData: Omit<Movie, 'id'>): Promise<Movie>;
   updateMovie(
     id: string,
@@ -27,6 +28,10 @@ export const useMovieService = (): MovieService => {
 
       getMovieById: async (id: string): Promise<Movie | null> => {
         return useCases.getMovieById.execute(id);
+      },
+
+      getMovieOfTheDay: async (): Promise<Movie | null> => {
+        return useCases.getMovieOfTheDay();
       },
 
       createMovie: async (movieData: Omit<Movie, 'id'>): Promise<Movie> => {
@@ -64,6 +69,10 @@ export const createMovieApplicationService = (): MovieService => {
 
     getMovieById: async (id: string): Promise<Movie | null> => {
       return useCases.getMovieById.execute(id);
+    },
+
+    getMovieOfTheDay: async (): Promise<Movie | null> => {
+      return useCases.getMovieOfTheDay();
     },
 
     createMovie: async (movieData: Omit<Movie, 'id'>): Promise<Movie> => {

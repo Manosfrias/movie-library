@@ -4,6 +4,7 @@ import type {
   DeleteMovieUseCase,
   GetAllMoviesUseCase,
   GetMovieByIdUseCase,
+  GetMovieOfTheDayUseCase,
   MovieUseCases,
   ToggleFavoriteUseCase,
   UpdateMovieUseCase,
@@ -12,6 +13,7 @@ import { createCreateMovieUseCase } from './create-movie/createMovie';
 import { createDeleteMovieUseCase } from './delete-movie/deleteMovie';
 import { createGetAllMoviesUseCase } from './get-all-movies/getAllMovies';
 import { createGetMovieByIdUseCase } from './get-movie-by-id/getMovieById';
+import { createGetMovieOfTheDayUseCase } from './get-movie-of-the-day/getMovieOfTheDay';
 import { createToggleFavoriteUseCase } from './toggle-favorite/toggleFavorite';
 import { createUpdateMovieUseCase } from './update-movie/updateMovie';
 
@@ -24,6 +26,7 @@ export const createMovieUseCases = (
   updateMovie: createUpdateMovieUseCase(movieRepository),
   deleteMovie: createDeleteMovieUseCase(movieRepository),
   toggleFavorite: createToggleFavoriteUseCase(movieRepository),
+  getMovieOfTheDay: createGetMovieOfTheDayUseCase(movieRepository),
 });
 
 export type {
@@ -31,6 +34,7 @@ export type {
   DeleteMovieUseCase,
   GetAllMoviesUseCase,
   GetMovieByIdUseCase,
+  GetMovieOfTheDayUseCase,
   MovieUseCases,
   ToggleFavoriteUseCase,
   UpdateMovieUseCase,
