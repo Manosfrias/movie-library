@@ -313,7 +313,9 @@ describe('RepositoryFactory', () => {
 
   describe('HTTP Client creation', () => {
     it('should create HTTP client only once', async () => {
-      const { FetchHttpClient } = await import('@/core/infrastructure/http/HttpClient');
+      const { FetchHttpClient } = await import(
+        '@/core/infrastructure/http/HttpClient'
+      );
       const { createMovieRepository, resetRepositories } = await import(
         './repositoryFactory'
       );
@@ -326,8 +328,12 @@ describe('RepositoryFactory', () => {
     });
 
     it('should use correct API configuration', async () => {
-      const { FetchHttpClient } = await import('@/core/infrastructure/http/HttpClient');
-      const { apiConfig } = await import('@/core/infrastructure/http/ApiConfig');
+      const { FetchHttpClient } = await import(
+        '@/core/infrastructure/http/HttpClient'
+      );
+      const { apiConfig } = await import(
+        '@/core/infrastructure/http/ApiConfig'
+      );
       const { createMovieRepository, resetRepositories } = await import(
         './repositoryFactory'
       );
