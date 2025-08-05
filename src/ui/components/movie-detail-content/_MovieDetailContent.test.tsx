@@ -20,11 +20,7 @@ const mockNonFavoriteMovie: Movie = {
 };
 
 const renderWithProvider = (component: React.ReactElement) => {
-  return render(
-    <MoviesProvider>
-      {component}
-    </MoviesProvider>
-  );
+  return render(<MoviesProvider>{component}</MoviesProvider>);
 };
 
 describe('MovieDetailContent', () => {

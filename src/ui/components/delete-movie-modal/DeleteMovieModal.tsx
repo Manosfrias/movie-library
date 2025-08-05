@@ -34,19 +34,13 @@ export default function DeleteMovieModal({
         <div className={styles.header}>
           <h2 className={styles.title}>{deleteMovie.title}</h2>
         </div>
-        
+
         <div className={styles.content}>
-          <p className={styles.message}>
-            {deleteMovie.confirmMessage}
-          </p>
-          <p className={styles.description}>
-            {deleteMovie.confirmDescription}
-          </p>
-          <div className={styles.movieTitle}>
-            &ldquo;{movieTitle}&rdquo;
-          </div>
+          <p className={styles.message}>{deleteMovie.confirmMessage}</p>
+          <p className={styles.description}>{deleteMovie.confirmDescription}</p>
+          <div className={styles.movieTitle}>&ldquo;{movieTitle}&rdquo;</div>
         </div>
-        
+
         <div className={styles.actions}>
           <button
             type="button"
@@ -62,7 +56,9 @@ export default function DeleteMovieModal({
             onClick={onConfirm}
             disabled={isDeleting}
           >
-            {isDeleting ? deleteMovie.actions.deleting : deleteMovie.actions.confirm}
+            {isDeleting
+              ? deleteMovie.actions.deleting
+              : deleteMovie.actions.confirm}
           </button>
         </div>
       </div>

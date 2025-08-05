@@ -42,11 +42,15 @@ export const MoviesProvider: React.FC<MoviesProviderProps> = ({ children }) => {
       selectedGenre,
       sortBy
     );
-    
+
     // Si no hay películas filtradas pero sí hay películas en total, resetear filtros
     if (filtered.length === 0 && movies.length > 0) {
       // Solo resetear si hay filtros activos
-      if (showOnlyFavorites || searchQuery.trim() !== '' || selectedGenre !== 'Todos los Géneros') {
+      if (
+        showOnlyFavorites ||
+        searchQuery.trim() !== '' ||
+        selectedGenre !== 'Todos los Géneros'
+      ) {
         setTimeout(() => {
           setShowOnlyFavorites(false);
           setSearchQuery('');
@@ -54,7 +58,7 @@ export const MoviesProvider: React.FC<MoviesProviderProps> = ({ children }) => {
         }, 0);
       }
     }
-    
+
     return filtered;
   }, [
     movies,
@@ -129,6 +133,5 @@ export const useMovies = (): MoviesContextType => {
 
 export type {
   MoviesContextType,
-  MoviesProviderProps
+  MoviesProviderProps,
 } from './MoviesContext.types';
-

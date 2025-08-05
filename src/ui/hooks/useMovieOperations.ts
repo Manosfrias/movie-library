@@ -1,9 +1,6 @@
 import { useCallback } from 'react';
 import { Movie } from '../../core/models/movie';
-import {
-  addNewMovie,
-  toggleMovieFavorite
-} from '../context/movieOperations';
+import { addNewMovie, toggleMovieFavorite } from '../context/movieOperations';
 import { useMovieService } from '../hooks/useMovieService';
 
 interface UseMovieOperationsProps {

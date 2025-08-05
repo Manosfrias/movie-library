@@ -29,10 +29,12 @@ export function useTexts() {
       TEXTS.addMovie.actions[key],
     getAddMovieValidationText: (key: keyof typeof TEXTS.addMovie.validation) =>
       TEXTS.addMovie.validation[key],
-    getEditMovieText: (key: keyof typeof TEXTS.editMovie) => TEXTS.editMovie[key],
+    getEditMovieText: (key: keyof typeof TEXTS.editMovie) =>
+      TEXTS.editMovie[key],
     getEditMovieActionsText: (key: keyof typeof TEXTS.editMovie.actions) =>
       TEXTS.editMovie.actions[key],
-    getDeleteMovieText: (key: keyof typeof TEXTS.deleteMovie) => TEXTS.deleteMovie[key],
+    getDeleteMovieText: (key: keyof typeof TEXTS.deleteMovie) =>
+      TEXTS.deleteMovie[key],
     getDeleteMovieActionsText: (key: keyof typeof TEXTS.deleteMovie.actions) =>
       TEXTS.deleteMovie.actions[key],
     getCommonText: (key: keyof typeof TEXTS.common) => TEXTS.common[key],

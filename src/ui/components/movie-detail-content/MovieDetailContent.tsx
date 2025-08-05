@@ -61,7 +61,7 @@ export default function MovieDetailContent({ movie }: MovieDetailContentProps) {
   };
 
   const handleInputChange = (field: keyof typeof editData, value: any) => {
-    setEditData(prev => ({ ...prev, [field]: value }));
+    setEditData((prev) => ({ ...prev, [field]: value }));
   };
   return (
     <div className={styles.content}>
@@ -90,12 +90,16 @@ export default function MovieDetailContent({ movie }: MovieDetailContentProps) {
               max="10"
               step="0.1"
               value={editData.rating}
-              onChange={(e) => handleInputChange('rating', parseFloat(e.target.value) || 0)}
+              onChange={(e) =>
+                handleInputChange('rating', parseFloat(e.target.value) || 0)
+              }
               className={styles.ratingInput}
             />
           ) : (
             <>
-              <span className={styles.ratingValue}>{movie.rating.toFixed(1)}</span>
+              <span className={styles.ratingValue}>
+                {movie.rating.toFixed(1)}
+              </span>
               <span className={styles.ratingLabel}>/ 10</span>
             </>
           )}
@@ -112,7 +116,9 @@ export default function MovieDetailContent({ movie }: MovieDetailContentProps) {
               className={styles.saveButton}
               disabled={loading}
             >
-              {loading ? texts.editMovie.actions.saving : texts.editMovie.actions.save}
+              {loading
+                ? texts.editMovie.actions.saving
+                : texts.editMovie.actions.save}
             </button>
             <button
               type="button"
@@ -167,7 +173,12 @@ export default function MovieDetailContent({ movie }: MovieDetailContentProps) {
                 min="1800"
                 max={new Date().getFullYear()}
                 value={editData.releaseYear}
-                onChange={(e) => handleInputChange('releaseYear', parseInt(e.target.value) || new Date().getFullYear())}
+                onChange={(e) =>
+                  handleInputChange(
+                    'releaseYear',
+                    parseInt(e.target.value) || new Date().getFullYear()
+                  )
+                }
                 className={styles.infoInput}
               />
             ) : (
@@ -202,11 +213,15 @@ export default function MovieDetailContent({ movie }: MovieDetailContentProps) {
               <input
                 type="checkbox"
                 checked={editData.favorite}
-                onChange={(e) => handleInputChange('favorite', e.target.checked)}
+                onChange={(e) =>
+                  handleInputChange('favorite', e.target.checked)
+                }
                 className={styles.favoriteCheckbox}
               />
             ) : (
-              <span className={styles.infoValue}>{movie.favorite ? 'Yes' : 'No'}</span>
+              <span className={styles.infoValue}>
+                {movie.favorite ? 'Yes' : 'No'}
+              </span>
             )}
           </div>
         </div>

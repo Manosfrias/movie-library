@@ -1,6 +1,5 @@
 import { MoviesProvider } from '@/ui/context/MoviesContext';
 import { Inter } from 'next/font/google';
-import Script from 'next/script';
 import React from 'react';
 import './globals.css';
 
@@ -15,9 +14,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="es">
       <body className={`${inter.className}`}>
         <MoviesProvider>{children}</MoviesProvider>
-        {process.env.NODE_ENV === 'development' && (
-          <Script src="/debug-helpers.js" strategy="afterInteractive" />
-        )}
       </body>
     </html>
   );
