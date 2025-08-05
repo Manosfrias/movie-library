@@ -5,7 +5,17 @@ import ViewDetails from '../view-details/ViewDetails';
 import styles from './MovieCard.module.css';
 import { MovieCardProps } from './MovieCard.types';
 
-export default function MovieCard({ movie, onSelect }: MovieCardProps) {
+export default function MovieCard({
+  movie,
+  onSelect,
+  onToggleFavorite,
+}: MovieCardProps) {
+  const handleFavoriteToggle = () => {
+    if (onToggleFavorite) {
+      onToggleFavorite(movie.id);
+    }
+  };
+
   return (
     <a
       href={`/${movie.id}`}
@@ -19,7 +29,11 @@ export default function MovieCard({ movie, onSelect }: MovieCardProps) {
     >
       <header className={styles.header}>
         <h3 className={styles.title}>{movie.title}</h3>
-        {movie.favorite && <Badge type="favorite" />}
+        <Badge
+          type="favorite"
+          active={!!movie.favorite}
+          onClick={handleFavoriteToggle}
+        />
       </header>
 
       <article className={styles.movieInfo}>

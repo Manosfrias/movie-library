@@ -19,6 +19,15 @@ vi.mock('./MovieCard.module.css', () => ({
   },
 }));
 
+// Mock Badge CSS modules
+vi.mock('../badge/Badget.module.css', () => ({
+  default: {
+    badge: 'badge',
+    favorite: 'favorite',
+    inactive: 'inactive',
+  },
+}));
+
 import MovieCard from './MovieCard';
 
 const mockMovie: Movie = {
@@ -55,16 +64,20 @@ describe('MovieCard', () => {
     ).toBeInTheDocument();
   });
 
-  it('renders favorite badge when movie is favorite', () => {
+  it('renders favorite badge as active when movie is favorite', () => {
     render(<MovieCard movie={mockFavoriteMovie} />);
 
-    expect(screen.getByText('Favorito')).toBeInTheDocument();
+    const badge = screen.getByText('Favorito');
+    expect(badge).toBeInTheDocument();
+    expect(badge).not.toHaveClass('inactive');
   });
 
-  it('does not render favorite badge when movie is not favorite', () => {
+  it('renders favorite badge as inactive when movie is not favorite', () => {
     render(<MovieCard movie={mockMovie} />);
 
-    expect(screen.queryByText('Favorito')).not.toBeInTheDocument();
+    const badge = screen.getByText('Favorito');
+    expect(badge).toBeInTheDocument();
+    expect(badge).toHaveClass('inactive');
   });
 
   it('renders all required movie fields', () => {
@@ -121,5 +134,25 @@ describe('MovieCard', () => {
         return element?.textContent === '⭐ 7';
       })
     ).toBeInTheDocument();
+  });
+
+  it('calls onToggleFavorite when favorite badge is clicked', () => {
+    const handleToggleFavorite = vi.fn();
+    render(<MovieCard movie={mockMovie} onToggleFavorite={handleToggleFavorite} />);
+
+    const badge = screen.getByText('Favorito');
+    fireEvent.click(badge);
+    
+    expect(handleToggleFavorite).toHaveBeenCalledWith(mockMovie.id);
+  });
+
+  it('does not crash when onToggleFavorite is not provided', () => {
+    render(<MovieCard movie={mockMovie} />);
+
+    const badge = screen.getByText('Favorito');
+    
+    expect(() => {
+      fireEvent.click(badge);
+    }).not.toThrow();
   });
 });

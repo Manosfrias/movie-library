@@ -27,6 +27,7 @@
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: var(--spacing-3);
+  gap: var(--spacing-2);
 }
 
 .title {
