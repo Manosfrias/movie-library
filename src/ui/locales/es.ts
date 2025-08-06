@@ -71,6 +71,7 @@ export const TEXTS = {
     error: 'Ha ocurrido un error',
     retry: 'Reintentar',
     back: 'Volver',
+    viewDetails: 'Ver más',
   },
 
   navigation: {
