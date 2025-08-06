@@ -2,6 +2,10 @@
 
 A modern movie library application built with Next.js, TypeScript and React.
 
+## 🌐 Demo
+
+You can see a live demo of the application here: [https://movie-library-prdul8ou5-manosfrias-projects.vercel.app/](https://movie-library-prdul8ou5-manosfrias-projects.vercel.app/)
+
 ## 🚀 Tech Stack
 
 - **Frontend**: React 18 + TypeScript
