@@ -1,6 +1,5 @@
 # 📋 Movie Library - Kanban
 
-
 ## 🎯 **TO DO**
 
 ### Pending Features
@@ -16,7 +15,6 @@
 - [ ] Add toast notifications for CRUD operations
 - [ ] Improve visual feedback for error states
 - [ ] Implement confirmation for delete movies
-
 
 ## ✅ **DONE**
 

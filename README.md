@@ -1,8 +1,8 @@
 # Movie Library 🎬
 
-Una aplicación de biblioteca de películas moderna construida con Next.js, TypeScript y React.
+A modern movie library application built with Next.js, TypeScript and React.
 
-## 🚀 Stack Tecnológico
+## 🚀 Tech Stack
 
 - **Frontend**: React 18 + TypeScript
 - **Framework**: Next.js 14 (App Router)
@@ -11,220 +11,272 @@ Una aplicación de biblioteca de películas moderna construida con Next.js, Type
 - **Code Quality**: ESLint + Prettier
 - **Git Hooks**: Husky
 - **Styling**: CSS Modules
+- **CI/CD**: GitHub Actions  
+- **Deploy**: Vercel
 
-## 📦 Instalación
+## 📦 Installation
 
-1. Clona el repositorio:
+1. Clone the repository:
 
 ```bash
-git clone <tu-repo-url>
+git clone <your-repo-url>
 cd movie-library
 ```
 
-2. Instala las dependencias:
+2. Install dependencies:
 
 ```bash
 npm install
 ```
 
-3. Configura las variables de entorno:
+3. Configure environment variables:
 
 ```bash
 cp .env.example .env.local
 ```
 
-Edita `.env.local` y configura las variables necesarias (ver sección **Configuración**).
+Edit `.env.local` and configure the necessary variables (see **Configuration** section).
 
-4. Configura los hooks de Git:
+4. Set up Git hooks:
 
 ```bash
 npm run prepare
 ```
 
-## 🛠️ Scripts Disponibles
+## 🛠️ Available Scripts
 
-### Desarrollo
+### Development
 
 ```bash
-npm run dev          # Inicia el servidor de desarrollo
-npm run build        # Construye la aplicación para producción
-npm run start        # Inicia el servidor de producción
+npm run dev          # Start development server (next dev)
+npm run build        # Build application for production (next build)
+npm run start        # Start production server (next start)
 ```
 
 ### Testing
 
 ```bash
-npm run test         # Ejecuta las pruebas unitarias una vez
-npm run test:watch   # Ejecuta las pruebas en modo watch (re-ejecuta al cambiar archivos)
-npm run test:ui      # Ejecuta Vitest con interfaz web
-npm run test:coverage # Genera reporte de cobertura
-npm run test:coverage-check # Verifica que el coverage cumpla el mínimo del 80%
-npm run cypress:open # Abre Cypress en modo interactivo
-npm run cypress:run  # Ejecuta las pruebas E2E
+npm run test         # Run unit tests once (vitest run)
+npm run test:watch   # Run tests in watch mode (vitest)
+npm run test:ui      # Run Vitest with web UI (vitest --ui)
+npm run test:coverage # Generate coverage report (vitest run --coverage)
+npm run test:coverage-check # Verify coverage meets minimum + check script
+npm run cypress:open # Open Cypress in interactive mode
+npm run cypress:run  # Run E2E tests headlessly
 ```
 
 ### Code Quality
 
 ```bash
-npm run lint         # Ejecuta ESLint
-npm run lint:fix     # Corrige automáticamente errores de ESLint
-npm run format       # Formatea el código con Prettier
-npm run format:check # Verifica el formato del código
-npm run type-check   # Verifica los tipos de TypeScript
+npm run lint         # Run ESLint (next lint)
+npm run lint:fix     # Auto-fix ESLint errors (next lint --fix)
+npm run format       # Format code with Prettier (prettier --write .)
+npm run format:check # Check code formatting (prettier --check .)
+npm run type-check   # Check TypeScript types (tsc --noEmit)
 ```
 
-## ⚙️ Configuración
-
-### Variables de Entorno
-
-La aplicación utiliza las siguientes variables de entorno:
+### Setup
 
 ```bash
-# API Configuration - URL de la API de películas (OBLIGATORIA)
-NEXT_PUBLIC_MOVIES_API_URL=https://68820fb566a7eb81224d439c.mockapi.io/api/v1/movies
+npm run prepare      # Install Husky git hooks (husky install)
+```
 
-# Storage Configuration - Keys para localStorage (OPCIONALES)
+## ⚙️ Configuration
+
+### Environment Variables
+
+The application uses the following environment variables:
+
+```bash
+# API Configuration - Movies API URL (REQUIRED)
+NEXT_PUBLIC_MOVIES_API_URL=https://your-api-url.io/api/v1/movies
+
+# Storage Configuration - localStorage keys (OPTIONAL)
 NEXT_PUBLIC_STORAGE_FILTERS_KEY=movie-library-filters
 NEXT_PUBLIC_STORAGE_FAVORITES_KEY=movie-library-favorites
 
-# Environment - Entorno de ejecución
+# Environment - Runtime environment
 NODE_ENV=development
 ```
 
-> ⚠️ **Importante**: `NEXT_PUBLIC_MOVIES_API_URL` es obligatoria. La aplicación no arrancará sin ella.
+> ⚠️ **Important**: `NEXT_PUBLIC_MOVIES_API_URL` is required. The application won't start without it.
 >
-> **Storage Keys**: Las claves de localStorage son opcionales. Si no se proporcionan, se usarán valores por defecto.
+> **Demo API**: For testing purposes, we recommend using: `https://68820fb566a7eb81224d439c.mockapi.io/api/v1/movies`
+>
+> **Storage Keys**: localStorage keys are optional. If not provided, default values will be used.
 
-### Archivo de Configuración
+### Configuration File
 
-El archivo `src/config/env.ts` centraliza toda la configuración de la aplicación:
+The `src/config/env.ts` file centralizes all application configuration:
 
 ```typescript
 import config from '@/config/env';
 
-// Configuración de API
-config.api.baseUrl; // URL base de la API
-config.api.timeout; // Timeout de requests (10s)
-config.api.retryAttempts; // Intentos de reintento (3)
+// API Configuration
+config.api.baseUrl; // API base URL
+config.api.timeout; // Request timeout (10s)
+config.api.retryAttempts; // Retry attempts (3)
 
-// Detección de entorno
-config.isDevelopment; // true si NODE_ENV === 'development'
-config.isProduction; // true si NODE_ENV === 'production'
-config.isTest; // true si NODE_ENV === 'test'
+// Environment detection
+config.isDevelopment; // true if NODE_ENV === 'development'
+config.isProduction; // true if NODE_ENV === 'production'
+config.isTest; // true if NODE_ENV === 'test'
 
-// Feature flags (vacío, listo para futuras funcionalidades)
+// Feature flags (empty, ready for future features)
 config.features; // {}
 
-// Configuración de la app (lee del package.json)
-config.app.name; // Nombre de la app
-config.app.version; // Versión de la app
-config.app.defaultPageSize; // Paginación por defecto (20)
-config.app.maxRetries; // Máximo de reintentos (3)
+// App configuration (reads from package.json)
+config.app.name; // App name
+config.app.version; // App version
+config.app.defaultPageSize; // Default pagination (20)
+config.app.maxRetries; // Maximum retries (3)
 ```
 
-## 🏗️ Estructura del Proyecto
+## 🏗️ Project Structure
 
 ```
 movie-library/
 ├── src/
-│   ├── app/                 # App Router de Next.js
-│   │   ├── globals.css      # Estilos globales
-│   │   ├── layout.tsx       # Layout raíz
-│   │   ├── page.tsx         # Página principal
-│   │   ├── page.module.css  # Estilos CSS Module para la página
-│   │   └── _page.test.tsx   # Tests de la página principal
-│   └── components/          # Componentes reutilizables
-│       ├── Button.tsx       # Componente Button
-│       ├── _Button.test.tsx # Tests del componente Button
-│       ├── MovieCard.tsx    # Componente MovieCard
-│       ├── MovieCard.module.css # Estilos del MovieCard
-│       └── _MovieCard.test.tsx  # Tests del componente MovieCard
-├── __vitest__/              # Configuración de testing unitario
-│   └── setup.ts             # Configuración de Vitest
-├── __cypress__/             # Pruebas E2E
-│   ├── e2e/                # Pruebas end-to-end
-│   └── support/            # Configuración de Cypress
-├── .husky/                 # Git hooks
-└── configuración...
+│   ├── app/                     # Next.js 14 App Router
+│   │   ├── [id]/                # Dynamic movie detail routes
+│   │   ├── globals.css          # Global styles and CSS variables
+│   │   ├── layout.tsx           # Root layout component
+│   │   ├── page.tsx             # Home page
+│   │   ├── favicon.ico          # Application favicon
+│   │   └── _layout.test.tsx     # Layout component tests
+│   ├── config/                  # Application configuration
+│   │   └── env.ts               # Environment variables and settings
+│   ├── core/                    # Domain layer (Clean Architecture)
+│   │   ├── data/                # Sample data and fixtures
+│   │   ├── infrastructure/      # External adapters (API, Storage)
+│   │   │   ├── mappers/         # Data transformation utilities
+│   │   │   └── repositories/    # Repository implementations
+│   │   ├── models/              # Domain models and types
+│   │   ├── use-cases/           # Business logic and use cases
+│   │   └── utils/               # Domain utilities
+│   └── ui/                      # Presentation layer
+│       ├── components/          # Reusable UI components
+│       │   ├── movie-card/      # Movie display card
+│       │   ├── movie-details/   # Movie detail components
+│       │   ├── filter-movies/   # Filtering functionality
+│       │   ├── search-movies/   # Search functionality
+│       │   ├── add-movie-form/  # Movie creation forms
+│       │   ├── aside-card/      # Sidebar card component
+│       │   └── ...              # 20+ other components
+│       ├── context/             # React Context providers
+│       ├── hooks/               # Custom React hooks
+│       ├── locales/             # Internationalization files
+│       └── views/               # Page-level components
+├── __vitest__/                  # Unit testing configuration
+│   └── setup.ts                # Vitest global configuration
+├── __cypress__/                 # E2E testing
+│   ├── e2e/                    # End-to-end test files
+│   └── support/                # Cypress support files
+├── coverage/                    # Test coverage reports
+├── scripts/                     # Build and utility scripts
+├── .husky/                     # Git hooks configuration
+├── cypress.config.ts          # Cypress configuration
+├── next.config.js              # Next.js configuration
+├── vite.config.ts              # Vite configuration for tests
+├── tsconfig.json               # TypeScript configuration
+└── package.json                # Dependencies and scripts
 ```
 
-**Nota**: El proyecto puede incluir scripts utilitarios locales que no se incluyen en el control de versiones.
+### 🏛️ Architecture Overview
 
-## 🔧 Configuración
+The project follows **Clean Architecture** principles with clear separation of concerns:
+
+- **`core/`**: Contains the business logic, independent of UI and external dependencies
+- **`ui/`**: Presentation layer with React components, hooks, and context
+- **`app/`**: Next.js App Router with pages and layouts
+- **`config/`**: Centralized configuration management
+
+### 🧪 Testing Strategy
+
+- **Unit Tests**: Co-located with `_` prefix (e.g., `_Component.test.tsx`)
+- **Integration Tests**: In `__vitest__/` for cross-component testing
+- **E2E Tests**: In `__cypress__/` for full user workflow testing
+- **Coverage**: Minimum 80% across all metrics
+
+## 🔧 Configuration
 
 ### ESLint + Prettier
 
-El proyecto viene configurado con reglas estrictas de ESLint y Prettier para mantener la calidad del código.
+The project comes configured with strict ESLint and Prettier rules to maintain code quality.
 
 ### Husky Pre-commit Hooks
 
-Antes de cada commit se ejecutan automáticamente:
+Before each commit, the following are automatically executed:
 
-- Lint y corrección automática
-- Formato de código
-- Verificación de tipos TypeScript
-- Pruebas unitarias
+- Lint and automatic fixes
+- Code formatting
+- TypeScript type checking
+- Unit tests
 
 ### Testing
 
-- **Vitest**: Para pruebas unitarias y de integración
-- **Cypress**: Para pruebas end-to-end
-- **@testing-library/react**: Para testing de componentes React
-- **Coverage mínimo**: 80% en líneas, funciones, ramas y declaraciones
-- **Estructura**: Tests co-localizados con prefijo `_`
+- **Vitest**: For unit and integration tests
+- **Cypress**: For end-to-end tests
+- **@testing-library/react**: For React component testing
+- **Minimum coverage**: 80% in lines, functions, branches and statements
+- **Structure**: Tests co-located with `_` prefix
 
 ### TypeScript
 
-Configuración estricta de TypeScript con:
+Strict TypeScript configuration with:
 
-- Resolución de módulos optimizada
-- Alias de importación (`@/*` para `src/*`)
-- Verificación de tipos estricta
+- Optimized module resolution
+- Import aliases (`@/*` for `src/*`)
+- Strict type checking
 
-## 🤖 Metodología de Desarrollo
+## 🤖 Development Methodology
 
-Este proyecto está siendo desarrollado mediante una **colaboración única entre humano e IA**, utilizando **GitHub Copilot** como asistente de desarrollo principal.
+This project is being built through a **collaborative process between human and AI**, with **GitHub Copilot** supporting the development.
 
-### 🎯 Proceso de Colaboración
+### 🎯 How We Work
 
-- **Planificación**: Utilizamos un [KANBAN.md](KANBAN.md) dinámico para el seguimiento de tareas y progreso
-- **Arquitectura**: Definición humana de la estructura del proyecto y patrones de código
-- **Implementación**: GitHub Copilot genera código basado en especificaciones y mejores prácticas
-- **Revisión**: Iteración continua para optimizar la calidad y funcionalidad del código
-- **Testing**: Implementación de pruebas comprehensivas para garantizar la robustez
+- **Planning**: We organize and track tasks using a dynamic [KANBAN.md](KANBAN.md)
+- **Architecture**: The project structure and patterns are defined by a human (me! Ana 😉)
+- **Implementation**: GitHub Copilot helps generate code based on clear specifications
+- **Review**: We refine the code continuously to improve quality and clarity
+- **Testing**: Tests are included to ensure everything works as expected
 
-### 📊 Métricas del Proyecto
+### 📊 Project Metrics
 
-- **Progreso actual**: 77.5% completado (55/71 tareas) - Ver [KANBAN.md](KANBAN.md)
-- **Cobertura de tests**: 80% mínimo requerido
-- **Arquitectura**: Patrón Repository + Service Layer
-- **API**: Integración con MockAPI para prototipado rápido
+- **Current progress**: 89.7% completed (70/78 tasks) - See [KANBAN.md](KANBAN.md)
+- **Development time**: ~29 hours invested (actual time tracked)
+- **Test coverage**: 80% minimum required
+- **Architecture**: Clean Architecture with Repository + Service Layer pattern
+- **API**: MockAPI integration for rapid prototyping
+- **Components**: 20+ UI components with responsive design
+- **Mobile support**: Full responsive design with mobile-specific features
 
-### 🔧 Flujo de Trabajo
+### ⏱️ Actual Time Investment
 
-1. **Análisis de requisitos** → Definición de tareas en KANBAN
-2. **Implementación asistida** → Generación de código con GitHub Copilot
-3. **Testing automático** → Pruebas unitarias y de integración
-4. **Revisión de calidad** → ESLint, Prettier, y Husky hooks
-5. **Documentación** → Actualización continua de progreso y arquitectura
+**Total: ~29 hours** (tracked across development sessions)
 
-Esta metodología combina la **creatividad y visión estratégica humana** con la **eficiencia y precisión de la IA** para crear un proyecto robusto y bien estructurado.
+> 💡 **AI Collaboration Efficiency**: Around 29 hours with AI support, compared to an estimated 60–80 hours using a more traditional approach. Working alongside the AI helped speed things up significantly, while keeping an acceptable level of code quality.
 
-## 🎯 Próximos Pasos
+### 🔧 Workflow
 
-1. Instalar dependencias: `npm install`
-2. Empezar a desarrollar tu aplicación de películas
-3. Crear más componentes usando CSS Modules
-4. Agregar más pruebas según desarrolles nuevas funcionalidades
+1. **Requirements analysis** → Task definition in KANBAN
+2. **Assisted implementation** → Code generation with GitHub Copilot
+3. **Automated testing** → Unit and integration tests
+4. **Quality review** → ESLint, Prettier, and Husky hooks
+5. **Documentation** → Continuous progress and architecture updates
 
-## 📝 Contribución
+This approach blends **human creativity and direction** with **AI support and speed** to build a solid and thoughtfully structured project.
 
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+## 💭 Reflection
 
-## 📄 Licencia
+Overall, I really enjoyed working on this project. The idea from the beginning was to create a sort of team: on one side, the AI acting like a junior developer who needs guidance (I even had to define some guidelines!), and on the other, a more senior role leading the direction of the project.
 
-Este proyecto está bajo la licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
+It’s been an interesting experience. The AI is great at generating things quickly — above all, it *creates*. Sometimes it’s hard to keep it focused or minimal, and guiding it in the right direction takes intention.
+
+If I had to do it again, I’m not sure I’d use the exact same approach or rely so much on AI. But one thing is clear: without this setup, I probably wouldn’t have reached the level of depth I was aiming for.
+
+I hope you find it interesting too.
+
+## 📄 License
+
+This project is under the MIT license - see the [LICENSE](LICENSE) file for more details.
